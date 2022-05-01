@@ -70,4 +70,3 @@ jobs:
       - name: Docker Run Run
         run: |
           docker pull ${{ env.IMAGE_NAME }}:latest
-          docker run
