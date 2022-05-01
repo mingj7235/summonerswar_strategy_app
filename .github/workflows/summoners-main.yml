@@ -54,20 +54,20 @@ jobs:
 
     ######################## DEPLOY ################################
 
-#  deploy:
-#    name: Summnerswar CD with Docker
-#    needs: build
-#    runs-on: self-hosted
-#
-#    steps:
-#      - name: Login to GitHub Container Registry
-#        uses: docker/login-action@v1.10.0
-#        with:
-#          registry: ${{ env.REGISTRY_NAME }}
-#          username: ${{ env.GITHUB_USER_NAME }}
-#          password: ${{ secrets.ACCOUNT_TOKEN }}
-#
-#      - name: Docker Run Run
-#        run: |
-#          docker pull ${{ env.IMAGE_NAME }}:latest
-#          docker run
+  deploy:
+    name: Summnerswar CD with Docker
+    needs: build
+    runs-on: self-hosted
+
+    steps:
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v1.10.0
+        with:
+          registry: ${{ env.REGISTRY_NAME }}
+          username: ${{ env.GITHUB_USER_NAME }}
+          password: ${{ secrets.ACCOUNT_TOKEN }}
+
+      - name: Docker Run Run
+        run: |
+          docker pull ${{ env.IMAGE_NAME }}:latest
+          docker run
