@@ -1,0 +1,1 @@
+# summonerswar_strategy_app
