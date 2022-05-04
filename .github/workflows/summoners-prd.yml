@@ -3,14 +3,14 @@ name: Summoners CI / CD
 on:
   push:
     branches:
-      - main
+      - prd
 
 env:
   REGISTRY_NAME: ghcr.io
   GITHUB_USER_NAME: ${{ secrets.USER_NAME }}
   DOCKER_FILE_PATH: ./Dockerfile
   DOCKER_CONTAINER_NAME: summonerswar
-#  DOCKER_COMPOSE: docker-compose.yml
+  DOCKER_COMPOSE: docker-compose.yml
   IMAGE_NAME: ghcr.io/${{ github.repository }}/main
   PROJECT_NAME: summonerswar
 
@@ -69,4 +69,7 @@ jobs:
 
       - name: Docker Run Run
         run: |
-          docker pull ${{ env.IMAGE_NAME }}:latest
+          docker-compose -f ${{ env.DOCKER_COMPOSE }} pull 
+          docker-compose -f ${{ env.DOCKER_COMPOSE }} --project-name=${{ env.PROJECT_NAME }} up -d
+          docker image prune -f
+          docker network prune -f
