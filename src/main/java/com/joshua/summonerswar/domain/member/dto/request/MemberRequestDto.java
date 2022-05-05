@@ -23,4 +23,12 @@ public class MemberRequestDto {
         private String password;
     }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @Valid
+    public static class Update {
+
+    }
+
 }
