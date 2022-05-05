@@ -1,6 +1,7 @@
 package com.joshua.summonerswar.domain.attackMonster.entity;
 
 import com.joshua.summonerswar.domain.defMonster.entity.DefMonsters;
+import com.joshua.summonerswar.global.base.BaseTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -16,7 +17,7 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @SuperBuilder
 @Entity
-public class AttackMonsters {
+public class AttackMonsters extends BaseTime {
 
     @Id
     @GeneratedValue
