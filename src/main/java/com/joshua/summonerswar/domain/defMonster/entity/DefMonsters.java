@@ -1,6 +1,8 @@
 package com.joshua.summonerswar.domain.defMonster.entity;
 
 import com.joshua.summonerswar.domain.attackMonster.entity.AttackMonsters;
+import com.joshua.summonerswar.domain.defMonster.dto.request.DefMonsterRequestDto;
+import com.joshua.summonerswar.global.base.BaseTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
@@ -8,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Getter
@@ -16,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor (access = AccessLevel.PRIVATE)
 @SuperBuilder
 @Entity
-public class DefMonsters {
+public class DefMonsters extends BaseTime {
 
     @Id
     @GeneratedValue
@@ -28,4 +31,11 @@ public class DefMonsters {
 
     @ManyToMany
     private List<AttackMonsters> attackMonsters;
+
+    public static DefMonsters toEntity (final DefMonsterRequestDto.@NotNull Register request) {
+        return DefMonsters.builder()
+                .deckName(request.getDeckName())
+                .detailInfo(request.getDetailInfo())
+                .build();
+    }
 }
