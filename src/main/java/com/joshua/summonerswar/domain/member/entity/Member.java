@@ -1,6 +1,7 @@
 package com.joshua.summonerswar.domain.member.entity;
 
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
+import com.joshua.summonerswar.global.base.BaseTime;
 import com.sun.istack.NotNull;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -15,7 +16,7 @@ import javax.persistence.Id;
 @AllArgsConstructor (access = AccessLevel.PRIVATE)
 @SuperBuilder
 @Entity
-public class Member {
+public class Member extends BaseTime {
 
     @Id
     @GeneratedValue
