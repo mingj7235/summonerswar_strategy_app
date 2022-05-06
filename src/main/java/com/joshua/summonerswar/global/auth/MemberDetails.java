@@ -1,26 +1,47 @@
 package com.joshua.summonerswar.global.auth;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.joshua.summonerswar.domain.member.entity.Member;
-import lombok.Data;
+import lombok.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
+import java.util.stream.Collectors;
 
-@Data
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class MemberDetails implements UserDetails {
 
-    private Member member;
+    private String username;
+
+    private String password;
+
+    @Builder.Default
+    private List<String> roles = new ArrayList<>();
+
+    public static UserDetails of (Member member) {
+        return MemberDetails.builder()
+                .username(member.getUsername())
+                .password(member.getPassword())
+                .roles(member.getRoles())
+                .build();
+    }
 
     @Override
     public String getPassword() {
-        return member.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return member.getEmail();
+        return username;
     }
 
     @Override
@@ -44,8 +65,11 @@ public class MemberDetails implements UserDetails {
     }
 
     @Override
+    @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles.stream()
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
     }
 
 }

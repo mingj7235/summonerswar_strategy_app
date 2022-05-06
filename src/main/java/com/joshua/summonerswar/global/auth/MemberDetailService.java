@@ -1,13 +1,17 @@
 package com.joshua.summonerswar.global.auth;
 
+import com.joshua.summonerswar.domain.auth.Key.CacheKey;
 import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
+import java.util.NoSuchElementException;
 
 @Slf4j
 @Service
@@ -17,22 +21,12 @@ public class MemberDetailService implements UserDetailsService {
     private final MemberRepository memberRepository;
 
     @Override
-    public UserDetails loadUserByUsername(final String email) throws UsernameNotFoundException {
+    @Cacheable (value = CacheKey.USER, key = "#username", unless = "#result == null") //DB Caching
+    public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
-        log.info("/auth/loginProc 요청 들어옴");
-        Member member = memberRepository.findByEmail(email);
+        Member member = memberRepository.findByUsernameWithAuthority(username).orElseThrow(() -> new NoSuchElementException("없는 유저임"));
 
-        MemberDetails memberDetails = null;
-
-
-        if (member != null) {
-            memberDetails = new MemberDetails();
-            memberDetails.setMember(member);
-        } else {
-            throw new UsernameNotFoundException("not found 'username' ");
-        }
-
-        return memberDetails;
+        return MemberDetails.of(member);
     }
 
 }
