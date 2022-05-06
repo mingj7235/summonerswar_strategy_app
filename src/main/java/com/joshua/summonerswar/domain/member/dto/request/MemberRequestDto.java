@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.validation.Valid;
 
 @Getter
@@ -21,6 +22,21 @@ public class MemberRequestDto {
         private String email;
 
         private String password;
+    }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @Valid
+    public static class Join {
+
+        private String email;
+
+        private String password;
+
+        private String nickname;
+
+        private String batch;
     }
 
     @Getter
