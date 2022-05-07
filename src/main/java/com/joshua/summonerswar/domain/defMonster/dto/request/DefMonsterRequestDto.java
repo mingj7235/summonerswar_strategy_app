@@ -17,7 +17,9 @@ public class DefMonsterRequestDto {
     @NoArgsConstructor
     @Valid
     public static class Register {
-        private String deckName;
+        private String leaderMonster;
+
+        private String otherMonster;
 
         private String detailInfo;
     }

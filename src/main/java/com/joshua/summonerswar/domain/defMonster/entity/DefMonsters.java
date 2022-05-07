@@ -25,7 +25,9 @@ public class DefMonsters extends BaseTime {
     @GeneratedValue
     private Long id;
 
-    private String deckName;
+    private String leaderMonster;
+
+    private String otherMonster;
 
     private String detailInfo;
 
@@ -34,7 +36,8 @@ public class DefMonsters extends BaseTime {
 
     public static DefMonsters toEntity (final DefMonsterRequestDto.@NotNull Register request) {
         return DefMonsters.builder()
-                .deckName(request.getDeckName())
+                .leaderMonster(request.getLeaderMonster())
+                .otherMonster(request.getOtherMonster())
                 .detailInfo(request.getDetailInfo())
                 .build();
     }
