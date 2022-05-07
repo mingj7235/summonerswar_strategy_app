@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="~{layouts/layout}">
+
+<head>
+
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+
+  <title>회원가입</title>
+
+  <!-- Custom fonts for this template-->
+  <link th:href="@{/css/all.min.css}" rel="stylesheet" type="text/css">
+
+  <link
+          href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+          rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link th:replace="./fragments/header.html :: header">
+</head>
+
+<body class="bg-gradient-primary">
+<th:block layout:fragment="content">
+  <div class="container">
+
+    <div class="card o-hidden border-0 shadow-lg my-5">
+      <div class="card-body p-0">
+        <!-- Nested Row within Card Body -->
+        <div class="row">
+          <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+          <div class="col-lg-7">
+            <div class="p-5">
+              <div class="text-center">
+                <h1 class="h4 text-gray-900 mb-4">회원 가입</h1>
+              </div>
+              <form class="user needs-validation" th:action="@{/member/join}"
+                    th:object="${join}" method="post" novalidate>
+                <div class="form-group">
+                  <label for="adminId">크몽 이메일</label>
+                  <input type="email" class="form-control form-control-user" id="adminId"
+                         placeholder="crazymonkey@crazymonkey.com" name="email" th:field="*{email}" required>
+                  <small class="invalid-feedback">이메일을 입력하세요.</small>
+                  <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Email Error</small>
+
+                </div>
+                <div class="form-group">
+                  <label for="nickname">닉네임</label>
+                  <input type="text" class="form-control form-control-user" id="nickname"
+                         placeholder="크몽" name="nickname" th:field="*{nickname}" required>
+                  <small class="invalid-feedback">인게임 닉네임을 입력하세요.</small>
+
+                </div>
+                <div class="form-group">
+                  <label for="password">비밀번호</label>
+                  <input type="password" class="form-control form-control-user" id="password"
+                         placeholder="비밀번호"
+                         th:field="*{password}" required>
+                  <small class="invalid-feedback">비밀번호를 입력하세요</small>
+                  <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</small>
+
+                </div>
+                <div class="form-group">
+                  <label for="passwordCheck">비밀번호 체크</label>
+                  <input type="password" class="form-control form-control-user"
+                         id="passwordCheck" placeholder="비밀번호 확인" th:field="*{passwordCheck}" required>
+                  <small class="invalid-feedback">다시 한 번 비밀번호를 입력하세요</small>
+                  <small class="form-text text-danger" th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Error</small>
+                </div>
+
+
+                <div class="form-group">
+                  <label for="batch">크몽 깃수</label>
+                  <br>
+                  <select id="batch" class="btn-primary dropdown-toggle" th:field="*{batch}">
+                    <option th:value="1기" selected>1기</option>
+                    <option th:value="2기" selected>2기</option>
+                  </select>
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-user btn-block">회원가입</button>
+              </form>
+              <div class="text-center">
+                <a class="small" th:href="@{/admin/account/login}">이미 크몽 회원이라면 로그인화면으로 :)</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</th:block>
+
+</body>
+
+<script type="application/javascript" th:fragment="form-validation">
+  (function () {
+    'use strict';
+    window.addEventListener('load', function () {
+      var forms = document.getElementsByClassName('needs-validation');
+
+      Array.prototype.filter.call(forms, function (form) {
+        form.addEventListener('submit', function (event) { //submit 이벤트가 발생했을 경우,
+          if (form.checkValidity() === false) { //form을 검증함. false인경우 submit이 안되도록 막음 // form내의 input테그에 있는 모든 validation을 검증한다.
+            event.preventDefault();
+            event.stopPropagation();
+          }
+          form.classList.add('was-validated') // true일경우 class를 추가한다.
+        }, false)
+      })
+    }, false)
+  }())
+</script>
+
+
+</html>
