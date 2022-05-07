@@ -14,4 +14,7 @@ public interface MemberRepository extends JpaRepository<Member, Long> {
 
     @Query("select m from Member m join fetch m.authorities a where m.username = :username")
     Optional<Member> findByUsernameWithAuthority(String username);
+
+    boolean existsByEmail(String email);
+
 }

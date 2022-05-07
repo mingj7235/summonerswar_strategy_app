@@ -22,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.NoSuchElementException;
 
@@ -129,5 +130,9 @@ public class MemberService {
         return jwtTokenUtil.getRemainMilliSeconds(refreshToken) < JwtExpirationEnums.REISSUE_EXPIRATION_TIME.getValue();
     }
 
+
+    public boolean existsByEmail(final @NotBlank String email) {
+        return memberRepository.existsByEmail(email);
+    }
 
 }

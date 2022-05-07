@@ -30,9 +30,12 @@ public class MemberRequestDto {
     @Valid
     public static class Join {
 
+
         private String email;
 
         private String password;
+
+        private String passwordCheck;
 
         private String nickname;
 
