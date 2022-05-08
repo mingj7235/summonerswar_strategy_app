@@ -31,6 +31,8 @@ public class DefMonsters extends BaseTime {
 
     private String detailInfo;
 
+    private String imgUrl;
+
     @ManyToMany
     private List<AttackMonsters> attackMonsters;
 
