@@ -12,14 +12,20 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class DefMonsterResponseDto {
 
-    private String deckName;
+    private String leaderMonster;
+
+    private String otherMonster;
 
     private String detailInfo;
 
+    private String imgUrl;
+
     public static DefMonsterResponseDto from(final @NotNull DefMonsters entity) {
         return DefMonsterResponseDto.builder()
-                .deckName(entity.getDeckName())
+                .leaderMonster(entity.getLeaderMonster())
+                .otherMonster(entity.getOtherMonster())
                 .detailInfo(entity.getDetailInfo())
+                .imgUrl(entity.getImgUrl())
                 .build();
     }
 }

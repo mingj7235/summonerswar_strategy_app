@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorator="~{layouts/layout}">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
 
@@ -26,7 +24,6 @@
 </head>
 
 <body class="bg-gradient-primary">
-<th:block layout:fragment="content">
   <div class="container">
 
     <div class="card o-hidden border-0 shadow-lg my-5">
@@ -95,7 +92,6 @@
     </div>
 
   </div>
-</th:block>
 
 </body>
 
