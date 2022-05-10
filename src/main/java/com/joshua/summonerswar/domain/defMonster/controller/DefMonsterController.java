@@ -6,10 +6,13 @@ import com.joshua.summonerswar.domain.defMonster.service.DefMonsterService;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Slf4j
@@ -23,5 +26,12 @@ public class DefMonsterController {
     public ResponseEntity<DefMonsterResponseDto> register (final DefMonsterRequestDto.@NotNull Register request) {
         return ResponseEntity.ok()
                 .body(defMonsterService.register(request));
+    }
+
+    @PostMapping ("/def/register")
+    public ResponseEntity<Page<DefMonsterResponseDto>> findByLeaderMonster (final @NotBlank String leaderMonster,
+                                                                            Pageable pageable) {
+        return ResponseEntity.ok()
+                .body(defMonsterService.findByLeaderMonster(leaderMonster, pageable));
     }
 }
