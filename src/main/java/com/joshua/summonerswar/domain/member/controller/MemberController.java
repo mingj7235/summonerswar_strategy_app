@@ -5,6 +5,7 @@ import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
 import com.joshua.summonerswar.domain.member.dto.response.MemberResponseDto;
 import com.joshua.summonerswar.domain.member.service.MemberService;
 import com.joshua.summonerswar.domain.member.validator.MemberJoinValidator;
+import com.joshua.summonerswar.domain.member.validator.MemberLoginValidator;
 import com.joshua.summonerswar.global.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -26,12 +27,19 @@ public class MemberController {
 
     private final MemberJoinValidator memberJoinValidator;
 
+    private final MemberLoginValidator memberLoginValidator;
+
     private final JwtTokenUtil jwtTokenUtil; //FIXME : util 로 빼서 static method 화 할지 말지 고민
 
 
     @InitBinder("join")
     public void initBinderJoin(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(memberJoinValidator);
+    }
+
+    @InitBinder ("login")
+    public void initBinderLogin (WebDataBinder webDataBinder) {
+        webDataBinder.addValidators(memberLoginValidator);
     }
 
     @GetMapping ("/")
