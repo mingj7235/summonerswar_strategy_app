@@ -28,7 +28,7 @@ public class DefMonsterController {
                 .body(defMonsterService.register(request));
     }
 
-    @PostMapping ("/def/register")
+    @PostMapping ("/def/find")
     public ResponseEntity<Page<DefMonsterResponseDto>> findByLeaderMonster (final @NotBlank String leaderMonster,
                                                                             Pageable pageable) {
         return ResponseEntity.ok()
