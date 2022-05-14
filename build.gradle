@@ -40,9 +40,12 @@ dependencies {
     runtimeOnly 'mysql:mysql-connector-java'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
+    implementation group: 'com.auth0', name: 'java-jwt', version: '3.19.1'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-impl', version: '0.11.2'
     implementation group: 'io.jsonwebtoken', name: 'jjwt-api', version: '0.11.2'
     runtimeOnly group: 'io.jsonwebtoken', name: 'jjwt-jackson', version: '0.11.2'
+    implementation group: 'it.ozimov', name: 'embedded-redis', version: '0.7.2'
+
 
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
