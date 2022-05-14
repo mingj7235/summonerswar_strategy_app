@@ -3,6 +3,7 @@ package com.joshua.summonerswar.global.config;
 import com.joshua.summonerswar.global.config.jwt.JwtAuthenticationFilter;
 import com.joshua.summonerswar.global.config.jwt.JwtEntryPoint;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -43,13 +44,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     public void configure(final WebSecurity web) throws Exception {
         web
-                .ignoring().antMatchers("/css/**")
-                .and()
-                .ignoring().antMatchers("/js/**")
-                .and()
-                .ignoring().antMatchers("/img/**")
-                .and()
-                .ignoring().antMatchers("/font");
+                .ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
     @Override
