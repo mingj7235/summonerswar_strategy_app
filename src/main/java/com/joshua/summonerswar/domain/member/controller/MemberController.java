@@ -6,7 +6,6 @@ import com.joshua.summonerswar.domain.member.dto.response.MemberResponseDto;
 import com.joshua.summonerswar.domain.member.service.MemberService;
 import com.joshua.summonerswar.domain.member.validator.MemberJoinValidator;
 import com.joshua.summonerswar.domain.member.validator.MemberLoginValidator;
-import com.joshua.summonerswar.global.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

@@ -12,7 +12,6 @@ import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.member.repository.MemberRepository;
 import com.joshua.summonerswar.global.enums.JwtExpirationEnums;
 import com.joshua.summonerswar.global.util.EncodeUtils;
-import com.joshua.summonerswar.global.util.JwtTokenUtil;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cache.annotation.CacheEvict;

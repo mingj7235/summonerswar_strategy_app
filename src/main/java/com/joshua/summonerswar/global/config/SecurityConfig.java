@@ -1,81 +1,66 @@
 package com.joshua.summonerswar.global.config;
 
-import com.joshua.summonerswar.global.config.jwt.JwtAuthenticationFilter;
-import com.joshua.summonerswar.global.config.jwt.JwtEntryPoint;
+import com.joshua.summonerswar.global.common.filter.CustomAccessDeniedHandler;
+import com.joshua.summonerswar.global.common.filter.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import static org.springframework.security.config.http.SessionCreationPolicy.STATELESS;
-
 @Configuration
 @EnableWebSecurity
-//@EnableGlobalMethodSecurity(prePostEnabled = true)
 @RequiredArgsConstructor
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final JwtEntryPoint jwtEntryPoint;
-    private final JwtAuthenticationFilter jwtAuthenticationFilter;
     private final UserDetailsService userDetailsService;
-
-    @Bean
-    public AuthenticationManager authenticationManager () throws Exception {
-        return super.authenticationManagerBean();
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-
     @Override
     public void configure(final WebSecurity web) throws Exception {
         web
-                .ignoring().antMatchers("/css/**")
-                .and()
-                .ignoring().antMatchers("/js/**")
-                .and()
-                .ignoring().antMatchers("/img/**")
-                .and()
-                .ignoring().antMatchers("/font");
+                .ignoring().requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
-                .cors()
-
-                .and()
                 .csrf().disable()
+                .cors().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/member/join/**", "/member/login", "/health")
-                    .permitAll()
-                .antMatchers("/admin/**")
-                    .hasRole("ADMIN")
-                .anyRequest().hasRole("USER")
-
+                .anyRequest().permitAll()
+                .and()
+                .formLogin()
+                .loginPage("/admin/account/login")
+                .and()
+                .logout()
+                .logoutUrl("/admin/account/logout")
+                .logoutSuccessUrl("/admin/account/login")
+                .invalidateHttpSession(true).deleteCookies("accessToken","adminId") //accessToken cookie delete
                 .and()
                 .exceptionHandling()
-                .authenticationEntryPoint(jwtEntryPoint)
-
+                .accessDeniedHandler(new CustomAccessDeniedHandler())
                 .and()
-                .logout().disable()
-                .sessionManagement().sessionCreationPolicy(STATELESS)
-
+                .exceptionHandling()
+                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
                 .and()
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                .and()
+                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
         ;
 
 
@@ -85,6 +70,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 
 }
