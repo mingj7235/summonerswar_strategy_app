@@ -1,7 +1,5 @@
 package com.joshua.summonerswar.global.config;
 
-import com.joshua.summonerswar.global.common.filter.CustomAccessDeniedHandler;
-import com.joshua.summonerswar.global.common.filter.CustomAuthenticationEntryPoint;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
@@ -12,11 +10,9 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -38,35 +34,22 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
-        http
-                .csrf().disable()
-                .cors().disable()
-                .authorizeRequests()
-                .anyRequest().permitAll()
-                .and()
-                .formLogin()
-                .loginPage("/admin/account/login")
-                .and()
-                .logout()
-                .logoutUrl("/admin/account/logout")
-                .logoutSuccessUrl("/admin/account/login")
-                .invalidateHttpSession(true).deleteCookies("accessToken","adminId") //accessToken cookie delete
-                .and()
-                .exceptionHandling()
-                .accessDeniedHandler(new CustomAccessDeniedHandler())
-                .and()
-                .exceptionHandling()
-                .authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-                .and()
-                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                .and()
-                .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
-        ;
+        http.authorizeRequests()
+                .mvcMatchers("/", "/member/login", "/member/join").permitAll()
+//                .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
+                .anyRequest().hasRole("USER");
 
+        http.formLogin()
+                .loginPage("/member/login")
+                .usernameParameter("email")
+                .defaultSuccessUrl("/home")
+                .permitAll();
+
+        http.logout()
+                .logoutSuccessUrl("/");
 
     }
 
-    // 어떤 인코딩으로 패스워드가 만들어졌는지 알려주기 위함임
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());

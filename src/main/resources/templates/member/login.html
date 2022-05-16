@@ -60,7 +60,6 @@
                                             <a th:href="@{/member/join}">아직 회원이 아니라면 회원가입하기</a>
                                         </div>
                                     </div>
-<!--                                    <button type="button" class="btn btn-primary btn-user btn-block" onclick="login()">로그인</button>-->
                                     <button type="submit" class="btn btn-primary btn-user btn-block">로그인</button>
                                 </form>
                                 <hr>
@@ -75,48 +74,6 @@
     </div>
 
 </div>
-
-<script>
-// <!--    $(document).ready(function() {-->
-// <!--        var loginUse = commonUtil.getParameterByName("result");-->
-// <!--        if(loginUse =="fail"){-->
-// <!--            MsgBox.alert({-->
-// <!--                title: '로그인 실패'-->
-// <!--                ,content: '아이디 또는 비밀 번호가 틀렸습니다.',-->
-// <!--            });-->
-// <!--        }-->
-// <!--    });-->
-
-
-    function login() {
-        var param = {
-            email : $("#email").val(),
-            password : $("#password").val()
-        }
-        $.ajax({
-            type: "POST",
-            contentType: "application/json",
-            url: "/member/login",
-            dataType:"json",
-            data: param,
-            success: function (response) {
-                if() {
-
-
-
-                }else{
-                    MsgBox.alert({
-                        title: '로그인 실패'
-                        ,content: response.result.resultMessage,
-                    });
-
-                }
-            }
-
-        });
-    }
-
-</script>
 
 </body>
 

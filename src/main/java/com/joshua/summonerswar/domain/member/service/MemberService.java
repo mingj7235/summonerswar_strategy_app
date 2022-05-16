@@ -32,14 +32,19 @@ public class MemberService implements UserDetailsService {
 
     public Member join(final MemberRequestDto.@NotNull Join request) {
         log.info("일반 유저 가입 : {}", request.getNickname());
-        return memberRepository.save(Member.ofUser(request));
+        return memberRepository.save(Member.toEntity(request));
     }
 
     public void login (final @NotNull Member member) {
+
+        MemberDetails memberDetails = new MemberDetails();
+
+        memberDetails.setMember(member);
+
         UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                MemberDetails.of(member),
-                member.getPassword(),
-                member.getAuthorities());
+                memberDetails,
+                memberDetails.getPassword(),
+                memberDetails.getAuthorities());
         SecurityContext context = SecurityContextHolder.getContext();
         context.setAuthentication(token);
     }
@@ -51,27 +56,22 @@ public class MemberService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return null;
-    }
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("없는 유저임"));
 
-    public MemberResponseDto.MemberInfo getMemberInfo (String email) {
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("회원이 없습니다"));
-        if(!member.getUsername().equals(getCurrentUsername())) {
-            throw new IllegalArgumentException("회원 정보가 일치하지 않습니다.");
+        MemberDetails memberDetails = null;
+
+        if (member != null) {
+            memberDetails = new MemberDetails();
+            memberDetails.setMember(member);
+        } else {
+            throw new IllegalArgumentException("없는 유저");
         }
 
-        return MemberResponseDto.MemberInfo.builder()
-                .username(member.getUsername())
-                .email(member.getEmail())
-                .build();
+        return memberDetails;
     }
 
-    private String getCurrentUsername () {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails principal = (UserDetails) authentication.getPrincipal();
-        return principal.getUsername();
-    }
+
 
     public boolean existsByEmail(final @NotBlank String email) {
         return memberRepository.existsByEmail(email);

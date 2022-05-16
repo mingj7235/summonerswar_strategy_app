@@ -9,12 +9,6 @@ import java.util.Optional;
 public interface MemberRepository extends JpaRepository<Member, Long> {
 
     Optional<Member> findByEmail (String email);
-
-    Member findByUsername(String username);
-
-    @Query("select m from Member m join fetch m.authorities a where m.username = :username")
-    Optional<Member> findByUsernameWithAuthority(String username);
-
     boolean existsByEmail(String email);
 
 }

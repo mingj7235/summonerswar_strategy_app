@@ -28,9 +28,6 @@ public class Member extends BaseTime {
     private Long id;
 
     @Column (unique = true)
-    private String username;
-
-    @Column (unique = true)
     private String email;
 
     private String password;
@@ -40,39 +37,16 @@ public class Member extends BaseTime {
 
     private String batch;
 
-    @OneToMany (mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    @Builder.Default
-    private Set<Authority> authorities = new HashSet<>();
+    private String role;
 
-    public static Member ofUser (final MemberRequestDto.@NotNull Join request) {
-        Member member = toEntity(request);
-        member.addAuthority(Authority.ofUser(member));
-        return member;
-    }
 
-    public static Member ofAdmin (final MemberRequestDto.@NotNull Join request) {
-        Member member = toEntity(request);
-        member.addAuthority(Authority.ofAdmin(member));
-        return member;
-    }
-
-    public List<String> getRoles () {
-        return authorities.stream()
-                .map(Authority::getRole)
-                .collect(Collectors.toList());
-    }
-
-    private void addAuthority (Authority authority) {
-        authorities.add(authority);
-    }
-
-    private static Member toEntity (final MemberRequestDto.@NotNull Join request) {
+    public static Member toEntity (final MemberRequestDto.@NotNull Join request) {
         return Member.builder()
-                .username(UUID.randomUUID().toString())
                 .email(request.getEmail())
                 .password(EncodeUtils.encode(request.getPassword()))
                 .nickname(request.getNickname())
                 .batch(request.getBatch())
+                .role("ROLE_USER")
                 .build();
     }
 }
