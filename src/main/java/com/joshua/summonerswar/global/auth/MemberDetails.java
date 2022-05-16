@@ -14,34 +14,23 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
-@NoArgsConstructor
+@Setter
 @AllArgsConstructor
+@NoArgsConstructor
 @Builder
 public class MemberDetails implements UserDetails {
 
-    private String username;
+    private Member member;
 
-    private String password;
-
-    @Builder.Default
-    private List<String> roles = new ArrayList<>();
-
-    public static UserDetails of (Member member) {
-        return MemberDetails.builder()
-                .username(member.getUsername())
-                .password(member.getPassword())
-                .roles(member.getRoles())
-                .build();
-    }
 
     @Override
     public String getPassword() {
-        return password;
+        return member.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return username;
+        return member.getUsername();
     }
 
     @Override
@@ -67,9 +56,7 @@ public class MemberDetails implements UserDetails {
     @Override
     @JsonIgnore
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return roles.stream()
-                .map(SimpleGrantedAuthority::new)
-                .collect(Collectors.toList());
+        return member.getAuthorities();
     }
 
 }
