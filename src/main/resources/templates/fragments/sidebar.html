@@ -4,40 +4,41 @@
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/admin/home/main">
-        <div class="sidebar-brand-text mx-3"><img class="sidebar-logo" th:src="@{/img/weblingLogo.png} "></div>
+        <div class="sidebar-brand-text mx-3"><img class="sidebar-logo" th:src="@{/img/crazymonkeymain.png} "></div>
     </a>
     <!-- Divider -->
-    <hr class="sidebar-divider my-0">
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-           aria-expanded="true" aria-controls="collapsePages">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>메뉴</span>
-        </a>
-        <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="/admin/account/join">사용자 관리</a>
-                <a class="collapse-item" href="/admin/account/join">권한 관리</a>
-                <a class="collapse-item" href="/admin/account/join">메뉴 관리</a>
-                <a class="collapse-item" href="/admin/account/join">공통 코드 관리</a>
-            </div>
-        </div>
-    </li>
+    <div style="margin-top: 50px">
+        <hr class="sidebar-divider my-0">
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-    </li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
+               aria-expanded="true" aria-controls="collapsePages">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>방덱 / 공덱 조회</span>
+            </a>
+            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/admin/account/join">방덱 조회</a>
+                    <a class="collapse-item" href="/admin/account/join">공덱 조회</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Charts -->
+        <li class="nav-item">
+            <a class="nav-link" href="charts.html">
+                <i class="fas fa-fw fa-chart-area"></i>
+                <span>방덱 / 공덱 분석</span></a>
+        </li>
+    </div>
 
     <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
-    </li>
+<!--    <li class="nav-item">-->
+<!--        <a class="nav-link" href="tables.html">-->
+<!--            <i class="fas fa-fw fa-table"></i>-->
+<!--            <span>Tables</span></a>-->
+<!--    </li>-->
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
@@ -50,8 +51,6 @@
     <!-- Sidebar Message -->
     <div class="sidebar-card d-none d-lg-flex">
         <img class="sidebar-card-illustration mb-2" th:src="@{/img/undraw_rocket.svg}" alt="...">
-        <p class="text-center mb-2"><strong>SB Admin Pro</strong> is packed with premium features, components, and more!</p>
-        <a class="btn btn-success btn-sm" href="https://startbootstrap.com/theme/sb-admin-pro">Upgrade to Pro!</a>
     </div>
 
 </ul>

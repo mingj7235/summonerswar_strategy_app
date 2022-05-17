@@ -39,12 +39,12 @@ public class MemberController {
         return "member/login";
     }
 
-//    @GetMapping ("/member/login")
-//    public String login(Model model) {
-//        model.addAttribute(new MemberRequestDto.Login());
-//
-//        return "member/login";
-//    }
+    @GetMapping ("/member/login")
+    public String login(Model model) {
+        model.addAttribute(new MemberRequestDto.Login());
+
+        return "member/login";
+    }
 
     @GetMapping ("/member/join")
     public String join (Model model) {
