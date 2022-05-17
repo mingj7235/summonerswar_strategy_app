@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link th:replace="./fragments/header.html :: header">
+</head>
+<body>
+
+<button>
+  <a th:href="@{/admin/account/join}">공덱 등록</a>
+</button>
+
+<div class="form-group">
+  <label for="adminId">관리자 이메일</label>
+  <input type="text" name="adminId" id="adminId"
+         class="form-control form-control-user" placeholder="snaps@snaps.com">
+</div>
+
+<div>
+  <label for="adminName">관리자 이름</label>
+  <input type="text" name="adminName" id="adminName"
+         class="form-control form-control-user" placeholder="김스냅스">
+</div>
+
+<div>
+  <label for="authSeq">권한</label>
+  <input type="text" name="authSeq" id="authSeq"
+         class="form-control form-control-user" placeholder="1">
+</div>
+
+<div>
+  <label for="useYn">사용 여부</label>
+  <input type="text" name="useYn" id="useYn"
+         class="form-control form-control-user" placeholder="Y or N">
+</div>
+
+<div>
+  <label for="page">페이지 번호(테스트용)</label>
+  <input type="number" name="page" id="page"
+         class="form-control form-control-user" placeholder="1">
+</div>
+
+<div>
+  <label for="size">검색결과 사이즈 (테스트용)</label>
+  <input type="number" name="size" id="size"
+         class="form-control form-control-user" placeholder="10">
+</div>
+
+
+<input type="button" id="searchButton" value="검색" onclick="search()">
+
+<div>
+  <table id="adminUserList" style="border: 1px solid #1c294e;"></table>
+</div>
+</body>
+
+<script>
+  function search() {
+    let param = {
+      adminId: $("#adminId").val(),
+      adminName: $("#adminName").val(),
+      authSeq: $("#authSeq").val(),
+      useYn: $("#useYn").val()
+    }
+
+    let page = $("#page").val();
+    let size = $("#size").val();
+
+    $.ajax({
+      type: "POST",
+      url: "/admin/account/find?page=" + page + "&size=" + size,
+      dataType: "json",
+      async: false,
+      data: param,
+      success: function (response) {
+        let adminUserList = response.content;
+        let totalPage = response.totalPages;
+        let totalElements = response.totalElements;
+        let resultNumber = response.number + 1;
+        let resultSize = response.size;
+
+        let listLength = adminUserList.length;
+
+        console.log(response)
+
+        let tag = '';
+        if (listLength > 0) {
+          $.each(adminUserList, function (i) {
+            tag += '<tr><td>' + ((totalElements - (resultSize * (resultNumber - 1))) - i) +
+                    '</td><td>' + adminUserList[i].adminId +
+                    '</td><td>' + adminUserList[i].adminName +
+                    '</td><td>' + adminUserList[i].authSeq +
+                    '</td><td>' + adminUserList[i].phoneNo +
+                    '</td><td>' + adminUserList[i].useYn +
+                    '</td><td>' + adminUserList[i].regDate +
+                    '</td><td>' + '<button><a href="/admin/account/modify/' + adminUserList[i].adminId + '">수정</a></button>'+ '</td>';
+            tag += '</tr><br>'
+          });
+          tag += '<tr><td> total page : ' + totalPage + '</td></tr>'
+          tag += '<tr><td> total elementes : ' + totalElements + '</td></tr>'
+        }
+
+        if (listLength === 0) {
+          console.log("길이가 0임")
+          tag += '<div>검색 결과가 없습니다.</div>'
+        }
+
+        $("#adminUserList").empty().append(tag)
+      }
+    });
+  }
+</script>
+</html>
