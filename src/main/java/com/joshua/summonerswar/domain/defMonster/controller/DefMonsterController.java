@@ -10,6 +10,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.constraints.NotBlank;
@@ -22,10 +24,24 @@ public class DefMonsterController {
 
     private final DefMonsterService defMonsterService;
 
+
+    @GetMapping("/def/register")
+    public String registerView (final @NotNull Model model) {
+
+        model.addAttribute("");
+
+        return "def/register";
+    }
+
     @PostMapping ("/def/register")
     public ResponseEntity<DefMonsterResponseDto> register (final DefMonsterRequestDto.@NotNull Register request) {
         return ResponseEntity.ok()
                 .body(defMonsterService.register(request));
+    }
+
+    @GetMapping ("/def/find")
+    public String findView (final @NotNull Model model) {
+        return "def/find";
     }
 
     @PostMapping ("/def/find")
@@ -34,4 +50,5 @@ public class DefMonsterController {
         return ResponseEntity.ok()
                 .body(defMonsterService.findByLeaderMonster(leaderMonster, pageable));
     }
+
 }
