@@ -42,7 +42,33 @@ public class QueryDefMonsterRepositoryImpl implements QueryDefMonsterRepository{
         return PageableExecutionUtils.getPage(result, pageable, countQuery::fetchCount);
     }
 
+    @Override
+    public Page<DefMonsters> findByKeyword(final String keyword, final Pageable pageable) {
+
+        List<DefMonsters> result = jpaQueryFactory.selectFrom(defMonsters)
+                .where(
+                        keywordLike(keyword)
+                )
+                .orderBy(defMonsters.createdDate.desc())
+                .offset(pageable.getOffset())
+                .limit(pageable.getPageSize())
+                .fetch();
+
+        JPAQuery<DefMonsters> countQuery = jpaQueryFactory
+                .selectFrom(defMonsters)
+                .where(
+                        keywordLike(keyword)
+                );
+
+        return PageableExecutionUtils.getPage(result, pageable, countQuery::fetchCount);
+    }
+
     private BooleanExpression leaderMonsterLike (String leaderMonster) {
         return !leaderMonster.isEmpty() ? defMonsters.leaderMonster.contains(leaderMonster) : null;
+    }
+
+    private BooleanExpression keywordLike (String keyword) {
+        return !keyword.isEmpty() ? defMonsters.leaderMonster.contains(keyword) :
+                defMonsters.otherMonster.contains(keyword);
     }
 }

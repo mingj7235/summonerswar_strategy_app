@@ -11,4 +11,7 @@ public interface QueryDefMonsterRepository {
 
     Page<DefMonsters> findByLeaderMonster (final @NotBlank String leaderMonster,
                                            Pageable pageable);
+
+    Page<DefMonsters> findByKeyword (final @NotBlank String keyword,
+                                     Pageable pageable);
 }
