@@ -32,4 +32,11 @@ public class DefMonsterService {
                 .map(DefMonsterResponseDto::from);
     }
 
+    public Page<DefMonsterResponseDto> findByKeyword (final @NotBlank String keyword,
+                                                      Pageable pageable) {
+        return defMonsterRepository.findByKeyword(keyword, pageable)
+                .map(DefMonsterResponseDto::from);
+    }
+
+
 }

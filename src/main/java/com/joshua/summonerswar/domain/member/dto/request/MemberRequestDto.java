@@ -50,4 +50,16 @@ public class MemberRequestDto {
 
     }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @Valid
+    public static class Find {
+
+        private String leaderMonster;
+
+        private String otherMonster;
+    }
+
+
 }

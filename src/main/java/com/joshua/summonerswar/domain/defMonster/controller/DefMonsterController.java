@@ -3,7 +3,6 @@ package com.joshua.summonerswar.domain.defMonster.controller;
 import com.joshua.summonerswar.domain.defMonster.dto.request.DefMonsterRequestDto;
 import com.joshua.summonerswar.domain.defMonster.dto.response.DefMonsterResponseDto;
 import com.joshua.summonerswar.domain.defMonster.service.DefMonsterService;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -41,14 +40,25 @@ public class DefMonsterController {
 
     @GetMapping ("/def/find")
     public String findView (final @NotNull Model model) {
+
+        model.addAttribute("");
+
         return "def/find";
     }
 
-    @PostMapping ("/def/find")
+    @PostMapping ("/def/findByLeaderMonster")
     public ResponseEntity<Page<DefMonsterResponseDto>> findByLeaderMonster (final @NotBlank String leaderMonster,
                                                                             Pageable pageable) {
         return ResponseEntity.ok()
                 .body(defMonsterService.findByLeaderMonster(leaderMonster, pageable));
+    }
+
+    @PostMapping ("/def/findByKeyword")
+    public ResponseEntity<Page<DefMonsterResponseDto>> findByKeyword (final @NotBlank String keyword,
+                                                                      Pageable pageable) {
+
+        return ResponseEntity.ok()
+                .body(defMonsterService.findByKeyword(keyword, pageable));
     }
 
 }
