@@ -23,4 +23,29 @@ public class DefMonsterRequestDto {
 
         private String detailInfo;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @Valid
+    public static class Find {
+        private String leaderMonster;
+
+        private String keyword;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

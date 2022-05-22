@@ -26,15 +26,15 @@ public class DefMonsterService {
         return DefMonsterResponseDto.from(defMonsterRepository.save(DefMonsters.toEntity(request)));
     }
 
-    public Page<DefMonsterResponseDto> findByLeaderMonster (final @NotBlank String leaderMonster,
-                                                            Pageable pageable) {
-        return defMonsterRepository.findByLeaderMonster(leaderMonster, pageable)
-                .map(DefMonsterResponseDto::from);
-    }
+//    public Page<DefMonsterResponseDto> findByLeaderMonster (final @NotBlank String leaderMonster,
+//                                                            Pageable pageable) {
+//        return defMonsterRepository.findByLeaderMonster(leaderMonster, pageable)
+//                .map(DefMonsterResponseDto::from);
+//    }
 
-    public Page<DefMonsterResponseDto> findByKeyword (final @NotBlank String keyword,
+    public Page<DefMonsterResponseDto> findByKeyword (final @NotNull DefMonsterRequestDto.Find request,
                                                       Pageable pageable) {
-        return defMonsterRepository.findByKeyword(keyword, pageable)
+        return defMonsterRepository.findByKeyword(request, pageable)
                 .map(DefMonsterResponseDto::from);
     }
 

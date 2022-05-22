@@ -41,24 +41,17 @@ public class DefMonsterController {
     @GetMapping ("/def/find")
     public String findView (final @NotNull Model model) {
 
-        model.addAttribute("");
+        model.addAttribute(new DefMonsterRequestDto.Find());
 
         return "def/find";
     }
 
-    @PostMapping ("/def/findByLeaderMonster")
-    public ResponseEntity<Page<DefMonsterResponseDto>> findByLeaderMonster (final @NotBlank String leaderMonster,
-                                                                            Pageable pageable) {
-        return ResponseEntity.ok()
-                .body(defMonsterService.findByLeaderMonster(leaderMonster, pageable));
-    }
-
     @PostMapping ("/def/findByKeyword")
-    public ResponseEntity<Page<DefMonsterResponseDto>> findByKeyword (final @NotBlank String keyword,
+    public ResponseEntity<Page<DefMonsterResponseDto>> findByKeyword (final @NotNull DefMonsterRequestDto.Find request,
                                                                       Pageable pageable) {
 
         return ResponseEntity.ok()
-                .body(defMonsterService.findByKeyword(keyword, pageable));
+                .body(defMonsterService.findByKeyword(request, pageable));
     }
 
 }
