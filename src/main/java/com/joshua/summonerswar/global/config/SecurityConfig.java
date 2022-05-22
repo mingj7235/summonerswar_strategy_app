@@ -34,9 +34,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
+        http
+                .csrf().disable()
+                .cors().disable();
+
         http.authorizeRequests()
+
                 .mvcMatchers("/", "/member/login", "/member/join").permitAll()
 //                .mvcMatchers(HttpMethod.GET, "/profile/*").permitAll()
+                .mvcMatchers("/def/register", "/def/modify").hasRole("ADMIN")
                 .anyRequest().hasRole("USER");
 
         http.formLogin()
