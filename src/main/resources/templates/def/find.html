@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link th:replace="./fragments/header.html :: header">
+</head>
+<body>
+
+<button>
+  <a th:href="@{/def/register}">공덱 등록</a>
+</button>
+
+<div class="form-group">
+  <label for="leaderMonster">리더 몬스터</label>
+  <input type="text" name="leaderMonster" id="leaderMonster"
+         class="form-control form-control-user" placeholder="리더 몬스터 (ex> 풍라클)">
+</div>
+
+<div>
+  <label for="keyword">검색 키워드</label>
+  <input type="text" name="keyword" id="keyword"
+         class="form-control form-control-user" placeholder="키워드 검색 (ex> 풍라클, 폭주 등)">
+</div>
+
+<div>
+  <label for="page">페이지 번호(테스트용)</label>
+  <input type="number" name="page" id="page"
+         class="form-control form-control-user" placeholder="1">
+</div>
+
+<div>
+  <label for="size">검색결과 사이즈 (테스트용)</label>
+  <input type="number" name="size" id="size"
+         class="form-control form-control-user" placeholder="10">
+</div>
+
+<input type="button" id="searchButton" value="검색" onclick="search()">
+
+<div>
+  <table id="adminUserList" style="border: 1px solid #1c294e;"></table>
+</div>
+</body>
+
+<script>
+  function search() {
+    let param = {
+      leaderMonster: $("#leaderMonster").val(),
+      keyword: $("#keyword").val(),
+    }
+
+    let page = $("#page").val();
+    let size = $("#size").val();
+
+    $.ajax({
+      type: "POST",
+      url: "/def/findByKeyword?page=" + page + "&size=" + size,
+      dataType: "json",
+      async: false,
+      data: param,
+      success: function (response) {
+        let defMonstersList = response.content;
+        let totalPage = response.totalPages;
+        let totalElements = response.totalElements;
+        let resultNumber = response.number + 1;
+        let resultSize = response.size;
+
+        let listLength = defMonstersList.length;
+
+        console.log(response)
+
+        let tag = '';
+        if (listLength > 0) {
+          $.each(defMonstersList, function (i) {
+            tag += '<tr><td>' + ((totalElements - (resultSize * (resultNumber - 1))) - i) +
+                    '</td><td>' + defMonstersList[i].leaderMonster +
+                    '</td><td>' + defMonstersList[i].otherMonster +
+                    '</td><td>' + defMonstersList[i].detailInfo +
+                    '</td><td>' + '<button><a href="/def/modify/' + defMonstersList[i].adminId + '">수정</a></button>'+ '</td>';
+            tag += '</tr><br>'
+          });
+          tag += '<tr><td> total page : ' + totalPage + '</td></tr>'
+          tag += '<tr><td> total elementes : ' + totalElements + '</td></tr>'
+        }
+
+        if (listLength === 0) {
+          console.log("길이가 0임")
+          tag += '<div>검색 결과가 없습니다.</div>'
+        }
+
+        $("#defMonstersList").empty().append(tag)
+      }
+    });
+  }
+</script>
+</html>
