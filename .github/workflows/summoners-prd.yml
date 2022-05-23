@@ -32,6 +32,9 @@ jobs:
       - name: Gradle Build
         run: ./gradlew clean bootJar -x test
 
+      - name: Set up Docker Buildx for Caching
+        uses: docker/setup-buildx-action@v1
+
         #################### GITHUB CONTAINER REGISTRY LOGIN ########################
 
       - name: Login to Github Container Registry
@@ -49,7 +52,9 @@ jobs:
           context: .
           file: ${{ env.DOCKER_FILE_PATH }}
           tags: ${{ env.IMAGE_NAME }}:latest
-          no-cache: true
+#          no-cache: true
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
           push: true
 
     ######################## DEPLOY ################################
