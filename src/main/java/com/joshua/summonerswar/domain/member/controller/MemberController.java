@@ -73,7 +73,7 @@ public class MemberController {
 
     @GetMapping ("/errors/403")
     public String errors_403 () {
-        return "/errors/403";
+        return "errors/403";
     }
 
 }
