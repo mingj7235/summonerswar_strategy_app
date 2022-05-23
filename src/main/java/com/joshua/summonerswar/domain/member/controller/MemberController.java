@@ -71,4 +71,9 @@ public class MemberController {
         return "index";
     }
 
+    @GetMapping ("/errors/403")
+    public String errors_403 () {
+        return "/errors/403";
+    }
+
 }
