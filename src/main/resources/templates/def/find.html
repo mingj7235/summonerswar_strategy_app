@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
   <link th:replace="./fragments/header.html :: header">
 </head>
-<body>
+<body layout:fragment="content">
 
 <button>
   <a th:href="@{/def/register}">공덱 등록</a>
@@ -39,9 +41,9 @@
 <input type="button" id="searchButton" value="검색" onclick="search()">
 
 <div>
-  <table id="adminUserList" style="border: 1px solid #1c294e;"></table>
+  <table id="defMonstersList" style="border: 1px solid #1c294e;"></table>
 </div>
-</body>
+
 
 <script>
   function search() {
@@ -94,4 +96,5 @@
     });
   }
 </script>
+</body>
 </html>
