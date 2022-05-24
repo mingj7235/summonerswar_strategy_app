@@ -36,6 +36,8 @@ public class QueryDefMonsterRepositoryImpl implements QueryDefMonsterRepository 
         JPAQuery<DefMonsters> countQuery = jpaQueryFactory
                 .selectFrom(defMonsters)
                 .where(
+                        leaderMonsterLike(request.getLeaderMonster()),
+                        otherMonsterLike(request.getKeyword())
                 );
 
         return PageableExecutionUtils.getPage(result, pageable, countQuery::fetchCount);

@@ -1,10 +1,12 @@
 package com.joshua.summonerswar.domain.defMonster.dto.request;
 
+import com.joshua.summonerswar.domain.attackMonster.entity.AttackMonsters;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,6 +24,8 @@ public class DefMonsterRequestDto {
         private String otherMonster;
 
         private String detailInfo;
+
+        private List<AttackMonsters> attackMonsters;
     }
 
     @Getter

@@ -28,15 +28,16 @@ public class DefMonsterController {
     @GetMapping("/def/register")
     public String registerView (final @NotNull Model model) {
 
-        model.addAttribute("");
+        model.addAttribute(new DefMonsterRequestDto.Register());
 
         return "def/register";
     }
 
     @PostMapping ("/def/register")
-    public ResponseEntity<DefMonsterResponseDto> register (final DefMonsterRequestDto.@NotNull Register request) {
-        return ResponseEntity.ok()
-                .body(defMonsterService.register(request));
+    public String register (final DefMonsterRequestDto.@NotNull Register request) {
+        defMonsterService.register(request);
+
+        return "redirect:/der/find";
     }
 
     @GetMapping ("/def/find")

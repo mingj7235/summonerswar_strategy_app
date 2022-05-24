@@ -11,6 +11,6 @@ import javax.validation.constraints.NotNull;
 
 public interface QueryDefMonsterRepository {
 
-    Page<DefMonsters> findByKeyword (final @NotNull DefMonsterRequestDto.Find request,
+    Page<DefMonsters> findByKeyword (final DefMonsterRequestDto.@NotNull Find request,
                                      Pageable pageable);
 }
