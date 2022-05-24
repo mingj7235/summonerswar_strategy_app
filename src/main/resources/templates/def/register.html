@@ -44,29 +44,8 @@
                                 <small class="invalid-feedback">방덱 세부 설명을 입력해주세요</small>
 
                             </div>
-                            <div class="form-group">
-                                <label for="passwordCheck">비밀번호 체크</label>
-                                <input type="password" class="form-control form-control-user"
-                                       id="passwordCheck" placeholder="비밀번호 확인" th:field="*{passwordCheck}" required>
-                                <small class="invalid-feedback">다시 한 번 비밀번호를 입력하세요</small>
-                                <small class="form-text text-danger" th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Error</small>
-                            </div>
-
-
-                            <div class="form-group">
-                                <label for="batch">크몽 깃수</label>
-                                <br>
-                                <select id="batch" class="btn-primary dropdown-toggle" th:field="*{batch}">
-                                    <option th:value="1기" selected>1기</option>
-                                    <option th:value="2기" selected>2기</option>
-                                </select>
-                            </div>
-
                             <button type="submit" class="btn btn-primary btn-user btn-block">방덱 등록</button>
                         </form>
-                        <div class="text-center">
-                            <a class="small" th:href="@{/admin/account/login}">이미 크몽 회원이라면 로그인화면으로 :)</a>
-                        </div>
                     </div>
                 </div>
             </div>
