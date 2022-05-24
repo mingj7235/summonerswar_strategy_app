@@ -8,9 +8,71 @@
     <title>Title</title>
     <link th:replace="./fragments/header.html :: header">
 </head>
-<body layout:fragment="content">
+<body layout:fragment="content" class="bg-gradient-primary">
 
-방덱 등록
+<div class="container">
 
+    <div class="card o-hidden border-0 shadow-lg my-5">
+        <div class="card-body p-0">
+            <!-- Nested Row within Card Body -->
+            <div class="row">
+                <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                <div class="col-lg-7">
+                    <div class="p-5">
+                        <div class="text-center">
+                            <h1 class="h4 text-gray-900 mb-4">방덱 등록 페이지</h1>
+                        </div>
+                        <form class="user needs-validation" th:action="@{/def/register}" th:object="${register}" method="post" novalidate>
+                            <div class="form-group">
+                                <label for="adminId">리더 몬스터</label>
+                                <input type="email" class="form-control form-control-user" id="adminId"
+                                       placeholder="풍라클" name="email" th:field="*{leaderMonster}" required>
+                                <small class="invalid-feedback">리더 몬스터를 입력해주세요</small>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="nickname">나머지 몬스터</label>
+                                <input type="text" class="form-control form-control-user" id="nickname"
+                                       placeholder="불닭,물브라 (,로 구분해서 작성해주세요)" name="nickname" th:field="*{otherMonster}" required>
+                                <small class="invalid-feedback">나머지 구성 몬스터를 입력해주세요</small>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="password">방덱 세부 설명</label>
+                                <input type="password" class="form-control form-control-user" id="password"
+                                       placeholder="비밀번호" th:field="*{detailInfo}" required>
+                                <small class="invalid-feedback">방덱 세부 설명을 입력해주세요</small>
+
+                            </div>
+                            <div class="form-group">
+                                <label for="passwordCheck">비밀번호 체크</label>
+                                <input type="password" class="form-control form-control-user"
+                                       id="passwordCheck" placeholder="비밀번호 확인" th:field="*{passwordCheck}" required>
+                                <small class="invalid-feedback">다시 한 번 비밀번호를 입력하세요</small>
+                                <small class="form-text text-danger" th:if="${#fields.hasErrors('passwordCheck')}" th:errors="*{passwordCheck}">Password Error</small>
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="batch">크몽 깃수</label>
+                                <br>
+                                <select id="batch" class="btn-primary dropdown-toggle" th:field="*{batch}">
+                                    <option th:value="1기" selected>1기</option>
+                                    <option th:value="2기" selected>2기</option>
+                                </select>
+                            </div>
+
+                            <button type="submit" class="btn btn-primary btn-user btn-block">방덱 등록</button>
+                        </form>
+                        <div class="text-center">
+                            <a class="small" th:href="@{/admin/account/login}">이미 크몽 회원이라면 로그인화면으로 :)</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 </body>
 </html>

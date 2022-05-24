@@ -21,4 +21,12 @@ public class AttackMonsterRequestDto {
 
         private String detailInfo;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @Valid
+    public static class Find {
+        private String keyword;
+    }
 }
