@@ -17,6 +17,9 @@ public class AttackMonsterController {
 
     @GetMapping ("/atk/register")
     public String viewAtkRegister (Model model) {
+
+        model.addAttribute(new AttackMonsterRequestDto.Register());
+
         return "atk/register";
     }
 
