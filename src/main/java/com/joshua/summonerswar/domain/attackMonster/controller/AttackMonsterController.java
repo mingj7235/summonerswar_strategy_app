@@ -27,4 +27,12 @@ public class AttackMonsterController {
     public String atkRegister (final AttackMonsterRequestDto.@NotNull Register register) {
         return "redirect:/atk/register";
     }
+
+    @GetMapping ("/atk/find")
+    public String viewAtkFind (Model model) {
+
+        model.addAttribute(new AttackMonsterRequestDto.Find());
+
+        return "atk/find";
+    }
 }
