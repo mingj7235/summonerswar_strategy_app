@@ -24,4 +24,8 @@ public class AttackMonsterService {
 
         return null;
     }
+
+    public AttackMonsterResponseDto find (final AttackMonsterRequestDto.@NotNull Find request) {
+        return null;
+    }
 }

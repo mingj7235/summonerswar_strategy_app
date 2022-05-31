@@ -1,12 +1,16 @@
 package com.joshua.summonerswar.domain.attackMonster.controller;
 
 import com.joshua.summonerswar.domain.attackMonster.dto.request.AttackMonsterRequestDto;
+import com.joshua.summonerswar.domain.attackMonster.dto.response.AttackMonsterResponseDto;
+import com.joshua.summonerswar.domain.attackMonster.service.AttackMonsterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.constraints.NotNull;
 
@@ -14,6 +18,8 @@ import javax.validation.constraints.NotNull;
 @Controller
 @RequiredArgsConstructor
 public class AttackMonsterController {
+
+    private final AttackMonsterService attackMonsterService;
 
     @GetMapping ("/atk/register")
     public String viewAtkRegister (Model model) {
@@ -34,5 +40,11 @@ public class AttackMonsterController {
         model.addAttribute(new AttackMonsterRequestDto.Find());
 
         return "atk/find";
+    }
+
+    @PostMapping ("/atk/find")
+    @ResponseBody
+    public ResponseEntity<AttackMonsterResponseDto> atkFind () {
+        return null;
     }
 }
