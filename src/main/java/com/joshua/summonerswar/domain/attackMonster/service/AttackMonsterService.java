@@ -2,6 +2,7 @@ package com.joshua.summonerswar.domain.attackMonster.service;
 
 import com.joshua.summonerswar.domain.attackMonster.dto.request.AttackMonsterRequestDto;
 import com.joshua.summonerswar.domain.attackMonster.dto.response.AttackMonsterResponseDto;
+import com.joshua.summonerswar.domain.attackMonster.entity.AttackMonsters;
 import com.joshua.summonerswar.domain.attackMonster.repository.AttackMonsterRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,9 +21,7 @@ public class AttackMonsterService {
 
     public AttackMonsterResponseDto register (final AttackMonsterRequestDto.@NotNull Register request) {
 
-
-
-        return null;
+        return AttackMonsterResponseDto.from(attackMonsterRepository.save(AttackMonsters.toEntity(request)));
     }
 
     public AttackMonsterResponseDto find (final AttackMonsterRequestDto.@NotNull Find request) {
