@@ -6,6 +6,8 @@ import com.joshua.summonerswar.domain.attackMonster.entity.AttackMonsters;
 import com.joshua.summonerswar.domain.attackMonster.repository.AttackMonsterRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,7 +26,9 @@ public class AttackMonsterService {
         return AttackMonsterResponseDto.from(attackMonsterRepository.save(AttackMonsters.toEntity(request)));
     }
 
-    public AttackMonsterResponseDto find (final AttackMonsterRequestDto.@NotNull Find request) {
-        return null;
+    public Page<AttackMonsterResponseDto> find (final AttackMonsterRequestDto.@NotNull Find request,
+                                                Pageable pageable) {
+        return attackMonsterRepository.findByKeyword(request, pageable)
+                .map(AttackMonsterResponseDto::from);
     }
 }
