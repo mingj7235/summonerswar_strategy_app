@@ -5,6 +5,8 @@ import com.joshua.summonerswar.domain.attackMonster.dto.response.AttackMonsterRe
 import com.joshua.summonerswar.domain.attackMonster.service.AttackMonsterService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Slf4j
 @Controller
@@ -44,7 +47,9 @@ public class AttackMonsterController {
 
     @PostMapping ("/atk/find")
     @ResponseBody
-    public ResponseEntity<AttackMonsterResponseDto> atkFind () {
-        return null;
+    public ResponseEntity<Page<AttackMonsterResponseDto>> atkFind (final AttackMonsterRequestDto.@NotNull Find request,
+                                                                   Pageable pageable) {
+        return ResponseEntity.ok()
+                .body(attackMonsterService.find(request, pageable));
     }
 }
