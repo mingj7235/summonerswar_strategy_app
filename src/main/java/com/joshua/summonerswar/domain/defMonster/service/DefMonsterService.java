@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Slf4j
@@ -37,6 +36,4 @@ public class DefMonsterService {
         return defMonsterRepository.findByKeyword(request, pageable)
                 .map(DefMonsterResponseDto::from);
     }
-
-
 }
