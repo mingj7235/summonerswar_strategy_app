@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.validation.constraints.NotNull;
-
 @Slf4j
 @Controller
 @RequiredArgsConstructor
@@ -32,7 +31,11 @@ public class AttackMonsterController {
     }
 
     @PostMapping ("/atk/register")
-    public String atkRegister (final AttackMonsterRequestDto.@NotNull Register register) {
+    @ResponseBody
+    public String atkRegister (final AttackMonsterRequestDto.@NotNull Register request) {
+
+        AttackMonsterResponseDto register = attackMonsterService.register(request);
+
         return "redirect:/atk/register";
     }
 
