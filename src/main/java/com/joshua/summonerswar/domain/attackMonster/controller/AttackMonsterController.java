@@ -32,11 +32,9 @@ public class AttackMonsterController {
 
     @PostMapping ("/atk/register")
     @ResponseBody
-    public String atkRegister (final AttackMonsterRequestDto.@NotNull Register request) {
+    public AttackMonsterResponseDto atkRegister (final AttackMonsterRequestDto.@NotNull Register request) {
 
-        AttackMonsterResponseDto register = attackMonsterService.register(request);
-
-        return "redirect:/atk/register";
+        return attackMonsterService.register(request);
     }
 
     @GetMapping ("/atk/find")
