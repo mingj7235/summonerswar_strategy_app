@@ -20,7 +20,6 @@ import javax.validation.constraints.NotNull;
 public class DefMonsterService {
 
     private final DefMonsterRepository defMonsterRepository;
-
     public DefMonsterResponseDto register(final DefMonsterRequestDto.@NotNull Register request) {
         return DefMonsterResponseDto.from(defMonsterRepository.save(DefMonsters.toEntity(request)));
     }
