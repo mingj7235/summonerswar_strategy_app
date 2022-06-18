@@ -9,7 +9,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.support.PageableExecutionUtils;
+ import org.springframework.util.StringUtils;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import java.util.List;
@@ -44,11 +46,23 @@ public class QueryAtkMonsterRepositoryImpl implements QueryAtkMonsterRepository{
         return PageableExecutionUtils.getPage(result, pageable, countQuery::fetchCount);
     }
 
-    private BooleanExpression monsterLike(String monster) {
+    private BooleanExpression monsterLike(final @NotBlank String monster) {
         return !monster.isEmpty() ? attackMonsters.deckName.contains(monster) : null;
     }
 
-    private BooleanExpression detailInfoLike(String keyword) {
+    private BooleanExpression detailInfoLike(final @NotBlank String keyword) {
         return !keyword.isEmpty() ? attackMonsters.detailInfo.contains(keyword) : null;
+    }
+
+    private BooleanExpression detailInfoAndMonsterName (final @NotBlank String monster, final @NotBlank String keyword) {
+        if (StringUtils.hasText(monster)) {
+            return attackMonsters.deckName.eq(monster);
+        }
+
+        if (StringUtils.hasText(keyword)) {
+            return attackMonsters.detailInfo.eq(keyword);
+        }
+
+        return null;
     }
 }
