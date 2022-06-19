@@ -5,6 +5,7 @@ import com.joshua.summonerswar.domain.defMonster.dto.request.DefMonsterRequestDt
 import com.joshua.summonerswar.global.base.BaseTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,5 +43,17 @@ public class DefMonsters extends BaseTime {
                 .otherMonster(request.getOtherMonster())
                 .detailInfo(request.getDetailInfo())
                 .build();
+    }
+
+    public DefMonsters update (final DefMonsterRequestDto.@NotNull Update update) {
+        if (StringUtils.hasText(update.getDetailInfo())) {
+            this.setDetailInfo(update.getDetailInfo());
+        }
+
+        if (update.getAttackMonsters() != null) {
+            this.setAttackMonsters(update.getAttackMonsters());
+        }
+
+        return this;
     }
 }

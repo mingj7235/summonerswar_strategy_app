@@ -24,8 +24,6 @@ public class DefMonsterRequestDto {
         private String otherMonster;
 
         private String detailInfo;
-
-        private List<AttackMonsters> attackMonsters;
     }
 
     @Getter
@@ -37,6 +35,17 @@ public class DefMonsterRequestDto {
 
         private String keyword;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    @Valid
+    public static class Update {
+        private String detailInfo;
+
+        private List<AttackMonsters> attackMonsters;
+    }
+
 }
 
 
