@@ -42,6 +42,7 @@ public class DefMonsters extends BaseTime {
                 .leaderMonster(request.getLeaderMonster())
                 .otherMonster(request.getOtherMonster())
                 .detailInfo(request.getDetailInfo())
+                .imgUrl(request.getImgUrl())
                 .build();
     }
 

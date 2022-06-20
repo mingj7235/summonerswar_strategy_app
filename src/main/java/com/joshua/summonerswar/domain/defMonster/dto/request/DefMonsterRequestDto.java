@@ -24,6 +24,8 @@ public class DefMonsterRequestDto {
         private String otherMonster;
 
         private String detailInfo;
+
+        private String imgUrl;
     }
 
     @Getter
