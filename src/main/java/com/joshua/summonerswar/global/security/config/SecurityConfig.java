@@ -1,4 +1,4 @@
-package com.joshua.summonerswar.global.config;
+package com.joshua.summonerswar.global.security.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -15,6 +15,9 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,6 +30,12 @@ import java.io.IOException;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final UserDetailsService userDetailsService;
+
+    private final AuthenticationSuccessHandler customAuthenticationSuccessHandler;
+
+    private final AuthenticationFailureHandler customAuthenticationFailureHandler;
+
+    private final AccessDeniedHandler customAccessDeniedHandler;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -54,21 +63,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginPage("/member/login")
+                .loginProcessingUrl("/login_proc")
                 .usernameParameter("email")
-                .defaultSuccessUrl("/home")
-                .permitAll();
-
-        http.logout()
-                .logoutSuccessUrl("/");
+                .passwordParameter("password")
+                .successHandler(customAuthenticationSuccessHandler)
+                .failureHandler(customAuthenticationFailureHandler)
+            .permitAll();
 
         http.
                 exceptionHandling()
-                .accessDeniedHandler(new AccessDeniedHandler() {
-                    @Override
-                    public void handle(HttpServletRequest request, HttpServletResponse response, AccessDeniedException accessDeniedException) throws IOException, ServletException {
-                        response.sendRedirect("/errors/403");
-                    }
-                });
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
+                .accessDeniedHandler(customAccessDeniedHandler);
 
     }
 

@@ -26,7 +26,7 @@ import java.util.NoSuchElementException;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class MemberService implements UserDetailsService {
+public class MemberService{
 
     private final MemberRepository memberRepository;
 
@@ -55,21 +55,7 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-    @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Member member = memberRepository.findByEmail(email).orElseThrow(() -> new NoSuchElementException("없는 유저임"));
 
-        MemberDetails memberDetails = null;
-
-        if (member != null) {
-            memberDetails = new MemberDetails();
-            memberDetails.setMember(member);
-        } else {
-            throw new IllegalArgumentException("없는 유저");
-        }
-
-        return memberDetails;
-    }
 
 
 
