@@ -1,5 +1,6 @@
 package com.joshua.summonerswar.global.security.service;
 
+import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -19,7 +20,15 @@ public class CustomUserDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(final String username) throws UsernameNotFoundException {
 
-        memberRepository.findByEmail(username)
+        Member member = memberRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("not found Member"));
+
+        if (member == null) {
+            if (memberRepository.countByEmail(username) == 0) {
+                throw new UsernameNotFoundException("No user found with username: " + username);
+            }
+        }
+
+
 
         return null;
     }
