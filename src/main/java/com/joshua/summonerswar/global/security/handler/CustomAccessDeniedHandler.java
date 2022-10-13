@@ -8,30 +8,25 @@ import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Component
 public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
     private String errorPage;
-
-    private ObjectMapper objectMapper = new ObjectMapper();
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
     @Override
     public void handle(final HttpServletRequest request, final HttpServletResponse response, final AccessDeniedException accessDeniedException) throws IOException, ServletException {
 
-//        if (WebUtil.isAjax(request)) {
-//            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
-//            response.getWriter().write(this.objectMapper.writeValueAsString(ResponseEntity.status(HttpStatus.FORBIDDEN)));
-//        } else {
-            String deniedUrl = errorPage + "?exception=" + "Access is denied";
-            redirectStrategy.sendRedirect(request, response, deniedUrl);
-//        }
+        String deniedUrl = errorPage + "?exception=" + "Access is denied";
+        redirectStrategy.sendRedirect(request, response, deniedUrl);
     }
 
     public void setErrorPage (String errorPage) {
