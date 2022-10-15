@@ -13,7 +13,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@Component
 public class PermitAllFilter extends FilterSecurityInterceptor {
 
     private static final String FILTER_APPLIED = "__spring_security_filterSecurityInterceptor_filterApplied";
@@ -22,7 +21,7 @@ public class PermitAllFilter extends FilterSecurityInterceptor {
     private List<RequestMatcher> permitAllRequestMatchers = new ArrayList<>();
 
     // 생성자로 받아온다. (SecurityConfig에서 설정)
-    public PermitAllFilter (String... permitAllResources) {
+    public PermitAllFilter (List<String> permitAllResources) {
         for (String permitAllResource : permitAllResources) {
             permitAllRequestMatchers.add(new AntPathRequestMatcher(permitAllResource));
         }
