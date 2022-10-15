@@ -50,7 +50,6 @@ public class Member extends BaseTime {
                 .password(EncodeUtils.encode(request.getPassword()))
                 .nickname(request.getNickname())
                 .batch(request.getBatch())
-                .role("ROLE_USER")
                 .build();
     }
 }

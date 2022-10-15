@@ -1,26 +1,16 @@
 package com.joshua.summonerswar.domain.member.service;
 
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
-import com.joshua.summonerswar.domain.member.dto.response.MemberResponseDto;
 import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.member.repository.MemberRepository;
-import com.joshua.summonerswar.global.auth.MemberDetails;
 import com.joshua.summonerswar.global.util.EncodeUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.NoSuchElementException;
 
 @Slf4j
 @Service
@@ -35,19 +25,6 @@ public class MemberService{
         return memberRepository.save(Member.toEntity(request));
     }
 
-    public void login (final @NotNull Member member) {
-
-        MemberDetails memberDetails = new MemberDetails();
-
-        memberDetails.setMember(member);
-
-        UsernamePasswordAuthenticationToken token = new UsernamePasswordAuthenticationToken(
-                memberDetails,
-                memberDetails.getPassword(),
-                memberDetails.getAuthorities());
-        SecurityContext context = SecurityContextHolder.getContext();
-        context.setAuthentication(token);
-    }
 
     private void checkPassword (String rawPassword, String encodedPassword) {
         if (EncodeUtils.isNotMatches(rawPassword, encodedPassword)) {
