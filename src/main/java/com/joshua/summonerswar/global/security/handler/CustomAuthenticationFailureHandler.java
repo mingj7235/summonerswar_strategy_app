@@ -28,7 +28,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
             errorMessage = "Expired password";
         }
 
-        setDefaultFailureUrl("/login?error=true&exception=" + errorMessage);
+        setDefaultFailureUrl("/member/login?error=true&exception=" + errorMessage);
 
         super.onAuthenticationFailure(request, response, exception);
 
