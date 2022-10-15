@@ -1,6 +1,7 @@
 package com.joshua.summonerswar.domain.member.entity;
 
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
+import com.joshua.summonerswar.domain.role.entity.Role;
 import com.joshua.summonerswar.global.base.BaseTime;
 import com.joshua.summonerswar.global.util.EncodeUtils;
 import lombok.*;
@@ -37,7 +38,10 @@ public class Member extends BaseTime {
 
     private String batch;
 
-    private String role;
+    @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.ALL})
+    @JoinTable(name = "member_roles", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {
+            @JoinColumn(name = "role_id") })
+    private Set<Role> userRoles = new HashSet<>();
 
 
     public static Member toEntity (final MemberRequestDto.@NotNull Join request) {
