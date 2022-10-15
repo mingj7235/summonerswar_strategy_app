@@ -2,6 +2,7 @@ package com.joshua.summonerswar.global.security.config;
 
 import com.joshua.summonerswar.global.security.factory.UrlResourcesMapFactoryBean;
 import com.joshua.summonerswar.global.security.filter.PermitAllFilter;
+import com.joshua.summonerswar.global.security.handler.CustomAccessDeniedHandler;
 import com.joshua.summonerswar.global.security.metadatasource.UrlFilterInvocationSecurityMetadataSource;
 import com.joshua.summonerswar.global.security.provider.CustomAuthenticationProvider;
 import com.joshua.summonerswar.global.security.service.SecurityResourceService;
@@ -13,9 +14,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.access.AccessDecisionManager;
 import org.springframework.security.access.AccessDecisionVoter;
-import org.springframework.security.access.hierarchicalroles.RoleHierarchyImpl;
 import org.springframework.security.access.vote.AffirmativeBased;
-import org.springframework.security.access.vote.RoleHierarchyVoter;
 import org.springframework.security.access.vote.RoleVoter;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -29,11 +28,11 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.security.web.access.intercept.FilterInvocationSecurityMetadataSource;
+import org.springframework.security.web.access.intercept.FilterSecurityInterceptor;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Configuration
@@ -46,8 +45,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final AuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     private final AuthenticationFailureHandler customAuthenticationFailureHandler;
-
-    private final AccessDeniedHandler customAccessDeniedHandler;
+//
+//    private final AccessDeniedHandler customAccessDeniedHandler;
 
     private final SecurityResourceService securityResourceService;
 
@@ -56,18 +55,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private List<String> permitAllResources;
 
     @Bean
-    public AuthenticationProvider authenticationProvider() {
-        return new CustomAuthenticationProvider(userDetailsService, passwordEncoder());
-    }
-
-    @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-    }
-
-    @Bean
-    public FilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource() throws Exception {
-        return new UrlFilterInvocationSecurityMetadataSource(urlResourcesMapFactoryBean().getObject(), securityResourceService);
     }
 
     @Override
@@ -77,8 +66,32 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
+    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
+        auth.authenticationProvider(authenticationProvider());
+    }
+
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
+
+    @Bean
+    public AuthenticationProvider authenticationProvider() {
+        return new CustomAuthenticationProvider(userDetailsService, passwordEncoder());
+    }
+
+    @Bean
+    public AccessDeniedHandler accessDeniedHandler() {
+        CustomAccessDeniedHandler accessDeniedHandler = new CustomAccessDeniedHandler();
+        accessDeniedHandler.setErrorPage("/denied");
+        return accessDeniedHandler;
+    }
+
+
+    @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
+                .cors().disable()
                 .csrf().disable();
 
         http.authorizeRequests()
@@ -86,7 +99,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.formLogin()
                 .loginPage("/member/login")
-                .loginProcessingUrl("/login_proc")
+                .loginProcessingUrl("/member/login_proc")
                 .usernameParameter("email")
                 .passwordParameter("password")
                 .successHandler(customAuthenticationSuccessHandler)
@@ -95,25 +108,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.
                 exceptionHandling()
-                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/member/login"))
                 .accessDeniedPage("/errors/403")
-                .accessDeniedHandler(customAccessDeniedHandler);
+                .accessDeniedHandler(accessDeniedHandler());
 
         http.
-                addFilter(customFilterSecurityInterceptor());
+                 addFilterBefore(customFilterSecurityInterceptor(), FilterSecurityInterceptor.class);
 
     }
 
-    @Override
-    protected void configure(final AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider());
-    }
-
-    @Bean
-    @Override
-    public AuthenticationManager authenticationManagerBean() throws Exception {
-        return super.authenticationManagerBean();
-    }
     @Bean
     public FilterRegistrationBean filterRegistrationBean() throws Exception {
         FilterRegistrationBean filterRegistrationBean = new FilterRegistrationBean();
@@ -136,23 +139,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     private List<AccessDecisionVoter<?>> getAccessDecisionVoters() {
-        List<AccessDecisionVoter<? extends Object>> accessDecisionVoters = new ArrayList<>();
-        accessDecisionVoters.add(roleVoter());
-        return accessDecisionVoters;
+        return List.of(new RoleVoter());
     }
 
     @Bean
-    public AccessDecisionVoter<? extends Object> roleVoter() {
-        return new RoleHierarchyVoter(roleHierarchy());
-    }
-
-    @Bean
-    public RoleHierarchyImpl roleHierarchy() {
-        return new RoleHierarchyImpl();
+    public FilterInvocationSecurityMetadataSource urlFilterInvocationSecurityMetadataSource() throws Exception {
+        return new UrlFilterInvocationSecurityMetadataSource(urlResourcesMapFactoryBean().getObject(), securityResourceService);
     }
 
     private UrlResourcesMapFactoryBean urlResourcesMapFactoryBean() {
-
         UrlResourcesMapFactoryBean urlResourcesMapFactoryBean = new UrlResourcesMapFactoryBean();
         urlResourcesMapFactoryBean.setSecurityResourceService(securityResourceService);
         return urlResourcesMapFactoryBean;

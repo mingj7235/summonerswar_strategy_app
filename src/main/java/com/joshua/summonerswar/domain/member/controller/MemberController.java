@@ -1,10 +1,8 @@
 package com.joshua.summonerswar.domain.member.controller;
 
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
-import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.member.service.MemberService;
 import com.joshua.summonerswar.domain.member.validator.MemberJoinValidator;
-import com.joshua.summonerswar.domain.member.validator.MemberLoginValidator;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -14,6 +12,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.NotNull;
 
@@ -40,9 +39,12 @@ public class MemberController {
     }
 
     @GetMapping ("/member/login")
-    public String login(Model model) {
-        model.addAttribute(new MemberRequestDto.Login());
+    public String login(@RequestParam(value = "error", required = false) String error,
+                        @RequestParam (value = "exception", required = false) String exception,
+                        Model model) {
 
+        model.addAttribute("error", error);
+        model.addAttribute("exception", exception);
         return "member/login";
     }
 
@@ -61,7 +63,7 @@ public class MemberController {
         if (errors.hasErrors())
             return "member/join";
 
-        memberService.join(request);
+//        memberService.join(request);
         return "redirect:/";
     }
 

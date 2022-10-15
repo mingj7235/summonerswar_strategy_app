@@ -2,40 +2,38 @@ package com.joshua.summonerswar.domain.member.entity;
 
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
 import com.joshua.summonerswar.domain.role.entity.Role;
-import com.joshua.summonerswar.global.base.BaseTime;
-import com.joshua.summonerswar.global.util.EncodeUtils;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
 
-@Getter
-@Setter (AccessLevel.PRIVATE)
-@NoArgsConstructor (access = AccessLevel.PROTECTED)
-@AllArgsConstructor (access = AccessLevel.PRIVATE)
-@SuperBuilder
 @Entity
-public class Member extends BaseTime {
+@Data
+@ToString(exclude = {"userRoles"})
+@SuperBuilder
+@EqualsAndHashCode(of = "id")
+@NoArgsConstructor
+@AllArgsConstructor
+public class Member implements Serializable{
 
     @Id
     @GeneratedValue
-    @Column (name = "MEMBER_ID")
     private Long id;
 
     @Column (unique = true)
     private String email;
 
+    @Column
     private String password;
 
     @Column (unique = true)
     private String nickname;
 
+    @Column
     private String batch;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.ALL})
@@ -47,7 +45,7 @@ public class Member extends BaseTime {
     public static Member toEntity (final MemberRequestDto.@NotNull Join request) {
         return Member.builder()
                 .email(request.getEmail())
-                .password(EncodeUtils.encode(request.getPassword()))
+//                .password(EncodeUtils.encode(request.getPassword()))
                 .nickname(request.getNickname())
                 .batch(request.getBatch())
                 .build();

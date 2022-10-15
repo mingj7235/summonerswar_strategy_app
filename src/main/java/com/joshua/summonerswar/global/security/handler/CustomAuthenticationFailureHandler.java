@@ -18,7 +18,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
     @Override
     public void onAuthenticationFailure(final HttpServletRequest request, final HttpServletResponse response, final AuthenticationException exception) throws IOException, ServletException {
 
-        String errorMessage = "Invalid Username or Password";
+        String errorMessage = "Errors";
 
         if(exception instanceof BadCredentialsException) {
             errorMessage = "Invalid Username or Password";
