@@ -24,7 +24,7 @@ public class CustomAuthenticationSuccessHandler extends SimpleUrlAuthenticationS
     @Override
     public void onAuthenticationSuccess(final HttpServletRequest request, final HttpServletResponse response, final Authentication authentication) throws IOException, ServletException {
 
-        setDefaultTargetUrl("/");
+        setDefaultTargetUrl("/home");
 
         SavedRequest savedRequest = requestCache.getRequest(request, response); // 요청했던 정보
 
