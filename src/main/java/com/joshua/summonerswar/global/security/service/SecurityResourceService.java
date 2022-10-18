@@ -1,7 +1,7 @@
 package com.joshua.summonerswar.global.security.service;
 
-import com.joshua.summonerswar.domain.resource.entity.Resources;
-import com.joshua.summonerswar.domain.resource.repository.ResourcesRepository;
+import com.joshua.summonerswar.domain.admin.entity.Resources;
+import com.joshua.summonerswar.domain.admin.repository.ResourcesRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.access.ConfigAttribute;
 import org.springframework.security.access.SecurityConfig;

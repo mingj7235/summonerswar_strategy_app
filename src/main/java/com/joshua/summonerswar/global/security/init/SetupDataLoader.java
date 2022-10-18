@@ -2,10 +2,10 @@ package com.joshua.summonerswar.global.security.init;
 
 import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.member.repository.MemberRepository;
-import com.joshua.summonerswar.domain.resource.entity.Resources;
-import com.joshua.summonerswar.domain.resource.repository.ResourcesRepository;
-import com.joshua.summonerswar.domain.role.entity.Role;
-import com.joshua.summonerswar.domain.role.repository.RoleRepository;
+import com.joshua.summonerswar.domain.admin.entity.Resources;
+import com.joshua.summonerswar.domain.admin.repository.ResourcesRepository;
+import com.joshua.summonerswar.domain.admin.entity.Role;
+import com.joshua.summonerswar.domain.admin.repository.RoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.event.ContextRefreshedEvent;
