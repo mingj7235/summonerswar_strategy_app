@@ -98,7 +98,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         .anyRequest().authenticated();
 
         http.formLogin()
-                .loginPage("/member/login")
+                .loginPage("/login")
                 .loginProcessingUrl("/member/login_proc")
                 .usernameParameter("email")
                 .passwordParameter("password")
@@ -108,8 +108,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.
                 exceptionHandling()
-                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/member/login"))
-                .accessDeniedPage("/errors/403")
+                .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/login"))
+                .accessDeniedPage("/denied")
                 .accessDeniedHandler(accessDeniedHandler());
 
         http.

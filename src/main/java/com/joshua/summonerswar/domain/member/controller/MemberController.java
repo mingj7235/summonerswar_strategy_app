@@ -29,7 +29,7 @@ public class MemberController {
         webDataBinder.addValidators(memberJoinValidator);
     }
 
-    @GetMapping ("/member/join")
+    @GetMapping ("/join")
     public String join (Model model) {
 
         model.addAttribute(new MemberRequestDto.Join());

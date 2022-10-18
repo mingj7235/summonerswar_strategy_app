@@ -2,15 +2,13 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <title>CrazyMonkey</title>
     <link th:replace="./fragments/header.html :: header">
 </head>
 
-<body class="bg-gradient-primary">
+<body class="bg-gradient-dark">
 
     <div class="container">
 
-        <!-- Outer Row -->
         <div class="row justify-content-center">
 
             <div class="col-xl-10 col-lg-12 col-md-9">
@@ -40,10 +38,10 @@
 
                                         <div class="form-group">
                                             <div>
-                                                <a th:href="@{/member/join}">아직 회원이 아니라면 회원가입하기</a>
+                                                <a th:href="@{/join}">아직 회원이 아니라면 회원가입하기</a>
                                             </div>
                                         </div>
-                                        <button type="submit" class="btn btn-primary btn-user btn-block">로그인</button>
+                                        <button type="submit" class="btn btn-dark btn-user btn-block">로그인</button>
                                     </form>
                                     <hr>
                                 </div>
