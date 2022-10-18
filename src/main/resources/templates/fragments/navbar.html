@@ -168,6 +168,8 @@
 
         <div class="topbar-divider d-none d-sm-block"></div>
 
+        <li class="nav-item" sec:authorize="hasAuthority('ROLE_ADMIN')"><a class="nav-link text-light" th:href="@{/admin}">관리자</a></li>
+
         <!-- Nav Item -   Loing User Information -->
         <li sec:authorize="isAuthenticated()" class="nav-item dropdown no-arrow">
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
