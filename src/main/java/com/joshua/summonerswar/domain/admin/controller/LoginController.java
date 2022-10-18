@@ -1,5 +1,6 @@
 package com.joshua.summonerswar.domain.admin.controller;
 
+import com.joshua.summonerswar.domain.member.entity.Member;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.security.Principal;
+import java.util.Objects;
 
 @Slf4j
 @Controller
@@ -49,19 +51,15 @@ public class LoginController {
                                 Principal principal,
                                 Model model) {
 
-        Account account = null;
+        Member member = null;
 
         if (principal instanceof UsernamePasswordAuthenticationToken) {
-            account = (Account) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+            member = (Member) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
         }
 
-        if (principal instanceof AjaxAuthenticationToken) {
-            account = (Account) ((AjaxAuthenticationToken) principal).getPrincipal();
-        }
-
-        model.addAttribute("username", account.getUsername());
+        model.addAttribute("email", Objects.requireNonNull(member).getEmail());
         model.addAttribute("exception", exception);
 
-        return "user/login/denied";
+        return "errors/denied";
     }
 }
