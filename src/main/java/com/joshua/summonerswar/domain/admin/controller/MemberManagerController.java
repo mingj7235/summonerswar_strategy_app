@@ -27,7 +27,7 @@ public class MemberManagerController {
     @GetMapping("/admin/accounts")
     public String getUsers (Model model) {
 
-        List<Member> accounts = memberManagerService.getUsers();
+        List<MemberManagerDto> accounts = memberManagerService.getUsers();
         model.addAttribute("accounts", accounts);
 
         return "admin/user/list";

@@ -16,8 +16,8 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-@Transactional
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MemberManagerService {
 
@@ -73,8 +73,10 @@ public class MemberManagerService {
     }
 
     @Transactional (readOnly = true)
-    public List<Member> getUsers() {
-        return memberRepository.findAll();
+    public List<MemberManagerDto> getUsers() {
+        return memberRepository.findAll()
+                .stream().map(MemberManagerDto::toDtoFromEntity)
+                .collect(Collectors.toList());
     }
 
     public void deleteUser(Long id) {
