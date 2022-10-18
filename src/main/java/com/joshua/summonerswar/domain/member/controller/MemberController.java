@@ -12,7 +12,6 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.validation.constraints.NotNull;
 
@@ -28,24 +27,6 @@ public class MemberController {
     @InitBinder("join")
     public void initBinderJoin(WebDataBinder webDataBinder) {
         webDataBinder.addValidators(memberJoinValidator);
-    }
-
-    @GetMapping ("/")
-    public String homeToLogin (Model model) {
-
-        model.addAttribute(new MemberRequestDto.Login());
-
-        return "member/login";
-    }
-
-    @GetMapping ("/member/login")
-    public String login(@RequestParam(value = "error", required = false) String error,
-                        @RequestParam (value = "exception", required = false) String exception,
-                        Model model) {
-
-        model.addAttribute("error", error);
-        model.addAttribute("exception", exception);
-        return "member/login";
     }
 
     @GetMapping ("/member/join")
@@ -65,16 +46,6 @@ public class MemberController {
 
 //        memberService.join(request);
         return "redirect:/";
-    }
-
-    @GetMapping ("/home")
-    public String home () {
-        return "index";
-    }
-
-    @GetMapping ("/errors/403")
-    public String errors_403 () {
-        return "errors/403";
     }
 
 }
