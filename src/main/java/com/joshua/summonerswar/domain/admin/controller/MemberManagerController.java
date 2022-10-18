@@ -1,5 +1,10 @@
 package com.joshua.summonerswar.domain.admin.controller;
 
+import com.joshua.summonerswar.domain.admin.dto.MemberManagerDto;
+import com.joshua.summonerswar.domain.admin.entity.Role;
+import com.joshua.summonerswar.domain.admin.service.MemberManagerService;
+import com.joshua.summonerswar.domain.admin.service.RoleService;
+import com.joshua.summonerswar.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -13,33 +18,33 @@ import java.util.List;
 @Slf4j
 @Controller
 @RequiredArgsConstructor
-public class UserManagerController {
+public class MemberManagerController {
 
-    private final UserService userService;
+    private final MemberManagerService memberManagerService;
 
     private final RoleService roleService;
 
     @GetMapping("/admin/accounts")
     public String getUsers (Model model) {
 
-        List<Account> accounts = userService.getUsers();
+        List<Member> accounts = memberManagerService.getUsers();
         model.addAttribute("accounts", accounts);
 
         return "admin/user/list";
     }
 
     @PostMapping("/admin/accounts")
-    public String modifyUser (AccountDto accountDto) {
-        userService.modifyUser(accountDto);
+    public String modifyUser (MemberManagerDto memberManagerDto) {
+        memberManagerService.modifyUser(memberManagerDto);
         return "redirect:/admin/accounts";
     }
 
     @GetMapping ("/admin/accounts/{id}")
     public String getUser (@PathVariable(value = "id") Long id, Model model) {
-        AccountDto accountDto = userService.getUser(id);
+        MemberManagerDto memberManagerDto = memberManagerService.getUser(id);
         List<Role> roleList = roleService.getRoles();
 
-        model.addAttribute("account", accountDto);
+        model.addAttribute("account", memberManagerDto);
         model.addAttribute("roleList", roleList);
 
         return "admin/user/detail";
@@ -48,7 +53,7 @@ public class UserManagerController {
     @GetMapping ("/admin/accounts/delete/{id}")
     public String removeUser (@PathVariable (value = "id") Long id, Model model) {
 
-        userService.deleteUser(id);
+        memberManagerService.deleteUser(id);
         return "redirect:/admin/users";
     }
 }

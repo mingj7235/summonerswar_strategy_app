@@ -1,7 +1,7 @@
 package com.joshua.summonerswar.domain.member.entity;
 
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
-import com.joshua.summonerswar.domain.role.entity.Role;
+import com.joshua.summonerswar.domain.admin.entity.Role;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 

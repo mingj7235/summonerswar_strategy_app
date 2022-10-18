@@ -28,10 +28,6 @@ public class MemberService{
 //        }
 //    }
 
-
-
-
-
     public boolean existsByEmail(final @NotBlank String email) {
         return memberRepository.existsByEmail(email);
     }

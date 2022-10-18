@@ -1,6 +1,6 @@
-package com.joshua.summonerswar.domain.resource.entity;
+package com.joshua.summonerswar.domain.admin.entity;
 
-import com.joshua.summonerswar.domain.role.entity.Role;
+import com.joshua.summonerswar.domain.admin.entity.Role;
 import lombok.*;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 

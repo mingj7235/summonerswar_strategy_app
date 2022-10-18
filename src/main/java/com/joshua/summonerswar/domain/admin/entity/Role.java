@@ -1,7 +1,6 @@
-package com.joshua.summonerswar.domain.role.entity;
+package com.joshua.summonerswar.domain.admin.entity;
 
 import com.joshua.summonerswar.domain.member.entity.Member;
-import com.joshua.summonerswar.domain.resource.entity.Resources;
 import lombok.*;
 
 import javax.persistence.*;

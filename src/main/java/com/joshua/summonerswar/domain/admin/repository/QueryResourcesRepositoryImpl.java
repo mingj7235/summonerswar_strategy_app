@@ -1,13 +1,13 @@
-package com.joshua.summonerswar.domain.resource.repository;
+package com.joshua.summonerswar.domain.admin.repository;
 
-import com.joshua.summonerswar.domain.resource.entity.Resources;
+import com.joshua.summonerswar.domain.admin.entity.Resources;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
-import static com.joshua.summonerswar.domain.resource.entity.QResources.resources;
-import static com.joshua.summonerswar.domain.role.entity.QRole.role;
+import static com.joshua.summonerswar.domain.admin.entity.QResources.resources;
+import static com.joshua.summonerswar.domain.admin.entity.QRole.role;
 
 @RequiredArgsConstructor
 public class QueryResourcesRepositoryImpl implements QueryResourcesRepository {

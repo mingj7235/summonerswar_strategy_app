@@ -2,7 +2,7 @@ package com.joshua.summonerswar.global.security.service;
 
 import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.member.repository.MemberRepository;
-import com.joshua.summonerswar.domain.role.entity.Role;
+import com.joshua.summonerswar.domain.admin.entity.Role;
 import com.joshua.summonerswar.global.security.common.MemberContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
