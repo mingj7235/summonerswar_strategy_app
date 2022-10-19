@@ -25,6 +25,7 @@ public class ResourcesDto {
 
     public static ResourcesDto toDtoFromEntity(Resources resources) {
         return ResourcesDto.builder()
+                .id(String.valueOf(resources.getId()))
                 .resourceName(resources.getResourceName())
                 .httpMethod(resources.getHttpMethod())
                 .orderNum(resources.getOrderNum())

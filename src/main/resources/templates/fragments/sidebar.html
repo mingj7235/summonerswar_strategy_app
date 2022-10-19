@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <ul th:fragment="sidebar" class="navbar-nav bg-gradient-dark sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
@@ -28,6 +29,19 @@
                 <i class="fas fa-fw fa-chart-area"></i>
                 <span>방덱 / 공덱 분석</span></a>
         </li>
+    </div>
+
+    <div sec:authorize="hasAuthority('ROLE_ADMIN')">
+
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <li class="nav-item">
+            <a class="nav-link" href="/admin/home">
+                <i class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                <span>관리자 모드</span>
+            </a>
+        </li>
+
     </div>
 
     <hr class="sidebar-divider d-none d-md-block">
