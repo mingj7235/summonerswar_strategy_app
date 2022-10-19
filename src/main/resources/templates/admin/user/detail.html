@@ -16,9 +16,9 @@
         <form class="form-horizontal" th:action="@{/admin/accounts}" method="post" th:object="${account}">
             <input th:type="hidden" name="id" th:value="*{id}" />
             <div class="form-group">
-                <label for="username" class="col-sm-2 control-label">아이디</label>
+                <label for="email" class="col-sm-2 control-label">이메일</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control input-large" name="username" id="username" placeholder="username" th:value="*{username}" required>
+                    <input type="text" class="form-control input-large" name="email" id="email" placeholder="username" th:value="*{email}" required>
                 </div>
             </div>
 
@@ -29,15 +29,15 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="email" class="col-sm-2 control-label">이메일</label>
+                <label for="nickname" class="col-sm-2 control-label">닉네임</label>
                 <div class="col-sm-10">
-                    <input type="email" class="form-control input-large" name="email" id="email" placeholder="이메일" th:value="*{email}" required>
+                    <input type="email" class="form-control input-large" name="nickname" id="nickname" placeholder="이메일" th:value="*{nickname}" required>
                 </div>
             </div>
             <div class="form-group">
-                <label for="age" class="col-sm-2 control-label">나이</label>
+                <label for="batch" class="col-sm-2 control-label">기수</label>
                 <div class="col-sm-10">
-                    <input type="text" class="form-control input-large" name="age" id="age" placeholder="나이" th:value="*{age}" required>
+                    <input type="text" class="form-control input-large" name="batch" id="batch" placeholder="나이" th:value="*{batch}" required>
                 </div>
             </div>
             <div class="form-group">
@@ -52,7 +52,7 @@
             <div class="form-group">
                 <div class="col-sm-offset-1 col-sm-10">
                     <button type="Submit" class="btn btn-dark btn-lg">등록</button>
-                    <a class="btn btn-dark btn-lg" style="margin:10;" th:href="@{/admin/accounts}">목록 </a>
+                    <a class="btn btn-dark btn-lg" style="margin:10px;" th:href="@{/admin/accounts}">목록 </a>
                 </div>
             </div>
         </form>

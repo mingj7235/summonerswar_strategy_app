@@ -26,6 +26,7 @@ public class MemberManagerDto {
 
     public static MemberManagerDto toDtoFromEntity (final @NotNull Member member) {
         return MemberManagerDto.builder()
+                .id(String.valueOf(member.getId()))
                 .email(member.getEmail())
                 .nickname(member.getNickname())
                 .batch(member.getBatch())

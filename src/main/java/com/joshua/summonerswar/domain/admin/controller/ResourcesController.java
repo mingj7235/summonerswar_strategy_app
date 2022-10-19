@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.HashSet;
 import java.util.List;
@@ -21,16 +22,21 @@ import java.util.Set;
 
 @Slf4j
 @Controller
+@RequestMapping ("/admin")
 @RequiredArgsConstructor
 public class ResourcesController {
 
     private final ResourcesService resourcesService;
-
     private final RoleService roleService;
-
     private final UrlFilterInvocationSecurityMetadataSource filterInvocationSecurityMetadataSource;
 
-    @GetMapping("/admin/resources")
+    /**
+     * 접근이 가능한 자원들 목록 조회
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping("/resources")
     public String getResources (Model model) {
         List<Resources> resources = resourcesService.getResources();
         model.addAttribute("resources", resources);
@@ -38,7 +44,13 @@ public class ResourcesController {
         return "admin/resource/list";
     }
 
-    @PostMapping("/admin/resources")
+    /**
+     * 접근 자원 등록
+     *
+     * @param resourcesDto
+     * @return
+     */
+    @PostMapping("/resources")
     public String createResources (ResourcesDto resourcesDto) {
 
         ModelMapper modelMapper = new ModelMapper();
@@ -54,8 +66,14 @@ public class ResourcesController {
         return "redirect:/admin/resources";
     }
 
-    @GetMapping ("/admin/resources/register")
-    public String viewRoles (Model model) {
+    /**
+     * 자원 상세 조회
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping ("/resources/register")
+    public String viewResources (Model model) {
         List<Role> roleList = roleService.getRoles();
         model.addAttribute("roleList", roleList);
 
@@ -68,21 +86,19 @@ public class ResourcesController {
         return "admin/resource/detail";
     }
 
-    @GetMapping ("/admin/resources/{id}")
+    @GetMapping ("/resources/{id}")
     public String getResources (@PathVariable String id, Model model) {
 
         List<Role> roleList = roleService.getRoles();
         model.addAttribute("roleList", roleList);
-        Resources resources = resourcesService.getResources(Long.parseLong(id));
 
-        ModelMapper modelMapper = new ModelMapper();
-        ResourcesDto resourcesDto = modelMapper.map(resources, ResourcesDto.class);
-        model.addAttribute("resources", resourcesDto);
+        Resources resources = resourcesService.getResources(Long.parseLong(id));
+        model.addAttribute("resources", ResourcesDto.toDtoFromEntity (resources));
 
         return "admin/resource/detail";
     }
 
-    @GetMapping ("/admin/resources/delete/{id}")
+    @GetMapping ("/resources/delete/{id}")
     public String removeResources (@PathVariable String id, Model model) {
         Resources resources = resourcesService.getResources(Long.parseLong(id));
         resourcesService.deleteResources(Long.parseLong(id));
