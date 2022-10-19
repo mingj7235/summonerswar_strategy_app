@@ -32,8 +32,7 @@ public class MemberManagerService {
         Role role = roleRepository.findByRoleName("ROLE_USER");
         Set<Role> roles = new HashSet<>();
         roles.add(role);
-        member.setUserRoles(roles);
-        memberRepository.save(member);
+        memberRepository.save(Member.updateRole(member, roles));
     }
 
     public void modifyUser(MemberManagerDto memberManagerDto) {
@@ -48,11 +47,10 @@ public class MemberManagerService {
                 Role role = roleRepository.findByRoleName(requestRole);
                 roles.add(role);
             });
-            member.setUserRoles(roles);
+            member = Member.updateRole(member, roles);
         }
 
-        member.setPassword(passwordEncoder.encode(memberManagerDto.getPassword()));
-        memberRepository.save(member);
+        memberRepository.save(Member.updatePassword(member, passwordEncoder.encode(memberManagerDto.getPassword())));
 
     }
 

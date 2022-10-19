@@ -12,7 +12,8 @@ import java.util.HashSet;
 import java.util.Set;
 
 @Entity
-@Data
+@Getter
+@Setter (AccessLevel.PRIVATE)
 @ToString(exclude = {"userRoles"})
 @SuperBuilder
 @EqualsAndHashCode(of = "id")
@@ -49,5 +50,15 @@ public class Member implements Serializable{
                 .nickname(request.getNickname())
                 .batch(request.getBatch())
                 .build();
+    }
+
+    public static Member updateRole(Member member, Set<Role> roles) {
+        member.setUserRoles(roles);
+        return member;
+    }
+
+    public static Member updatePassword(Member member, String encodedPassword) {
+        member.setPassword(encodedPassword);
+        return member;
     }
 }

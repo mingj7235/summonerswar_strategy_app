@@ -37,7 +37,7 @@ public class MemberController {
         return "member/join";
     }
 
-    @PostMapping ("/member/join")
+    @PostMapping ("/join")
     public String joinProc (final MemberRequestDto.@NotNull Join request,
                             Errors errors) {
 
