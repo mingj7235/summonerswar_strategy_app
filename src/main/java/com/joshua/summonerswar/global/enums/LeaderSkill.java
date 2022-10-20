@@ -11,8 +11,8 @@ public enum LeaderSkill {
 
     // HEALTH
 
-    ARENA_HEALTH_44 ("아레나 체력 44퍼", 44),
-    ARENA_HEALTH_33 ("아레나 체력 33퍼", 33),
+    ARENA_HEALTH_44 ("아레나 체력 44퍼", 44, "AH44"),
+    ARENA_HEALTH_33 ("아레나 체력 33퍼", 33, "AH33"),
 
     // DEFENSE
 
@@ -61,5 +61,17 @@ public enum LeaderSkill {
     private final String description;
 
     private final int amount;
+
+    private final String code;
+
+    public static LeaderSkill toEnumByCode (String code) {
+        for (LeaderSkill leaderSkill : LeaderSkill.values()) {
+            if (leaderSkill.getCode().equals(code)) {
+                return leaderSkill;
+            }
+        }
+
+        return null;
+    }
 
 }

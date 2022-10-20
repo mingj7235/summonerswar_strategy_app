@@ -8,4 +8,19 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class MonsterRequestDto {
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Register {
+
+        private String name;
+
+        private String attribute;
+
+        private String leaderSkill;
+
+        private String photoPath;
+
+    }
 }

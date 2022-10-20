@@ -11,4 +11,15 @@ public enum Attribute {
     DARK
 
     ;
+
+    public static Attribute toEnumByName (String name) {
+
+        for (Attribute attribute : Attribute.values()) {
+            if (attribute.name().equals(name)) {
+                return attribute;
+            }
+        }
+
+        return null;
+    }
 }
