@@ -8,6 +8,7 @@ import lombok.*;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Getter
@@ -30,12 +31,13 @@ public class Monster {
 
     private String photoPath;
 
-    public static Monster toEntity(final @NotNull MonsterRequestDto.Register request) {
+    public static Monster toEntity(final @NotNull MonsterRequestDto.Register request,
+                                   final @NotBlank String filePath) {
         return Monster.builder()
                 .name(request.getName())
                 .attribute(Attribute.toEnumByName(request.getAttribute()))
                 .leaderSkill(LeaderSkill.toEnumByCode(request.getLeaderSkill()))
-                .photoPath(request.getPhotoPath())
+                .photoPath(filePath)
                 .build();
     }
 }

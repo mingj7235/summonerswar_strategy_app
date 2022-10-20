@@ -132,89 +132,8 @@
 
         var table = "";
 
-        function search(){
-            $.fn.dataTable.ext.errMode = 'none';
-            table =  $('#orderClaimGroupList').DataTable({
-                processing: true,
-                serverSide: true,
-                ajax: {
-                    url: "/order/orderClaimGroupList",
-                    data: function (d) {
-                        var otherOption = $("#otherOptions").val();
-                        var data = {
-                            "otherOptions.orderCode": orderCode,
-                            "direction": d.order[0].dir.toUpperCase()
-                        };
-
-                        return data;
-                    },
-                    async: true,
-                    type: "POST",
-                    dataFilter: function (data) {
-                        data = JSON.parse(data);
-                        var json = {
-                            recordsTotal: data.responseObject.size,
-                            data: data.responseObject
-                        };
-                        $("#searchListSize").text(data.responseObject.length)
-                        return JSON.stringify(json);
-                    }
-                },
-                dataSrc: "",
-                columns: [
-                    { data: null },
-                    { data: 'brandCode'},
-                    { data: 'groupCodeName'},
-                    { data: 'groupEmail' },
-                    { data: 'regDate', render : function (data,type, row, meta){return commonUtil.dateFormat(data)} },
-                    { data: 'id'}
-                ],
-                'paging' : false,
-                'destroy': true,
-                'searching': false,
-                "bInfo" : false,
-                'columnDefs': [{
-                    'targets': 0,
-                    'searchable':false,
-                    'orderable':false,
-                    'className': 'dt-body-center',
-                    'render': function (data, type, full, meta){
-                        return '<input type="checkbox" name="id[]" value="'
-                            + meta.row + meta.settings._iDisplayStart + 1 + '">';
-                    }
-
-                },
-                    {
-                        'targets': 5,
-                        'visible': false,
-                        'searchable': false
-                    }],
-                "language": {
-                    processing: '<div class="spinner-border" role="status"> <span class="visually-hidden">Loading...</span></div>',
-                    emptyTable : '<div>검색 결과가 없습니다.</div>',
-                    zeroRecords: '<div>검색 결과가 없습니다.</div>',
-                    "paginate": {
-                        "previous": "<i class='mdi mdi-chevron-left'>",
-                        "next": "<i class='mdi mdi-chevron-right'>"
-                    }
-                },
-                "drawCallback": function (settings) {
-                    $('.dataTables_paginate > .pagination').addClass('pagination-rounded');
-                },
-                'order': [1, 'desc']
-
-            });
-            $("#orderClaimGroupList_info").hide();
-            //전체선택 및 해제
-            $('#select-all').on('click', function(){
-                // Check/uncheck all checkboxes in the table
-                var rows = table.rows({ 'search': 'applied' }).nodes();
-                $('input[type="checkbox"]', rows).prop('checked', this.checked);
-            });
-        }
         function orderClaimSave(){
             var today = new Date();
-            var checkGroupCodeList =[];
             var imageInput = $("#file")[0];
             var formData = new FormData();
             formData.append("file", imageInput.files[0]);

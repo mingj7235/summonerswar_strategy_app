@@ -9,15 +9,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.NotNull;
+import java.io.IOException;
+import java.util.List;
 
 @Slf4j
 @Controller
-@RequestMapping ("/monsters")
 @RequiredArgsConstructor
 public class MonsterController {
 
@@ -27,7 +27,7 @@ public class MonsterController {
      * 몬스터 전체 리스트 화면
      */
 
-    @GetMapping("/list")
+    @GetMapping("/monsters")
     public String viewList (Model model) {
         return "monster/list";
     }
@@ -35,7 +35,7 @@ public class MonsterController {
     /**
      * 몬스터 등록 화면
      */
-    @GetMapping("/register")
+    @GetMapping("/monsters/register")
     public String viewRegister (Model model) {
         return "monster/register";
     }
@@ -46,11 +46,24 @@ public class MonsterController {
      * @param request
      * @return
      */
-    @PostMapping ("/register")
-    public ResponseEntity<MonsterResponseDto> register (final @NotNull MonsterRequestDto.Register request) {
+    @PostMapping ("/monsters/register")
+    @ResponseBody
+    public ResponseEntity<MonsterResponseDto> register (@RequestPart(name = "file", required = false) MultipartFile multipartFile,
+                                                        final @RequestPart (name = "request") @NotNull MonsterRequestDto.Register request) throws IOException {
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(monsterService.register(request));
+                .body(monsterService.register(request, multipartFile));
+    }
+
+    /**
+     * 몬스터 전체 목록 API
+     */
+    @PostMapping ("/monsters")
+    @ResponseBody
+    public ResponseEntity<List<MonsterResponseDto>> getList () {
+
+        return ResponseEntity.ok()
+                .body(monsterService.getList());
     }
 
 }

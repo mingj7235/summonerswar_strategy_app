@@ -20,7 +20,6 @@ public class MonsterRequestDto {
 
         private String leaderSkill;
 
-        private String photoPath;
 
     }
 }
