@@ -12,5 +12,15 @@ public class DefDeckRequestDto {
     @NoArgsConstructor
     public static class Register {
 
+        private String deckName;
+
+        private String deckDescription;
+
+        private Long leaderMonsterId;
+
+        private Long secondMonsterId;
+
+        private Long thirdMonsterId;
+
     }
 }

@@ -27,6 +27,8 @@ public class AtkDeck extends BaseTime {
 
     private String deckDescription;
 
+    private String makerNickName;
+
     @OneToMany (mappedBy = "atkDeck")
     private List<MonsterAtkDeck> monsterAtkDecks = new ArrayList<>();
 

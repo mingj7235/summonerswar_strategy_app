@@ -5,7 +5,9 @@ import com.joshua.summonerswar.domain.siege.dto.response.DefDeckResponseDto;
 import com.joshua.summonerswar.domain.siege.service.DefDeckFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,10 +31,12 @@ public class DefDeckController {
      */
     @PostMapping ("/register")
     @ResponseBody
-    public ResponseEntity<DefDeckResponseDto> register (final @NotNull DefDeckRequestDto.Register request) {
+    public ResponseEntity<DefDeckResponseDto> register (Authentication authentication,
+                                                        final @NotNull DefDeckRequestDto.Register request) {
 
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(defDeckFacade.register(authentication.getName(), request));
 
-        return null;
     }
 
 }
