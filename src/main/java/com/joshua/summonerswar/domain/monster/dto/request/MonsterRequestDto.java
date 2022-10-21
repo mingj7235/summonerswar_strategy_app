@@ -20,6 +20,13 @@ public class MonsterRequestDto {
 
         private String leaderSkill;
 
+    }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Update {
+
+        private String leaderSkill;
     }
 }
