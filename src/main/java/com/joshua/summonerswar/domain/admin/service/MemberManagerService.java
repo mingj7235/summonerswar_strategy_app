@@ -37,8 +37,7 @@ public class MemberManagerService {
 
     public void modifyUser(MemberManagerDto memberManagerDto) {
 
-        ModelMapper modelMapper = new ModelMapper();
-        Member member = modelMapper.map(memberManagerDto, Member.class);
+        Member member = Member.toEntityFromMemberManagerDto(memberManagerDto);
 
         // 유저 정보 권한 수정이 있을 경우
         if (memberManagerDto.getRoles() != null) {

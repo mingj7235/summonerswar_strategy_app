@@ -1,5 +1,6 @@
 package com.joshua.summonerswar.domain.member.entity;
 
+import com.joshua.summonerswar.domain.admin.dto.MemberManagerDto;
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
 import com.joshua.summonerswar.domain.admin.entity.Role;
 import lombok.*;
@@ -47,6 +48,15 @@ public class Member implements Serializable{
         return Member.builder()
                 .email(request.getEmail())
 //                .password(EncodeUtils.encode(request.getPassword()))
+                .nickname(request.getNickname())
+                .batch(request.getBatch())
+                .build();
+    }
+
+    public static Member toEntityFromMemberManagerDto (final @NotNull MemberManagerDto request) {
+        return Member.builder()
+                .id(Long.valueOf(request.getId()))
+                .email(request.getEmail())
                 .nickname(request.getNickname())
                 .batch(request.getBatch())
                 .build();
