@@ -35,7 +35,7 @@ public class DefDeckFacade {
 
         monsterDefDeckService.registerDefDeck(defDeck, monsters);
 
-        return DefDeckResponseDto.toDtoFromEntity(defDeck);
+        return DefDeckResponseDto.toDtoFromRegister(defDeck, monsters);
     }
 
 

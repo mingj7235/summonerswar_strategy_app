@@ -5,6 +5,7 @@ import com.joshua.summonerswar.domain.siege.entity.DefDeck;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Getter
 @Setter
@@ -23,10 +24,14 @@ public class DefDeckResponseDto {
 
     private Monster thirdMonster;
 
-    public static DefDeckResponseDto toDtoFromEntity(final @NotNull DefDeck entity) {
+    public static DefDeckResponseDto toDtoFromRegister(final @NotNull DefDeck entity,
+                                                       final @NotNull List<Monster> monsters) {
         return DefDeckResponseDto.builder()
                 .deckName(entity.getDeckName())
                 .deckDescription(entity.getDeckDescription())
+                .leaderMonster(monsters.get(0))
+                .secondMonster(monsters.get(1))
+                .thirdMonster(monsters.get(2))
                 .build();
     }
 }
