@@ -23,4 +23,15 @@ public class DefDeckRequestDto {
         private Long thirdMonsterId;
 
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Update {
+
+        private String deckName;
+
+        private String deckDescription;
+    }
+
 }
