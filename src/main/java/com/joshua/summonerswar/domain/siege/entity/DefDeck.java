@@ -6,6 +6,7 @@ import com.joshua.summonerswar.domain.siege.entity.relation.MonsterDefDeck;
 import com.joshua.summonerswar.global.base.BaseTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -46,5 +47,22 @@ public class DefDeck extends BaseTime {
                 .deckDescription(request.getDeckDescription())
                 .makerNickName(name)
                 .build();
+    }
+
+    public static DefDeck update(final @NotNull DefDeck defDeck,
+                                 final @NotNull DefDeckRequestDto.Update request,
+                                 final @NotNull String makerName) {
+
+        if(StringUtils.hasText(request.getDeckName())) {
+            defDeck.setDeckName(request.getDeckName());
+        }
+
+        if (StringUtils.hasText(request.getDeckDescription())) {
+            defDeck.setDeckDescription(request.getDeckDescription());
+        }
+
+        defDeck.setMakerNickName(makerName);
+
+        return defDeck;
     }
 }

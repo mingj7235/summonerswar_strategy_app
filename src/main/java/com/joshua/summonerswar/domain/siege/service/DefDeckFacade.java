@@ -47,7 +47,9 @@ public class DefDeckFacade {
                                        final @NotNull DefDeckRequestDto.Register request) {
 
         DefDeck defDeck = defDeckService.register(makerName, request);
-        List<Monster> monsters = getMonsters(request);
+        List<Monster> monsters = getMonsters(request.getLeaderMonsterId(),
+                                             request.getSecondMonsterId(),
+                                             request.getThirdMonsterId());
 
         monsterDefDeckService.registerDefDeck(defDeck, monsters);
 
@@ -57,17 +59,25 @@ public class DefDeckFacade {
     public DefDeckResponseDto update(final @NotBlank String makerName,
                                      final @NotBlank String defDeckId,
                                      final @NotNull DefDeckRequestDto.Update request) {
-        return null;
+
+        DefDeck defDeck = defDeckService.findById(defDeckId);
+
+        List<Monster> monsterList = monsterDefDeckService.findMonsterListByDefDeckId(Long.valueOf(defDeckId));
+        DefDeck.update(defDeck, request, makerName);
+
+        return DefDeckResponseDto.toDtoFromRegister(defDeck, monsterList);
     }
 
 
-    private List<Monster> getMonsters (final @NotNull DefDeckRequestDto.Register request) {
+    private List<Monster> getMonsters (final @NotNull Long leaderMonsterId,
+                                       final @NotNull Long secondMonsterId,
+                                       final @NotNull Long thirdMonsterId) {
 
         List<Monster> monsterList = new ArrayList<>();
 
-        Monster leaderMonster = monsterService.findById(String.valueOf(request.getLeaderMonsterId()));
-        Monster secondMonster = monsterService.findById(String.valueOf(request.getSecondMonsterId()));
-        Monster thirdMonster = monsterService.findById(String.valueOf(request.getThirdMonsterId()));
+        Monster leaderMonster = monsterService.findById(leaderMonsterId);
+        Monster secondMonster = monsterService.findById(secondMonsterId);
+        Monster thirdMonster = monsterService.findById(thirdMonsterId);
 
         monsterList.add(leaderMonster);
         monsterList.add(secondMonster);

@@ -31,7 +31,7 @@ public class MonsterManagerFacade {
      * @return
      */
     public MonsterResponseDto findById(final @NotBlank String id) {
-        return MonsterResponseDto.toDtoFromEntity(monsterService.findById(id));
+        return MonsterResponseDto.toDtoFromEntity(monsterService.findById(Long.valueOf(id)));
     }
 
     /**
@@ -71,7 +71,7 @@ public class MonsterManagerFacade {
     public MonsterResponseDto update(final @NotBlank String id,
                                      final @NotNull MultipartFile multipartFile,
                                      final @NotNull MonsterRequestDto.Update request) throws IOException {
-        Monster monster = monsterService.findById(id);
+        Monster monster = monsterService.findById(Long.valueOf(id));
         return MonsterResponseDto.toDtoFromEntity(monsterService.update(monster, multipartFile, request));
     }
 }

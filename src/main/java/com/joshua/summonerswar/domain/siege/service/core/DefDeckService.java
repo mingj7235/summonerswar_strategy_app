@@ -27,4 +27,10 @@ public class DefDeckService {
     public List<DefDeck> findAll() {
         return defDeckRepository.findAll();
     }
+
+    public DefDeck findById(final String defDeckId) {
+        return defDeckRepository.findById(Long.valueOf(defDeckId))
+                .orElseThrow(() -> new IllegalArgumentException("Not Found DefDeck"));
+    }
+
 }

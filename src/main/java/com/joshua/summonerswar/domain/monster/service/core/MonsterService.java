@@ -64,8 +64,8 @@ public class MonsterService {
      * @param id
      * @return
      */
-    public Monster findById(String id) {
-        return monsterRepository.findById(Long.valueOf(id))
+    public Monster findById(Long id) {
+        return monsterRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("Monster Not Found"));
     }
 
