@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Slf4j
@@ -18,9 +19,23 @@ import java.util.List;
 public class RelMonsterDefDeckService {
 
     private final RelMonsterDefDeckRepository repository;
+
     public void registerDefDeck(DefDeck defDeck, List<Monster> monsters) {
         monsters.forEach(monster -> {
             repository.save(MonsterDefDeck.toEntity(defDeck, monster));
         });
     }
+
+    public List<MonsterDefDeck> findAll () {
+        return repository.findAll();
+    }
+
+    public List<MonsterDefDeck> findByMonsterId (final @NotNull Long monsterId) {
+        return repository.findByMonsterId(monsterId);
+    }
+
+    public List<MonsterDefDeck> findByDefDeckId (final @NotNull Long defDeckId) {
+        return repository.findByDefDeckId(defDeckId);
+    }
+
 }

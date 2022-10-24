@@ -34,4 +34,10 @@ public class DefDeckResponseDto {
                 .thirdMonster(monsters.get(2))
                 .build();
     }
+
+    public static DefDeckResponseDto toDtoFromEntity(final @NotNull DefDeck entity) {
+        return DefDeckResponseDto.builder()
+
+                .build();
+    }
 }
