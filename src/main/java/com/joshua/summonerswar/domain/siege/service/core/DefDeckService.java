@@ -17,7 +17,6 @@ import java.util.List;
 @RequiredArgsConstructor
 public class DefDeckService {
 
-    private final RelMonsterDefDeckService monsterDefDeckService;
     private final DefDeckRepository defDeckRepository;
 
     public DefDeck register(String makerName, DefDeckRequestDto.Register request) {

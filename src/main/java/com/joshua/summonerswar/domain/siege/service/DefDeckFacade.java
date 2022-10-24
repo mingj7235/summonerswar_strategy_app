@@ -30,26 +30,17 @@ public class DefDeckFacade {
 
     public List<DefDeckResponseDto> findAll() {
 
-        /**
-         * 1. DefDeck 불러 오기
-         * 2. DefDeck 에 맞물려있는 MonsterDefDeck 불러오기 (byDefDeckId)
-         * 3. 불러온 MonsterDefDeck을 통해서 MonsterList 뽑아오기
-         * 4. DefDeckResponse 에 담기
-         */
+        List<DefDeckResponseDto> defDeckResponseDtoList = new ArrayList<>();
 
+        defDeckService.findAll()
+                .forEach(defDeck ->
+                    defDeckResponseDtoList
+                            .add(DefDeckResponseDto.toDtoFromRegister(
+                                    defDeck,
+                                    monsterDefDeckService.findMonsterListByDefDeckId(defDeck.getId())))
+                );
 
-        List<DefDeck> defDeckList = defDeckService.findAll();
-
-        List<Monster> monsterList = new ArrayList<>();
-
-        defDeckList
-                        .forEach(defDeck -> {
-                            defDeck.getMonsterDefDecks().forEach(monsterDefDeck -> {
-                                monsterList.add(monsterDefDeck.getMonster());
-                            });
-                        });
-
-        return null;
+        return defDeckResponseDtoList;
     }
 
     public DefDeckResponseDto register(final @NotBlank String makerName,
@@ -63,6 +54,11 @@ public class DefDeckFacade {
         return DefDeckResponseDto.toDtoFromRegister(defDeck, monsters);
     }
 
+    public DefDeckResponseDto update(final @NotBlank String makerName,
+                                     final @NotBlank String defDeckId,
+                                     final @NotNull DefDeckRequestDto.Update request) {
+        return null;
+    }
 
 
     private List<Monster> getMonsters (final @NotNull DefDeckRequestDto.Register request) {
@@ -79,5 +75,6 @@ public class DefDeckFacade {
 
         return monsterList;
     }
+
 
 }

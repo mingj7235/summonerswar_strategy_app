@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface RelMonsterDefDeckRepository extends JpaRepository<MonsterDefDeck, Long> {
+public interface RelMonsterDefDeckRepository extends JpaRepository<MonsterDefDeck, Long>, QueryRelMonsterDefDeckRepository {
 
     List<MonsterDefDeck> findByMonsterId (Long monsterId);
 

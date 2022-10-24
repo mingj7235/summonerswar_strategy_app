@@ -26,16 +26,8 @@ public class RelMonsterDefDeckService {
         });
     }
 
-    public List<MonsterDefDeck> findAll () {
-        return repository.findAll();
-    }
-
-    public List<MonsterDefDeck> findByMonsterId (final @NotNull Long monsterId) {
-        return repository.findByMonsterId(monsterId);
-    }
-
-    public List<MonsterDefDeck> findByDefDeckId (final @NotNull Long defDeckId) {
-        return repository.findByDefDeckId(defDeckId);
+    public List<Monster> findMonsterListByDefDeckId (final @NotNull Long defDeckId) {
+        return repository.findMonsterIdListByDefDeckId(defDeckId);
     }
 
 }
