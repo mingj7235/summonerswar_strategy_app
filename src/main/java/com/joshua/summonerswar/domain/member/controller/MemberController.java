@@ -44,7 +44,7 @@ public class MemberController {
         if (errors.hasErrors())
             return "member/join";
 
-//        memberService.join(request);
+        memberService.join(request);
         return "redirect:/";
     }
 

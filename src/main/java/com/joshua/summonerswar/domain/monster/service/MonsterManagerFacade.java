@@ -74,4 +74,8 @@ public class MonsterManagerFacade {
         Monster monster = monsterService.findById(Long.valueOf(id));
         return MonsterResponseDto.toDtoFromEntity(monsterService.update(monster, multipartFile, request));
     }
+
+    public void delete(final @NotBlank String id) {
+        monsterService.delete(id);
+    }
 }

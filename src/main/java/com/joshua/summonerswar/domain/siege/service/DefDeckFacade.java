@@ -5,7 +5,6 @@ import com.joshua.summonerswar.domain.monster.service.core.MonsterService;
 import com.joshua.summonerswar.domain.siege.dto.request.DefDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.dto.response.DefDeckResponseDto;
 import com.joshua.summonerswar.domain.siege.entity.DefDeck;
-import com.joshua.summonerswar.domain.siege.entity.relation.MonsterDefDeck;
 import com.joshua.summonerswar.domain.siege.service.core.DefDeckService;
 import com.joshua.summonerswar.domain.siege.service.core.relation.RelMonsterDefDeckService;
 import lombok.RequiredArgsConstructor;

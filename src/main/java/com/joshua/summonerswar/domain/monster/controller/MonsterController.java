@@ -35,16 +35,6 @@ public class MonsterController {
     }
 
     /**
-     * 몬스터 등록 화면
-     */
-    @GetMapping("/monsters/register")
-    public String viewRegister (Model model) {
-
-        model.addAttribute("monster", new MonsterRequestDto.Register());
-        return "monster/register";
-    }
-
-    /**
      * 몬스터 상세 조회 화면
      *
      * @param id
@@ -60,47 +50,12 @@ public class MonsterController {
     }
 
     /**
-     * 몬스터 전체 목록 API
+     * 몬스터 등록 화면
      */
-    @PostMapping ("/monsters")
-    @ResponseBody
-    public ResponseEntity<List<MonsterResponseDto>> getList () {
+    @GetMapping("/monsters/register")
+    public String viewRegister (Model model) {
 
-        return ResponseEntity.ok()
-                .body(monsterManagerFacade.getList());
+        model.addAttribute("monster", new MonsterRequestDto.Register());
+        return "monster/register";
     }
-
-    /**
-     * 몬스터 등록 API
-     *
-     * @param request
-     * @return
-     */
-    @PostMapping ("/monsters/register")
-    @ResponseBody
-    public ResponseEntity<MonsterResponseDto> register (@RequestPart(name = "file", required = false) MultipartFile multipartFile,
-                                                        final @RequestPart (name = "request") @NotNull MonsterRequestDto.Register request) throws IOException {
-
-        return ResponseEntity.status(HttpStatus.CREATED)
-                .body(monsterManagerFacade.register(multipartFile, request));
-    }
-
-    /**
-     * 몬스터 정보 수정 API
-     *
-     * @param multipartFile
-     * @param request
-     * @return
-     * @throws IOException
-     */
-    @PostMapping ("/monsters/update/{id}")
-    @ResponseBody
-    public ResponseEntity<MonsterResponseDto> update (@PathVariable String id,
-                                                      final @RequestPart(name = "file", required = false) MultipartFile multipartFile,
-                                                      final @RequestPart (name = "request") @NotNull MonsterRequestDto.Update request) throws IOException {
-
-        return ResponseEntity.ok()
-                .body(monsterManagerFacade.update(id, multipartFile, request));
-    }
-
 }

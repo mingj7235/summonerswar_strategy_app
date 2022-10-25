@@ -49,13 +49,16 @@ public class MonsterService {
      * @return
      * @throws IOException
      */
-
     public Monster update (final @NotNull Monster monster,
                            final @NotNull MultipartFile multipartFile,
                            final @NotNull MonsterRequestDto.Update request) throws IOException {
 
         return monsterRepository.save(Objects.requireNonNull(
                 Monster.update(monster, request, multipartFile != null ? s3Upload.upload(multipartFile) : null)));
+    }
+
+    public void delete(final @NotBlank String id) {
+        monsterRepository.deleteById(Long.valueOf(id));
     }
 
     /**
