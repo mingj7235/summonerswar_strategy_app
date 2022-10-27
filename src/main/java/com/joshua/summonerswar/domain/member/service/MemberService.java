@@ -30,10 +30,12 @@ public class MemberService{
     }
 
 
-    private void checkPassword (String rawPassword, String encodedPassword) {
+    public String checkPassword (String rawPassword, String encodedPassword) {
         if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
-            throw new IllegalArgumentException("비밀번호가 맞지 않습니다.");
+            return "fail";
         }
+
+        return "ok";
     }
 
     public boolean existsByEmail(final @NotBlank String email) {

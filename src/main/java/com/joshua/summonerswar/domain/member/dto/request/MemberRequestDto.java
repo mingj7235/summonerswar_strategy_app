@@ -61,5 +61,14 @@ public class MemberRequestDto {
         private String otherMonster;
     }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class PasswordCheck {
+        private String password;
+
+        private String checkPassword;
+    }
+
 
 }
