@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 @Slf4j
@@ -18,6 +19,12 @@ import javax.validation.constraints.NotNull;
 public class MemberApiController {
 
     private final MemberService memberService;
+
+    @PostMapping ("/duplication")
+    public ResponseEntity<String> checkEmailDuplication (final @NotBlank String email) {
+        return ResponseEntity.ok()
+                .body(memberService.checkEmailDuplication(email));
+    }
 
     @PostMapping ("/passwordCheck")
     public ResponseEntity<String> passwordCheck (final MemberRequestDto.@NotNull PasswordCheck request) {

@@ -34,6 +34,12 @@ public class MemberService{
         if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
             return "fail";
         }
+        return "ok";
+    }
+    public String checkEmailDuplication(final String email) {
+        if (memberRepository.existsByEmail(email)) {
+            return "fail";
+        }
 
         return "ok";
     }
@@ -41,5 +47,7 @@ public class MemberService{
     public boolean existsByEmail(final @NotBlank String email) {
         return memberRepository.existsByEmail(email);
     }
+
+
 
 }

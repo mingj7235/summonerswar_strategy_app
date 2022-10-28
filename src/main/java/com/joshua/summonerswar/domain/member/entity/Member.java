@@ -47,7 +47,6 @@ public class Member implements Serializable{
     public static Member toEntity (final MemberRequestDto.@NotNull Join request) {
         return Member.builder()
                 .email(request.getEmail())
-//                .password(EncodeUtils.encode(request.getPassword()))
                 .nickname(request.getNickname())
                 .batch(request.getBatch())
                 .build();
