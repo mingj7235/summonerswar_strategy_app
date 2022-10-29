@@ -29,4 +29,10 @@ public class MemberFacade {
                 memberService.join(request));
     }
 
+    public MemberResponseDto.MemberInfo update (final @NotNull Long id,
+                                                final MemberRequestDto.@NotNull Update request) {
+        return MemberResponseDto.MemberInfo.toDtoFromEntity(memberService.update(id, request));
+
+    }
+
 }

@@ -48,6 +48,12 @@ public class MemberRequestDto {
     @Valid
     public static class Update {
 
+        private String password;
+
+        private String nickname;
+
+        private String batch;
+
     }
 
     @Getter

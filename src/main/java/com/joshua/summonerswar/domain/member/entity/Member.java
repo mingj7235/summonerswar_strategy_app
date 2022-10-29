@@ -5,6 +5,7 @@ import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
 import com.joshua.summonerswar.domain.admin.entity.Role;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -70,4 +71,15 @@ public class Member implements Serializable{
         member.setPassword(encodedPassword);
         return member;
     }
+
+    public static Member updateInfo(final Member member, final MemberRequestDto.Update request) {
+        if (StringUtils.hasText(request.getNickname()))
+            member.setNickname(request.getNickname());
+
+        if (StringUtils.hasText(request.getBatch()))
+            member.setBatch(request.getBatch());
+
+        return member;
+    }
+
 }

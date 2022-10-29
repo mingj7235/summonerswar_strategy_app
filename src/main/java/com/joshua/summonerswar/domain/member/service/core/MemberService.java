@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -29,6 +30,19 @@ public class MemberService{
         return Member.updatePassword(member, passwordEncoder.encode(request.getPassword()));
     }
 
+    public Member update(final @NotNull Long id,
+                         final MemberRequestDto.@NotNull Update request) {
+
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Not found Member"));
+
+        Member updatedMember = Member.updateInfo(member, request);
+
+        if (StringUtils.hasText(request.getPassword())) {
+            return Member.updatePassword(updatedMember, passwordEncoder.encode(request.getPassword()));
+        }
+        return updatedMember;
+    }
 
     public String checkPassword (String rawPassword, String encodedPassword) {
         if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
