@@ -1,4 +1,4 @@
-package com.joshua.summonerswar.domain.member.service;
+package com.joshua.summonerswar.domain.member.service.core;
 
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
 import com.joshua.summonerswar.domain.member.entity.Member;

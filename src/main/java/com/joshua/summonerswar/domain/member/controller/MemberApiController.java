@@ -1,7 +1,7 @@
 package com.joshua.summonerswar.domain.member.controller;
 
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
-import com.joshua.summonerswar.domain.member.service.MemberService;
+import com.joshua.summonerswar.domain.member.service.core.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
