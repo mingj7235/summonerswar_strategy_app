@@ -1,26 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}" lang="">
 
-</body>
+<div layout:fragment="content">
+
+    <div> 몬스터 등록 화면 </div>
+
+    <tr>
+        <th style="background-color: #f1f3fa !important;">첨부파일</th>
+        <td colspan="3">
+            <div class="mb-3">
+                <form id="fileForm" method="post" enctype="multipart/form-data">
+                    <input type="file" id="file"  class="form-control">
+                </form>
+            </div>
+        </td>
+    </tr>
+
+</div>
+
+<div th:replace="./fragments/footer.html :: footer"></div>
+
+<a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+</a>
+<script src="/js/jquery/jquery.min.js"></script>
+<script src="/js/bootstrap/bootstrap.bundle.min.js"></script>
+<script src="/js/jquery-easing/jquery.easing.min.js"></script>
+<script src="/js/sb-admin-2.min.js"></script>
+
+<script th:inline="javascript">
+
+    $(document ).ready(function() {
+        // getOrderDetailInfo(); //정보조회
+    });
+    var orderCode = /*[[${orderCode}]]*/;
+    var orderDetailSeq = /*[[${orderDetailSeq}]]*/;
+
+    var table = "";
+
+    function orderClaimSave(){
+        var today = new Date();
+        var imageInput = $("#file")[0];
+        var formData = new FormData();
+        formData.append("file", imageInput.files[0]);
+
+
+        var param = {
+            "orderCode": orderCode,
+            "orderDetailSeq": orderDetailSeq,
+            "brandCode":$("#brandCode").attr('data-brand-code'),
+            "reqDate": commonUtil.dateFormat(today),
+            "reqStatus": $("#requestStatus").val(),
+            "claimType": $("#claimType").val(),
+            "message": $("#message").val(),
+        };
+
+        console.log(param);
+
+        formData.append("request", new Blob([JSON.stringify(param)], {type: "application/json"}));
+
+        $.ajax({
+            type: "POST",
+            url: '/order/orderClaimSave',
+            data: formData,
+            processData: false,
+            contentType: false,
+            cache: false,
+            success: function (response) {
+                var data = response.responseObject;
+                console.log(data);
+                if(data != null){
+                    alert("등록성공하였습니다.");
+                    window.close();
+                }
+            },error : function (req, status, error) {
+                alert(req.responseJSON.message);
+            }
+        });
+
+    }
+
+
+</script>
+
 </html>
 
 
 
 
 
-
-<tr>
-    <th style="background-color: #f1f3fa !important;">첨부파일</th>
-    <td colspan="3">
-        <div class="mb-3">
-            <form id="fileForm" method="post" enctype="multipart/form-data">
-                <input type="file" id="file"  class="form-control">
-            </form>
-        </div>
-    </td>
-</tr>
