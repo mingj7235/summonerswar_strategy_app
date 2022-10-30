@@ -32,5 +32,4 @@ function registerMonster(){
             alert("몬스터 등록에 실패했습니다.");
         }
     });
-
 }

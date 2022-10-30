@@ -35,8 +35,6 @@ public class MemberRequestDto {
 
         private String password;
 
-        private String passwordCheck;
-
         private String nickname;
 
         private String batch;

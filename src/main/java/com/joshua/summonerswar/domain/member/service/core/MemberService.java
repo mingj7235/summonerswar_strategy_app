@@ -44,8 +44,8 @@ public class MemberService{
         return updatedMember;
     }
 
-    public String checkPassword (String rawPassword, String encodedPassword) {
-        if (!passwordEncoder.matches(rawPassword, encodedPassword)) {
+    public String checkPassword (String password, String checkPassword) {
+        if (!password.equals(checkPassword)) {
             return "fail";
         }
         return "ok";
@@ -54,14 +54,6 @@ public class MemberService{
         if (memberRepository.existsByEmail(email)) {
             return "fail";
         }
-
         return "ok";
     }
-
-    public boolean existsByEmail(final @NotBlank String email) {
-        return memberRepository.existsByEmail(email);
-    }
-
-
-
 }
