@@ -67,6 +67,11 @@ public class DefDeckFacade {
         return DefDeckResponseDto.toDtoFromRegister(defDeck, monsterList);
     }
 
+    public void delete(final String deleteName, final String id) {
+
+
+    }
+
 
     private List<Monster> getMonsters (final @NotNull Long leaderMonsterId,
                                        final @NotNull Long secondMonsterId,
@@ -84,6 +89,7 @@ public class DefDeckFacade {
 
         return monsterList;
     }
+
 
 
 }

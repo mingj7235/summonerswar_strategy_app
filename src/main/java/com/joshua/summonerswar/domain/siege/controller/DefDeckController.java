@@ -16,7 +16,6 @@ import javax.validation.constraints.NotNull;
 
 @Slf4j
 @Controller
-@RequestMapping ("/def")
 @RequiredArgsConstructor
 public class DefDeckController {
 
@@ -26,7 +25,7 @@ public class DefDeckController {
      * 방덱 목록 불러오기
      */
 
-    @GetMapping ("/monsters")
+    @GetMapping ("/defDecks")
     public String viewList (Model model) {
 
         model.addAttribute("monsters", defDeckFacade.findAll());
@@ -41,7 +40,7 @@ public class DefDeckController {
      * @param request
      * @return
      */
-    @PostMapping ("/register")
+    @PostMapping ("/defDecks")
     @ResponseBody
     public ResponseEntity<DefDeckResponseDto> register (Authentication authentication,
                                                         final @NotNull DefDeckRequestDto.Register request) {
@@ -51,7 +50,7 @@ public class DefDeckController {
 
     }
 
-    @PostMapping("/update/{id}")
+    @PatchMapping("/defDecks/{id}")
     @ResponseBody
     public ResponseEntity<DefDeckResponseDto> update (Authentication authentication,
                                                       final @NotNull @PathVariable String id,
@@ -60,4 +59,17 @@ public class DefDeckController {
         return ResponseEntity.ok()
                 .body(defDeckFacade.update(authentication.getName(), id, request));
     }
+
+    @DeleteMapping("/defDecks/{id}")
+    @ResponseBody
+    public ResponseEntity<DefDeckResponseDto> delete (Authentication authentication,
+                                                      final @NotNull @PathVariable String id) {
+
+        defDeckFacade.delete(authentication.getName(), id);
+
+        return ResponseEntity.noContent()
+                .build();
+    }
+
+
 }
