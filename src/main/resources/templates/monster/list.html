@@ -5,7 +5,15 @@
 
 <div layout:fragment="content">
 
-    <div> 몬스터 목록 화면 </div>
+    <button>
+        <a th:href="@{/monsters/register}">몬스터 등록</a>
+    </button>
+
+    <div>
+        <table id="monsterList" style="border: 1px solid #1c294e;"></table>
+    </div>
+
+
 
 </div>
 
