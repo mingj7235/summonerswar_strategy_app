@@ -1,5 +1,7 @@
 package com.joshua.summonerswar.domain.member.service.core;
 
+import com.joshua.summonerswar.domain.admin.entity.Role;
+import com.joshua.summonerswar.domain.admin.repository.RoleRepository;
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
 import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.member.repository.MemberRepository;
@@ -12,6 +14,8 @@ import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.HashSet;
+import java.util.Set;
 
 @Slf4j
 @Service
@@ -21,11 +25,18 @@ public class MemberService{
 
     private final MemberRepository memberRepository;
 
+    private final RoleRepository roleRepository;
+
     private final PasswordEncoder passwordEncoder;
 
     public Member join(final MemberRequestDto.@NotNull Join request) {
         log.info("일반 유저 가입 : {}", request.getNickname());
         Member member = memberRepository.save(Member.toEntity(request));
+
+        Role role = roleRepository.findByRoleName("ROLE_USER");
+        Set<Role> roles = new HashSet<>();
+        roles.add(role);
+        memberRepository.save(Member.updateRole(member, roles));
 
         return Member.updatePassword(member, passwordEncoder.encode(request.getPassword()));
     }

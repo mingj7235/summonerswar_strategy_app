@@ -25,16 +25,6 @@ public class MemberManagerService {
 
     private final RoleRepository roleRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
-    public void createUser(final Member member) {
-
-        Role role = roleRepository.findByRoleName("ROLE_USER");
-        Set<Role> roles = new HashSet<>();
-        roles.add(role);
-        memberRepository.save(Member.updateRole(member, roles));
-    }
-
     public void modifyUser(MemberManagerDto memberManagerDto) {
 
         Member member = Member.toEntityFromMemberManagerDto(memberManagerDto);
@@ -49,8 +39,7 @@ public class MemberManagerService {
             member = Member.updateRole(member, roles);
         }
 
-        memberRepository.save(Member.updatePassword(member, passwordEncoder.encode(memberManagerDto.getPassword())));
-
+        memberRepository.save(member);
     }
 
     @Transactional (readOnly = true)

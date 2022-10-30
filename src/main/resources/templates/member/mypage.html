@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}" lang="">
+
+<div layout:fragment="content">
+  <div style="padding: 10px">
+    <div class="row">
+      <div class="col-lg-10">
+        <h4 class="header-title">몬스터 등록</h4>
+        <div class="table-responsive">
+          <table class="table table-bordered table-centered mb-0">
+            <tbody>
+
+            <tr>
+              <th style="background-color: #f1f3fa !important;">몬스터 이름</th>
+              <td>
+                <input type="text" class="form-control form-control-user"
+                       id="name" placeholder="몬스터 명"  required>
+              </td>
+
+            </tr>
+            <tr>
+              <th style="background-color: #f1f3fa !important;">속성</th>
+              <td>
+                <select id="attribute" name="attribute" class="orderStatusSelect form-control select2" data-toggle="select2">
+                  <optgroup label="속성">
+                    <option th:each="attribute : ${attributes}" th:value="${attribute}" th:text="${attribute}"></option>
+                  </optgroup>
+                </select>
+              </td>
+              <th style="background-color: #f1f3fa !important;">리더스킬</th>
+              <td>
+                <select id="leaderSkill" name="leaderSkill" class="orderStatusSelect form-control select2" data-toggle="select2">
+                  <optgroup label="리더스킬">
+                    <option th:each="leaderSkill : ${leaderSkills}" th:value="${leaderSkill.code}" th:text="${leaderSkill.description}"></option>
+                  </optgroup>
+                </select>
+              </td>
+
+            </tr>
+            <tr>
+              <th style="background-color: #f1f3fa !important;">사진 경로</th>
+              <td colspan="3">
+                <div class="mb-3">
+                  <form id="fileForm" method="post" enctype="multipart/form-data">
+                    <input type="file" id="file" style="cursor: pointer" class="form-control">
+                  </form>
+                </div>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div> <!-- end table-responsive-->
+        <div class="card-body ta-c">
+          <button type="button" class="btn btn-dark" onclick="registerMonster()">등록</button>
+          <button type="button" class="btn btn-dark" onclick="location.href='/monsters'">목록으로</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div th:replace="./fragments/footer.html :: footer"></div>
+
+<a class="scroll-to-top rounded" href="#page-top">
+  <i class="fas fa-angle-up"></i>
+</a>
+
+</html>
+
+
+
+
+

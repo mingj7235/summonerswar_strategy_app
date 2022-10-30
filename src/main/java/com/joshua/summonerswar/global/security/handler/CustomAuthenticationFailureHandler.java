@@ -21,7 +21,7 @@ public class CustomAuthenticationFailureHandler extends SimpleUrlAuthenticationF
         String errorMessage = "Errors";
 
         if(exception instanceof BadCredentialsException) {
-            errorMessage = "Invalid Username or Password";
+            errorMessage = "계정 정보를 다시 한 번 확인해주세요";
         } else if(exception instanceof DisabledException) {
             errorMessage = "Locked";
         } else if(exception instanceof CredentialsExpiredException) {
