@@ -18,11 +18,14 @@ public class MonsterResponseDto {
 
     private String leaderSkill;
 
+    private String photoPath;
+
     public static MonsterResponseDto toDtoFromEntity(final @NotNull Monster monster) {
         return MonsterResponseDto.builder()
                 .name(monster.getName())
                 .attribute(monster.getAttribute().name())
                 .leaderSkill(monster.getLeaderSkill().getDescription())
+                .photoPath(monster.getPhotoPath())
                 .build();
     }
 }

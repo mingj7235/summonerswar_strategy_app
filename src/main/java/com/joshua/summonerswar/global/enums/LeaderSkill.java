@@ -3,6 +3,8 @@ package com.joshua.summonerswar.global.enums;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @Getter
 @RequiredArgsConstructor
 public enum LeaderSkill {
@@ -72,6 +74,10 @@ public enum LeaderSkill {
         }
 
         return null;
+    }
+
+    public static List<LeaderSkill> getLeaderSkills () {
+        return List.of(LeaderSkill.values());
     }
 
 }

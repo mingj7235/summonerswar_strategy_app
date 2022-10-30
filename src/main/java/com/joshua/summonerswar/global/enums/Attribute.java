@@ -2,6 +2,8 @@ package com.joshua.summonerswar.global.enums;
 
 import lombok.Getter;
 
+import java.util.List;
+
 @Getter
 public enum Attribute {
     FIRE,
@@ -21,5 +23,9 @@ public enum Attribute {
         }
 
         return null;
+    }
+
+    public static List<Attribute> getAttributes() {
+        return List.of(Attribute.values());
     }
 }

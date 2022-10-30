@@ -10,10 +10,7 @@ import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.util.StringUtils;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -33,8 +30,10 @@ public class Monster extends BaseTime {
 
     private String name;
 
+    @Enumerated(EnumType.STRING)
     private Attribute attribute;
 
+    @Enumerated(EnumType.STRING)
     private LeaderSkill leaderSkill;
 
     private String photoPath;
@@ -44,8 +43,6 @@ public class Monster extends BaseTime {
 
     @OneToMany (mappedBy = "monster")
     private List<MonsterDefDeck> monsterDefDecks = new ArrayList<>();
-
-
 
     public static Monster toEntity(final @NotNull MonsterRequestDto.Register request,
                                    final @NotBlank String photoPath) {

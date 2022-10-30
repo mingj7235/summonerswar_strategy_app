@@ -3,6 +3,8 @@ package com.joshua.summonerswar.domain.monster.controller;
 import com.joshua.summonerswar.domain.monster.dto.request.MonsterRequestDto;
 import com.joshua.summonerswar.domain.monster.dto.response.MonsterResponseDto;
 import com.joshua.summonerswar.domain.monster.service.MonsterManagerFacade;
+import com.joshua.summonerswar.global.enums.Attribute;
+import com.joshua.summonerswar.global.enums.LeaderSkill;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -56,6 +58,8 @@ public class MonsterController {
     public String viewRegister (Model model) {
 
         model.addAttribute("monster", new MonsterRequestDto.Register());
+        model.addAttribute("attributes", Attribute.getAttributes());
+        model.addAttribute("leaderSkills", LeaderSkill.getLeaderSkills());
         return "monster/register";
     }
 }
