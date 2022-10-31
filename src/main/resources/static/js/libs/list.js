@@ -60,8 +60,6 @@ function searchMonster() {
                 var otherOption = $("#otherOptions").val();
                 var data = {
                     "brandCode": $("input[name=brandCode]:checked").val() === "ALL" ? null : $("input[name=brandCode]:checked").val(),
-                    "payDate.from" : $("#payFromDate").val() +'T'+ $("#payFromTime").val()+ /*[[${fromSecond}]]*/,
-                    "payDate.to" : $("#payToDate").val() +'T'+ $("#payToTime").val()+ /*[[${toSecond}]]*/,
                     "orderStatus": $("#orderStatus").val() === "ALL" ? null : $("#orderStatus").val(),
                     "deliveryType.deliveryCode": $("#deliveryCode").val() === "ALL" ? null : $("#deliveryCode").val(),
                     "deliveryType.deliveryCompany": $("#deliveryCompany").val() === "ALL" ? null : $("#deliveryCompany").val(),
