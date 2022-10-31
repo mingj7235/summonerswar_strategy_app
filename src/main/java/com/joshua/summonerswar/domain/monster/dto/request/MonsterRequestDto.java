@@ -29,4 +29,18 @@ public class MonsterRequestDto {
 
         private String leaderSkill;
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Search {
+
+        private String monsterName;
+
+        private String keyWord;
+
+        private String attribute;
+
+        private String leaderSkill;
+    }
 }

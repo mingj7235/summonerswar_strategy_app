@@ -24,7 +24,7 @@ public class MonsterApiController {
     /**
      * 몬스터 전체 목록 API
      */
-    @GetMapping("/monsters")
+    @PostMapping("/monsters/search")
     public ResponseEntity<List<MonsterResponseDto>> getList () {
 
         return ResponseEntity.ok()
