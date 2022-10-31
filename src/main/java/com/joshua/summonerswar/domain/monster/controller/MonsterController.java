@@ -33,6 +33,8 @@ public class MonsterController {
     public String viewList (Model model) {
 
         model.addAttribute("monsters", monsterManagerFacade.getList());
+        model.addAttribute("attributes", Attribute.getAttributes());
+        model.addAttribute("leaderSkills", LeaderSkill.getLeaderSkills());
         return "monster/list";
     }
 

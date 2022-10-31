@@ -5,15 +5,91 @@
 
 <div layout:fragment="content">
 
-    <button>
-        <a th:href="@{/monsters/register}">몬스터 등록</a>
-    </button>
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <h4 class="header-title">검색조건</h4>
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-centered mb-0">
+                            <tbody>
+                            <tr>
+                                <th style="background-color: #f1f3fa !important;" colspan="2">몬스터 이름</th>
+                                <td colspan="6">
+                                    <input id="monsterName" name="monsterName" type="text" class="form-control" placeholder="몬스터 이름">
+                                </td>
 
-    <div>
-        <table id="monsterList" style="border: 1px solid #1c294e;"></table>
+                                <th style="background-color: #f1f3fa !important;" colspan="2">키워드</th>
+                                <td colspan="6">
+                                    <input id="keyWord" name="keyWord" type="text" class="form-control" placeholder="키워드">
+                                </td>
+                            </tr>
+                            <tr>
+                                <th style="background-color: #f1f3fa !important;" colspan="2">속성</th>
+                                <td colspan="6">
+                                    <select id="attribute" name="attribute" class="form-control select2" data-toggle="select2">
+                                        <optgroup label="속성">
+                                            <option value="ALL">전체</option>
+                                            <div th:each="attribute : ${attributes}">
+                                                <option th:value="${attribute}" th:text="${attribute}"></option>
+                                            </div>
+                                        </optgroup>
+                                    </select>
+                                </td>
+                                <th style="background-color: #f1f3fa !important;" colspan="2">리더 스킬</th>
+                                <td colspan="6">
+                                    <select id="leaderSkill" name="leaderSkill" class="form-control select2" data-toggle="select2">
+                                        <optgroup label="기타 조건">
+                                            <option value="ALL">전체</option>
+                                            <div th:each="leaderSkill : ${leaderSkills}">
+                                                <option th:value="${leaderSkill.code}" th:text="${leaderSkill.description}"></option>
+                                            </div>
+                                        </optgroup>
+                                    </select>
+                                </td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+                    </div> <!-- end table-responsive-->
+
+                </div> <!-- end card-body-->
+                <div class="card-body ta-r">
+                    <a type="button" id="printOrderButton" class="btn btn-dark" th:href="@{/monsters/register}">몬스터 등록</a>
+                    <button type="button" class="btn btn-dark" onclick="monsterListInit()">초기화</button>
+                    <button type="button" class="btn btn-dark" onclick="searchMonster()">검색</button>
+                </div>
+            </div> <!-- end card-->
+        </div> <!-- end col-->
     </div>
 
-
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <div>
+                        검색 건수 : <span id="searchListSize" style="font-weight: bolder">0</span> 건
+                    </div>
+                    <div class="tab-content">
+                        <table id="monsterList" class="table dt-responsive nowrap w-100 table-sm">
+                            <thead class="table-light">
+                            <tr>
+                                <th>사진</th>
+                                <th>몬스터 이름</th>
+                                <th>속성</th>
+                                <th>리더스킬</th>
+                                <th>키워드</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
 </div>
 
