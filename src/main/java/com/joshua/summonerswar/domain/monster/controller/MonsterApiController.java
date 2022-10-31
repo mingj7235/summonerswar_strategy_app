@@ -25,10 +25,10 @@ public class MonsterApiController {
      * 몬스터 전체 목록 API
      */
     @PostMapping("/monsters/search")
-    public ResponseEntity<List<MonsterResponseDto>> getList () {
+    public ResponseEntity<List<MonsterResponseDto>> getList (final MonsterRequestDto.@NotNull Search condition) {
 
         return ResponseEntity.ok()
-                .body(monsterManagerFacade.getList());
+                .body(monsterManagerFacade.search(condition));
     }
 
     /**

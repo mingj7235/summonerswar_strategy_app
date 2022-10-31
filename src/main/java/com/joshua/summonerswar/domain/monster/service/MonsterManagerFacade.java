@@ -45,6 +45,11 @@ public class MonsterManagerFacade {
                 .collect(Collectors.toList());
     }
 
+    public List<MonsterResponseDto> search(final MonsterRequestDto.@NotNull Search condition) {
+        return monsterService.search(condition).stream()
+                .map(MonsterResponseDto::toDtoFromEntity)
+                .collect(Collectors.toList());
+    }
     /**
      * 몬스터 등록
      *
@@ -78,4 +83,5 @@ public class MonsterManagerFacade {
     public void delete(final @NotBlank String id) {
         monsterService.delete(id);
     }
+
 }
