@@ -14,13 +14,32 @@ spring:
     properties:
       hibernate.format_sql: true
 
-  redis:
-    port: 6379
-    host: 127.0.0.1
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
 
-jwt:
-  access:
-    timeout-of-minutes: 1
-  refresh:
-    timeout-of-minutes: 20
-  secret: ${JWT_SECRET}
+  security:
+    permitAll:
+      resources: ${SECURITY_PERMIT_ALL_URL}
+
+  cloud:
+    aws:
+      s3:
+        bucket: ${S3_BUCKET}
+        url: ${S3_URL}
+      credentials:
+        access-key: ${S3_ACCESS_KEY}
+        secret-key: ${S3_SECRET_KEY}
+      region:
+        static: ${S3_REGION}
+        auth: false
+      stack:
+        auto: false
+
+  logging:
+    level:
+      com:
+        amazonaws:
+          util:
+            EC2MetadataUtils: error

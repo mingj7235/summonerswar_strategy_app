@@ -9,7 +9,6 @@ env:
   REGISTRY_NAME: ghcr.io
   GITHUB_USER_NAME: ${{ secrets.USER_NAME }}
   DOCKER_FILE_PATH: ./Dockerfile
-  DOCKER_CONTAINER_NAME: summonerswar
   DOCKER_COMPOSE: docker-compose.yml
   IMAGE_NAME: ghcr.io/${{ github.repository }}/main
   PROJECT_NAME: summonerswar

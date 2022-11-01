@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk-alpine:11
+FROM adoptopenjdk/openjdk11:alpine-slim
 
 ARG JAR_FILE=build/libs/summonerswar-0.0.1-SNAPSHOT.jar
 
