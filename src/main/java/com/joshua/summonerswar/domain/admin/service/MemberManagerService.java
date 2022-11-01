@@ -25,6 +25,8 @@ public class MemberManagerService {
 
     private final RoleRepository roleRepository;
 
+    private final PasswordEncoder passwordEncoder;
+
     public void modifyUser(MemberManagerDto memberManagerDto) {
 
         Member member = Member.toEntityFromMemberManagerDto(memberManagerDto);
@@ -39,7 +41,7 @@ public class MemberManagerService {
             member = Member.updateRole(member, roles);
         }
 
-        memberRepository.save(member);
+        memberRepository.save(Member.updatePassword(member, passwordEncoder.encode(memberManagerDto.getPassword())));
     }
 
     @Transactional (readOnly = true)

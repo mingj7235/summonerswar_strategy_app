@@ -22,7 +22,7 @@ public class MonsterApiController {
 
     private final MonsterManagerFacade monsterManagerFacade;
     /**
-     * 몬스터 전체 목록 API
+     * 몬스터 검색 API
      */
     @PostMapping("/monsters/search")
     public ResponseEntity<List<MonsterResponseDto>> getList (final MonsterRequestDto.@NotNull Search condition) {
