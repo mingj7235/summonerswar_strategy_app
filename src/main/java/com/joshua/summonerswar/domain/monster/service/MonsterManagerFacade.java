@@ -45,6 +45,12 @@ public class MonsterManagerFacade {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 몬스터 검색 기능
+     *
+     * @param condition
+     * @return
+     */
     public List<MonsterResponseDto> search(final MonsterRequestDto.@NotNull Search condition) {
         return monsterService.search(condition).stream()
                 .map(MonsterResponseDto::toDtoFromEntity)
