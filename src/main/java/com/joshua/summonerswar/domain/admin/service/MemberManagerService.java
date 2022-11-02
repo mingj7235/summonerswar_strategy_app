@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -25,11 +26,12 @@ public class MemberManagerService {
 
     private final RoleRepository roleRepository;
 
-    private final PasswordEncoder passwordEncoder;
-
     public void modifyUser(MemberManagerDto memberManagerDto) {
 
-        Member member = Member.toEntityFromMemberManagerDto(memberManagerDto);
+        Member member = memberRepository.findById(Long.valueOf(memberManagerDto.getId()))
+                .orElseThrow(() -> new IllegalArgumentException("member not found"));
+
+        Member updatedMember = Member.updateInfoFromAdmin(member, memberManagerDto);
 
         // 유저 정보 권한 수정이 있을 경우
         if (memberManagerDto.getRoles() != null) {
@@ -38,25 +40,27 @@ public class MemberManagerService {
                 Role role = roleRepository.findByRoleName(requestRole);
                 roles.add(role);
             });
-            member = Member.updateRole(member, roles);
+            updatedMember = Member.updateRole(member, roles);
         }
 
-        memberRepository.save(Member.updatePassword(member, passwordEncoder.encode(memberManagerDto.getPassword())));
+        memberRepository.save(updatedMember);
     }
 
     @Transactional (readOnly = true)
     public MemberManagerDto getUser(Long id) {
 
         Member member = memberRepository.findById(id).orElse(new Member());
-        ModelMapper modelMapper = new ModelMapper();
-        MemberManagerDto memberManagerDto = modelMapper.map(member, MemberManagerDto.class);
+//        ModelMapper modelMapper = new ModelMapper();
+//        MemberManagerDto memberManagerDto = modelMapper.map(member, MemberManagerDto.class);
 
-        List<String> roles = member.getUserRoles()
-                .stream()
-                .map(Role::getRoleName)
-                .collect(Collectors.toList());
+        MemberManagerDto memberManagerDto = MemberManagerDto.toDtoFromEntity(member);
 
-        memberManagerDto.setRoles(roles);
+//        List<String> roles = member.getUserRoles()
+//                .stream()
+//                .map(Role::getRoleName)
+//                .collect(Collectors.toList());
+
+//        memberManagerDto.setRoles(roles);
         return memberManagerDto;
     }
 

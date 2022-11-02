@@ -82,4 +82,11 @@ public class Member implements Serializable{
         return member;
     }
 
+    public static Member updateInfoFromAdmin (final Member member, final MemberManagerDto request) {
+        if (StringUtils.hasText(request.getBatch()))
+            member.setBatch(request.getBatch());
+
+        return member;
+    }
+
 }

@@ -21,7 +21,6 @@ public class MemberManagerDto {
     private String email;
     private String nickname;
     private String batch;
-    private String password;
     private List<String> roles;
 
     public static MemberManagerDto toDtoFromEntity (final @NotNull Member member) {
