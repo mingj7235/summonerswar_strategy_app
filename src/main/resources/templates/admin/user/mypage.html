@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout}">
+
+<th:block layout:fragment="content">
+  <!--page title start-->
+  <div class="row">
+    <div class="col-12">
+      <div class="page-title-box">
+        <div class="page-title-left">
+          <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item"><a href="javascript: void(0);">WEBLING</a></li>
+            <li class="breadcrumb-item active">나의 계정정보</li>
+          </ol>
+        </div>
+        <h4 class="page-title" id="pageTitle" ></h4>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <!-- Join Content-->
+          <div class="tab-pane show active" id="billing-information">
+            <div class="row">
+              <div class="col-lg-8">
+                <h4 class="mt-2">사용자 정보</h4>
+                <p class="text-muted mb-4">* 필수 입력항목</p>
+                <hr>
+                <form th:action="@{'/admin/account/myProfileProc/' + ${id}}" th:object="${adminModifyForm}" method="post" novalidate>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="adminName" class="form-label">이름 <span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" th:field="*{adminName}"   id="adminName" name="adminName" th:placeholder="${targetUser.adminName}"/>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="adminId" class="form-label">아이디(Email) <span class="text-danger">*</span></label>
+                        <input class="form-control" type="email" placeholder="snaps@snaps.com" name="adminId" id="adminId" disabled th:value="${id}" />
+                      </div>
+                    </div>
+                  </div> <!-- end row -->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="adminPassword" class="form-label">변경할 비밀번호 <span class="text-danger">*</span></label>
+                        <input class="form-control" type="password" placeholder="비밀번호" id="adminPassword" th:field="*{adminPassword}" th:autocomplete="off">
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('adminPassword')}" th:errors="*{adminPassword}">Password Error</small>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="adminPasswordCheck" class="form-label">변경할 비밀번호 체크 <span class="text-danger">*</span></label>
+                        <input class="form-control" type="password"  id="adminPasswordCheck"  placeholder="비밀번호 확인" th:field="*{adminPasswordCheck}" th:autocomplete="off">
+                        <small class="form-text text-danger" th:if="${#fields.hasErrors('adminPasswordCheck')}" th:errors="*{adminPasswordCheck}">Password Error</small>
+                      </div>
+                    </div>
+                  </div>
+                  <!-- end row -->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="phoneNo" class="form-label">핸드폰번호 <span class="text-danger">*</span></label>
+                        <input class="form-control" type="tel" id="phoneNo"  name="phoneNo" th:field="*{phoneNo}" th:placeholder="${targetUser.phoneNo}"/>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label for="authSeq" class="form-label">권한</label>
+                        <th:block th:each="i:${authSeqList}" th:if="${targetUser.authSeq !=null}">
+                          <input class="form-control" th:if="${i.id == targetUser.authSeq}" type="text" name="authSeq" id="authSeq" disabled th:value="${i.authName}" />
+                        </th:block>
+                      </div>
+                    </div>
+                  </div> <!-- end row -->
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label">엑셀다운로드 권한</label>
+                        <div class="mt-2">
+                          <div class="form-check form-check-inline">
+                            <input type="radio" id="customRadio2" name="excelYn" class="form-check-input" value="Y">
+                            <label class="form-check-label" for="customRadio2">사용</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input type="radio" id="customRadio3" name="excelYn" class="form-check-input" value="N">
+                            <label class="form-check-label" for="customRadio3">사용안함</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="mb-3">
+                        <label class="form-label">상태</label>
+                        <div class="mt-2">
+                          <div class="form-check form-check-inline">
+                            <input type="radio" id="customRadio2" name="useYn" class="form-check-input" value="Y">
+                            <label class="form-check-label" for="customRadio2">사용</label>
+                          </div>
+                          <div class="form-check form-check-inline">
+                            <input type="radio" id="customRadio3" name="useYn" class="form-check-input" value="N">
+                            <label class="form-check-label" for="customRadio3">사용안함</label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div> <!-- end row -->
+                  <hr>
+                  <div class="card-body ta-c">
+                    <button type="submit" class="btn btn-primary">저장</button>
+                    <button type="button" class="btn btn-primary" onclick="moveMenuList()">목록</button>
+                  </div>
+                </form>
+              </div>
+            </div> <!-- end row-->
+          </div>
+          <!-- End  Join Content-->
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+
+  <script type="application/javascript" th:fragment="form-validation">
+    (function () {
+      'use strict';
+      window.addEventListener('load', function () {
+        var forms = document.getElementsByClassName('needs-validation');
+
+        Array.prototype.filter.call(forms, function (form) {
+          form.addEventListener('submit', function (event) { //submit 이벤트가 발생했을 경우,
+            if (form.checkValidity() === false) { //form을 검증함. false인경우 submit이 안되도록 막음 // form내의 input테그에 있는 모든 validation을 검증한다.
+              event.preventDefault();
+              event.stopPropagation();
+            }
+            form.classList.add('was-validated') // true일경우 class를 추가한다.
+          }, false)
+        })
+      }, false)
+    }())
+
+    $(document).ready(function() {
+      let loginUse = commonUtil.getParameterByName("errors");
+      if (loginUse ==="passwordreg"){
+        MsgBox.alert({
+          title: '정보 수정 실패'
+          ,content: '비밀번호를 형식을 확인해주세요',
+        });
+      }
+      if (loginUse ==="password"){
+        MsgBox.alert({
+          title: '정보 수정 실패'
+          ,content: '비밀번호를 확인해주세요',
+        });
+      }
+      if (loginUse ==="phoneno"){
+        MsgBox.alert({
+          title: '정보 수정 실패'
+          ,content: '전화번호 양식을 맞춰주세요',
+        });
+      }
+
+
+      var useYn = '[[${targetUser.useYn}]]';
+      if(useYn != "" && useYn =="Y"){
+        $("input[name=useYn]").eq(0).prop("checked",true);
+      }else{
+        $("input[name=useYn]").eq(1).prop("checked",true);
+      }
+
+      var excelYn = '[[${targetUser.excelYn}]]';
+      if(excelYn != "" && excelYn =="Y"){
+        $("input[name=excelYn]").eq(0).prop("checked",true);
+      }else{
+        $("input[name=excelYn]").eq(1).prop("checked",true);
+      }
+
+
+    });
+    function moveMenuList(){
+      location.href = "/admin/account/find"
+    }
+
+  </script>
+</th:block>
+
+
+
+</html>
