@@ -67,4 +67,8 @@ public class MemberService{
         }
         return "ok";
     }
+
+    public Member findById(final @NotNull Long id) {
+        return memberRepository.findById(id).orElseThrow(() -> new IllegalArgumentException("not found member"));
+    }
 }
