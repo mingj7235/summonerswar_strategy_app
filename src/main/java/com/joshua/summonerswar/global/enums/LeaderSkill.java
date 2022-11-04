@@ -19,13 +19,13 @@ public enum LeaderSkill {
 
     // ATTACK
 
-    ALL_AREA_ATTACK_15 ("공통 공격 15퍼", 15, "EA15"),
-    ALL_AREA_ATTACK_18 ("공통 공격 18퍼", 18, "EA18"),
-    ALL_AREA_ATTACK_20 ("공통 공격 20퍼", 20, "EA20"),
-    ALL_AREA_ATTACK_22 ("공통 공격 22퍼", 22, "EA22"),
-    ALL_AREA_ATTACK_25 ("공통 공격 25퍼", 25, "EA25"),
-    ALL_AREA_ATTACK_28 ("공통 공격 28퍼", 28, "EA28"),
-    ALL_AREA_ATTACK_33 ("공통 공격 33퍼", 33, "EA33"),
+    ALL_AREA_ATTACK_15 ("공통 공격력 15퍼", 15, "EA15"),
+    ALL_AREA_ATTACK_18 ("공통 공격력 18퍼", 18, "EA18"),
+    ALL_AREA_ATTACK_20 ("공통 공격력 20퍼", 20, "EA20"),
+    ALL_AREA_ATTACK_22 ("공통 공격력 22퍼", 22, "EA22"),
+    ALL_AREA_ATTACK_25 ("공통 공격력 25퍼", 25, "EA25"),
+    ALL_AREA_ATTACK_28 ("공통 공격력 28퍼", 28, "EA28"),
+    ALL_AREA_ATTACK_33 ("공통 공격력 33퍼", 33, "EA33"),
 
     // DEFENSE
 
@@ -80,9 +80,9 @@ public enum LeaderSkill {
 
     // ATTACK
 
-    ARENA_ATTACK_21 ("아레나 공격 21퍼", 21, "AA21"),
-    ARENA_ATTACK_33 ("아레나 공격 33퍼", 33, "AA33"),
-    ARENA_ATTACK_44 ("아레나 공격 44퍼", 44, "AA44"),
+    ARENA_ATTACK_21 ("아레나 공격력 21퍼", 21, "AA21"),
+    ARENA_ATTACK_33 ("아레나 공격력 33퍼", 33, "AA33"),
+    ARENA_ATTACK_44 ("아레나 공격력 44퍼", 44, "AA44"),
 
     // DEFENSE
 
@@ -129,10 +129,10 @@ public enum LeaderSkill {
 
     // ATTACK
 
-    GUILD_ATTACK_18 ("길드 공격 18퍼", 18, "GA18"),
-    GUILD_ATTACK_21 ("길드 공격 21퍼", 21, "GA21"),
-    GUILD_ATTACK_33 ("길드 공격 33퍼", 33, "GA33"),
-    GUILD_ATTACK_44 ("길드 공격 44퍼", 44, "GA44"),
+    GUILD_ATTACK_18 ("길드 공격력 18퍼", 18, "GA18"),
+    GUILD_ATTACK_21 ("길드 공격력 21퍼", 21, "GA21"),
+    GUILD_ATTACK_33 ("길드 공격력 33퍼", 33, "GA33"),
+    GUILD_ATTACK_44 ("길드 공격력 44퍼", 44, "GA44"),
 
     // DEFENSE
 
@@ -176,10 +176,10 @@ public enum LeaderSkill {
 
     // ATTACK
 
-    DUNGEON_ATTACK_21 ("던전 공격 21퍼", 21, "DA21"),
-    DUNGEON_ATTACK_33 ("던전 공격 33퍼", 33, "DA33"),
-    DUNGEON_ATTACK_38 ("던전 공격 38퍼", 38, "DA38"),
-    DUNGEON_ATTACK_44 ("던전 공격 44퍼", 44, "DA44"),
+    DUNGEON_ATTACK_21 ("던전 공격력 21퍼", 21, "DA21"),
+    DUNGEON_ATTACK_33 ("던전 공격력 33퍼", 33, "DA33"),
+    DUNGEON_ATTACK_38 ("던전 공격력 38퍼", 38, "DA38"),
+    DUNGEON_ATTACK_44 ("던전 공격력 44퍼", 44, "DA44"),
 
     // DEFENSE
 
@@ -219,9 +219,9 @@ public enum LeaderSkill {
 
     // ATTACK
 
-    FIRE_ATTACK_30 ("불 속성 공격 30퍼", 30, "FA30"),
-    FIRE_ATTACK_35 ("불 속성 공격 35퍼", 35, "FA35"),
-    FIRE_ATTACK_40 ("불 속성 공격 40퍼", 40, "FA40"),
+    FIRE_ATTACK_30 ("불 속성 공격력 30퍼", 30, "FA30"),
+    FIRE_ATTACK_35 ("불 속성 공격력 35퍼", 35, "FA35"),
+    FIRE_ATTACK_40 ("불 속성 공격력 40퍼", 40, "FA40"),
 
     // DEFENSE
 
@@ -257,9 +257,9 @@ public enum LeaderSkill {
 
     // ATTACK
 
-    WATER_ATTACK_30 ("물 속성 공격 30퍼", 30, "HA30"),
-    WATER_ATTACK_35 ("물 속성 공격 35퍼", 35, "HA35"),
-    WATER_ATTACK_40 ("물 속성 공격 40퍼", 40, "HA40"),
+    WATER_ATTACK_30 ("물 속성 공격력 30퍼", 30, "HA30"),
+    WATER_ATTACK_35 ("물 속성 공격력 35퍼", 35, "HA35"),
+    WATER_ATTACK_40 ("물 속성 공격력 40퍼", 40, "HA40"),
 
     // DEFENSE
 
@@ -295,9 +295,9 @@ public enum LeaderSkill {
 
     // ATTACK
 
-    WIND_ATTACK_30 ("바람 속성 공격 30퍼", 30, "WA30"),
-    WIND_ATTACK_35 ("바람 속성 공격 35퍼", 35, "WA35"),
-    WIND_ATTACK_40 ("바람 속성 공격 40퍼", 40, "WA40"),
+    WIND_ATTACK_30 ("바람 속성 공격력 30퍼", 30, "WA30"),
+    WIND_ATTACK_35 ("바람 속성 공격력 35퍼", 35, "WA35"),
+    WIND_ATTACK_40 ("바람 속성 공격력 40퍼", 40, "WA40"),
 
     // DEFENSE
 
@@ -332,9 +332,9 @@ public enum LeaderSkill {
 
     // ATTACK
 
-    LIGHT_ATTACK_30 ("빛 속성 공격 30퍼", 30, "LA30"),
-    LIGHT_ATTACK_35 ("빛 속성 공격 35퍼", 35, "LA35"),
-    LIGHT_ATTACK_40 ("빛 속성 공격 40퍼", 40, "LA40"),
+    LIGHT_ATTACK_30 ("빛 속성 공격력 30퍼", 30, "LA30"),
+    LIGHT_ATTACK_35 ("빛 속성 공격력 35퍼", 35, "LA35"),
+    LIGHT_ATTACK_40 ("빛 속성 공격력 40퍼", 40, "LA40"),
 
     // DEFENSE
 
@@ -372,9 +372,9 @@ public enum LeaderSkill {
 
     // ATTACK
 
-    DARK_ATTACK_30 ("어둠 속성 공격 30퍼", 30, "KA30"),
-    DARK_ATTACK_35 ("어둠 속성 공격 35퍼", 35, "KA35"),
-    DARK_ATTACK_40 ("어둠 속성 공격 40퍼", 40, "KA40"),
+    DARK_ATTACK_30 ("어둠 속성 공격력 30퍼", 30, "KA30"),
+    DARK_ATTACK_35 ("어둠 속성 공격력 35퍼", 35, "KA35"),
+    DARK_ATTACK_40 ("어둠 속성 공격력 40퍼", 40, "KA40"),
 
     // DEFENSE
 
