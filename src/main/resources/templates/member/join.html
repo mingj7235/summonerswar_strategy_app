@@ -23,8 +23,8 @@
                   <label for="adminId">크몽 이메일</label>
                   <input type="email" class="form-control form-control-user" id="adminId"
                          placeholder="crazymonkey@crazymonkey.com" name="email" th:field="*{email}" required>
-
                   <small class="invalid-feedback">이메일을 입력하세요.</small>
+                  <small class="form-text text-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Nickname Error</small>
 
                 </div>
                 <div class="form-group">
@@ -40,6 +40,8 @@
                          placeholder="비밀번호"
                          th:field="*{password}" required>
                   <small class="invalid-feedback">비밀번호를 입력하세요</small>
+                  <small class="form-text text-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Password Error</small>
+
 
                 </div>
                 <div class="form-group">
@@ -47,6 +49,7 @@
                   <input type="password" class="form-control form-control-user"
                          id="checkPassword" placeholder="비밀번호 확인" required>
                   <small class="invalid-feedback">다시 한 번 비밀번호를 입력하세요</small>
+                  <small class="form-text text-danger" th:if="${#fields.hasErrors('checkPassword')}" th:errors="*{checkPassword}">Password Error</small>
                 </div>
 
 
