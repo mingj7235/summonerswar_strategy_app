@@ -9,7 +9,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">검색조건</h4>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <h4 class="header-title">검색조건</h4>
+                        <a type="button" id="printOrderButton" class="btn btn-outline-dark" th:href="@{/monsters/register}">몬스터 등록</a>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-centered mb-0">
                             <tbody>
@@ -19,12 +22,6 @@
                                     <input id="monsterName" name="monsterName" type="text" class="form-control" placeholder="몬스터 이름">
                                 </td>
 
-                                <th style="background-color: #f1f3fa !important;" colspan="2">키워드</th>
-                                <td colspan="6">
-                                    <input id="keyWord" name="keyWord" type="text" class="form-control" placeholder="키워드">
-                                </td>
-                            </tr>
-                            <tr>
                                 <th style="background-color: #f1f3fa !important;" colspan="2">속성</th>
                                 <td colspan="6">
                                     <select id="attribute" name="attribute" class="form-control select2" data-toggle="select2">
@@ -36,6 +33,8 @@
                                         </optgroup>
                                     </select>
                                 </td>
+                            </tr>
+                            <tr>
                                 <th style="background-color: #f1f3fa !important;" colspan="2">리더 스킬</th>
                                 <td colspan="6">
                                     <select id="leaderSkill" name="leaderSkill" class="form-control select2" data-toggle="select2">
@@ -47,6 +46,10 @@
                                         </optgroup>
                                     </select>
                                 </td>
+                                <td colspan="8">
+                                    <button type="button" class="btn btn-dark" onclick="monsterListInit()">초기화</button>
+                                    <button type="button" class="btn btn-dark" onclick="searchMonster()">검색</button>
+                                </td>
                             </tr>
 
                             </tbody>
@@ -55,11 +58,6 @@
                     </div> <!-- end table-responsive-->
 
                 </div> <!-- end card-body-->
-                <div class="card-body ta-r">
-                    <a type="button" id="printOrderButton" class="btn btn-dark" th:href="@{/monsters/register}">몬스터 등록</a>
-                    <button type="button" class="btn btn-dark" onclick="monsterListInit()">초기화</button>
-                    <button type="button" class="btn btn-dark" onclick="searchMonster()">검색</button>
-                </div>
             </div> <!-- end card-->
         </div> <!-- end col-->
     </div>

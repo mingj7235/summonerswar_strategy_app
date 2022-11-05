@@ -2,7 +2,7 @@ function searchMonster () {
     $("#monsterList").show()
     let param = {
         monsterName: $("#monsterName").val(),
-        keyWord: $("#keyWord").val(),
+        // keyWord: $("#keyWord").val(),
         attribute: $("#attribute").val() === "ALL" ? null : $("#attribute").val(),
         leaderSkill: $("#leaderSkill").val() === "ALL" ? null : $("#leaderSkill").val()
     }
@@ -14,8 +14,9 @@ function searchMonster () {
         async: false,
         data: param,
         success: function (response) {
-            console.log(response)
+            console.log('size: ' + response.length)
 
+            let monsterListLength = response.length;
             let monsterList = response;
             let tag = '';
 
@@ -46,6 +47,8 @@ function searchMonster () {
                 tag += '<div>검색 결과가 없습니다.</div>'
             }
 
+            $("#searchListSize").text(monsterListLength)
+
             $("#monsterList").empty().append(tag)
 
         }
@@ -55,7 +58,7 @@ function searchMonster () {
 function monsterListInit(){
 
     $("#monsterName").val('');
-    $("#keyWord").val('');
+    // $("#keyWord").val('');
     $("#attribute").val("ALL");
     $("#leaderSkill").val("ALL");
 
