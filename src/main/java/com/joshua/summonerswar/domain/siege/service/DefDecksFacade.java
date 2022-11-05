@@ -21,7 +21,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class DefDeckFacade {
+public class DefDecksFacade {
 
     private final DefDeckService defDeckService;
     private final MonsterService monsterService;

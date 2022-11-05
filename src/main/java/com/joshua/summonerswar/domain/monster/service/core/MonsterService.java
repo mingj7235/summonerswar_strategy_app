@@ -14,7 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -85,6 +84,10 @@ public class MonsterService {
 
     public List<Monster> search(final MonsterRequestDto.@NotNull Search condition) {
         return monsterRepository.searchByConditions(condition);
+    }
+
+    public List<MonsterResponseDto> findAll() {
+        return monsterRepository.findAllDtoList();
     }
 
 }

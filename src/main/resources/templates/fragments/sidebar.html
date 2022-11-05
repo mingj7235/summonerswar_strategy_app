@@ -7,19 +7,52 @@
     <a class="d-flex align-items-center justify-content-center" href="/" style="padding: 1.5rem 1rem">
         <div class="sidebar-brand-text mx-3"><img class="sidebar-logo" th:src="@{/img/crazymonkeymain.png} "></div>
     </a>
-    <div>
-        <hr class="sidebar-divider my-0">
+
+    <hr class="sidebar-divider d-none d-md-block">
+
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#MonsterManagecollapsePages"
+           aria-expanded="true" aria-controls="collapsePages">
+            <i class="fas fa-fw fa-folder"></i>
+            <span>몬스터 관리</span>
+        </a>
+        <div id="MonsterManagecollapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="/monsters">몬스터 목록</a>
+                <div sec:authorize="hasAuthority('ROLE_USER')">
+                    <a class="collapse-item" href="/monsters/register">몬스터 등록</a>
+                </div>
+            </div>
+        </div>
+    </li>
+
+    <div sec:authorize="hasAuthority('ROLE_USER')">
+        <hr class="sidebar-divider d-none d-md-block">
 
         <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages-def"
+               aria-expanded="true" aria-controls="collapsePages-def">
                 <i class="fas fa-fw fa-folder"></i>
-                <span>방덱 / 공덱 조회</span>
+                <span>방덱 관리</span>
             </a>
-            <div id="collapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+            <div id="collapsePages-def" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/def/find">방덱 조회</a>
+                    <a class="collapse-item" href="/defDecks">방덱 조회</a>
+                    <a class="collapse-item" href="/defDecks/register">방덱 등록</a>
+                </div>
+            </div>
+        </li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePages-atk"
+               aria-expanded="true" aria-controls="collapsePages-atk">
+                <i class="fas fa-fw fa-folder"></i>
+                <span>공덱 관리</span>
+            </a>
+            <div id="collapsePages-atk" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
                     <a class="collapse-item" href="/atk/find">공덱 조회</a>
+                    <a class="collapse-item" href="/atk/find">공덱 등록</a>
                 </div>
             </div>
         </li>
@@ -27,30 +60,8 @@
         <li class="nav-item">
             <a class="nav-link" href="charts.html">
                 <i class="fas fa-fw fa-chart-area"></i>
-                <span>방덱 / 공덱 분석</span></a>
+                <span>분석 및 통계 (개발예정)</span></a>
         </li>
-    </div>
-
-
-
-    <div sec:authorize="hasAuthority('ROLE_USER')">
-
-        <hr class="sidebar-divider d-none d-md-block">
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#MonsterManagecollapsePages"
-               aria-expanded="true" aria-controls="collapsePages">
-                <i class="fas fa-fw fa-folder"></i>
-                <span>몬스터 관리</span>
-            </a>
-            <div id="MonsterManagecollapsePages" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/monsters">몬스터 목록</a>
-                    <a class="collapse-item" href="/monsters/register">몬스터 등록</a>
-                </div>
-            </div>
-        </li>
-
     </div>
 
     <div sec:authorize="hasAuthority('ROLE_ADMIN')">

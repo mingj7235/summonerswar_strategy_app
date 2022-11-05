@@ -1,8 +1,9 @@
 package com.joshua.summonerswar.domain.siege.controller;
 
+import com.joshua.summonerswar.domain.monster.service.MonsterManagerFacade;
 import com.joshua.summonerswar.domain.siege.dto.request.DefDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.dto.response.DefDeckResponseDto;
-import com.joshua.summonerswar.domain.siege.service.DefDeckFacade;
+import com.joshua.summonerswar.domain.siege.service.DefDecksFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -19,7 +20,9 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 public class DefDeckController {
 
-    private final DefDeckFacade defDeckFacade;
+    private final DefDecksFacade defDecksFacade;
+
+    private final MonsterManagerFacade monsterManagerFacade;
 
     /**
      * 방덱 목록 불러오기
@@ -28,7 +31,41 @@ public class DefDeckController {
     @GetMapping ("/defDecks")
     public String viewList (Model model) {
 
-        model.addAttribute("monsters", defDeckFacade.findAll());
+        model.addAttribute("monsters", monsterManagerFacade.findAll());
+
+        model.addAttribute("defDecks", defDecksFacade.findAll());
+
+        return "def/list";
+
+    }
+
+    /**
+     * 방덱 세부 조회 화면
+     *
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping ("/defDecks/{id}")
+    public String viewDetail (@PathVariable String id,
+                              Model model) {
+
+        model.addAttribute("monsters", defDecksFacade.findAll());
+
+        return "def/list";
+
+    }
+
+    /**
+     * 방덱 등록 화면
+     *
+     * @param model
+     * @return
+     */
+    @GetMapping ("/defDecks/register")
+    public String viewRegister (Model model) {
+
+        model.addAttribute("monsters", defDecksFacade.findAll());
 
         return "def/list";
 
@@ -46,7 +83,7 @@ public class DefDeckController {
                                                         final @NotNull DefDeckRequestDto.Register request) {
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(defDeckFacade.register(authentication.getName(), request));
+                .body(defDecksFacade.register(authentication.getName(), request));
 
     }
 
@@ -57,7 +94,7 @@ public class DefDeckController {
                                                       final @NotNull DefDeckRequestDto.Update request) {
 
         return ResponseEntity.ok()
-                .body(defDeckFacade.update(authentication.getName(), id, request));
+                .body(defDecksFacade.update(authentication.getName(), id, request));
     }
 
     @DeleteMapping("/defDecks/{id}")
@@ -65,7 +102,7 @@ public class DefDeckController {
     public ResponseEntity<DefDeckResponseDto> delete (Authentication authentication,
                                                       final @NotNull @PathVariable String id) {
 
-        defDeckFacade.delete(authentication.getName(), id);
+        defDecksFacade.delete(authentication.getName(), id);
 
         return ResponseEntity.noContent()
                 .build();

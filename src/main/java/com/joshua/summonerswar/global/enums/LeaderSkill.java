@@ -419,6 +419,16 @@ public enum LeaderSkill {
         return null;
     }
 
+    public static LeaderSkill toEnumByEnumName(String enumName) {
+        for (LeaderSkill leaderSkill : LeaderSkill.values()) {
+            if(leaderSkill.name().equals(enumName)) {
+                return leaderSkill;
+            }
+        }
+
+        return null;
+    }
+
     public static List<LeaderSkill> getLeaderSkills () {
         return List.of(LeaderSkill.values());
     }

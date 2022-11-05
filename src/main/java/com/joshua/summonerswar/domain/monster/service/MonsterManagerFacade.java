@@ -90,4 +90,8 @@ public class MonsterManagerFacade {
         monsterService.delete(id);
     }
 
+    public List<MonsterResponseDto> findAll() {
+        return monsterService.findAll();
+    }
+
 }

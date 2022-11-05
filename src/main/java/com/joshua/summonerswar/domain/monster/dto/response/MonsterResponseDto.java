@@ -1,7 +1,11 @@
 package com.joshua.summonerswar.domain.monster.dto.response;
 
 import com.joshua.summonerswar.domain.monster.entity.Monster;
-import lombok.*;
+import com.querydsl.core.annotations.QueryProjection;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import javax.validation.constraints.NotNull;
 
@@ -9,7 +13,6 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @Builder
-@AllArgsConstructor
 public class MonsterResponseDto {
 
     private String name;
@@ -28,4 +31,13 @@ public class MonsterResponseDto {
                 .photoPath(monster.getPhotoPath())
                 .build();
     }
+
+    @QueryProjection
+    public MonsterResponseDto(final String name, final String attribute, final String leaderSkill, final String photoPath) {
+        this.name = name;
+        this.attribute = attribute;
+        this.leaderSkill = leaderSkill;
+        this.photoPath = photoPath;
+    }
+
 }

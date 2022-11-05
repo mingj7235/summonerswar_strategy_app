@@ -52,8 +52,6 @@ function searchMonster () {
     });
 }
 
-
-
 function monsterListInit(){
 
     $("#monsterName").val('');
