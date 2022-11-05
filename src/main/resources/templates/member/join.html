@@ -62,7 +62,7 @@
                   </select>
                 </div>
 
-                <button type="button" class="btn btn-dark btn-user btn-block" onclick="memberJoin()">회원가입</button>
+                <button type="button" id="joinButton" class="btn btn-dark btn-user btn-block" onclick="memberJoin()">회원가입</button>
               </form>
               <div class="text-center">
                 <a class="small" th:href="@{/login}">이미 크몽 회원이라면 로그인화면으로 :)</a>
@@ -100,6 +100,12 @@
     let password = $("#password").val();
     let checkPassword = $("#checkPassword").val();
     let batch = $("#batch").val();
+
+    if (emailFormatCheck(email)) {
+      alert("이메일 형식을 확인해 주세요")
+      document.getElementById('adminId').focus();
+      return;
+    }
 
     if (checkDuplicationEmail(email) === "dupe") {
       alert("이메일이 중복됩니다.");
@@ -140,6 +146,14 @@
       }
     });
 
+  }
+
+  function emailFormatCheck (email) {
+    var emailFormat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
+
+    if(!emailFormat.test(email) || email === '') {
+      return true;
+    }
   }
 
   function checkDuplicationEmail (email) {

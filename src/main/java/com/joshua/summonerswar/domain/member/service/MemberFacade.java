@@ -46,4 +46,11 @@ public class MemberFacade {
         throw new IllegalArgumentException("본인이 아닙니다.");
     }
 
+    @Transactional (readOnly = true)
+    public MemberResponseDto.MemberInfo findByEmail (final @NotBlank String email) {
+
+        return MemberResponseDto.MemberInfo.toDtoFromEntity(memberService.findByEmail(email));
+
+    }
+
 }

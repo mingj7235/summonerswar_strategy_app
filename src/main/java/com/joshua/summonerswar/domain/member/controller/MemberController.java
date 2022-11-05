@@ -25,12 +25,16 @@ public class MemberController {
         return "member/join";
     }
 
-    @GetMapping ("/mypage/{id}")
+    @GetMapping ("/member/mypage/{email}")
     public String mypage (Authentication authentication,
-                          @PathVariable String id,
+                          @PathVariable String email,
                           Model model) {
 
-        model.addAttribute("member", memberFacade.findById(Long.valueOf(id), authentication.getName()));
+        if (!authentication.getName().equals(email)) {
+            throw new IllegalArgumentException("본인이 아닙니다.");
+        }
+
+        model.addAttribute("member", memberFacade.findByEmail(email));
 
         return "member/mypage";
     }
