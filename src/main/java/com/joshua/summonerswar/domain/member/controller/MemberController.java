@@ -1,6 +1,7 @@
 package com.joshua.summonerswar.domain.member.controller;
 
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
+import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.member.service.MemberFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +31,9 @@ public class MemberController {
                           @PathVariable String email,
                           Model model) {
 
-        if (!authentication.getName().equals(email)) {
+        Member member = (Member) authentication.getPrincipal();
+
+        if (!member.getEmail().equals(email)) {
             throw new IllegalArgumentException("본인이 아닙니다.");
         }
 
