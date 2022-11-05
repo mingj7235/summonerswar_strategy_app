@@ -149,7 +149,7 @@
   }
 
   function emailFormatCheck (email) {
-    var emailFormat = /^w+([.-]?w+)*@w+([.-]?w+)*(.w{2,3})+$/;
+    var emailFormat = new RegExp('[a-z0-9]+@[a-z]+\.[a-z]{2,3}');
 
     if(!emailFormat.test(email) || email === '') {
       return true;
