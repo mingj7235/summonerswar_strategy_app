@@ -69,7 +69,7 @@
             <div class="card">
                 <div class="card-body">
                     <div>
-                        검색 건수 : <span id="searchListSize" style="font-weight: bolder">0</span> 건
+                        검색 건수 : <span id="searchListSize" style="font-weight: bolder" th:text="${monsters.size()}">0</span> 건
                     </div>
                     <div class="tab-content">
                         <table class="table dt-responsive nowrap w-100 table-sm">
@@ -101,6 +101,7 @@
 </html>
 <script>
     $(document).ready(function() {
+
         searchMonster();
     })
 </script>
