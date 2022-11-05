@@ -104,6 +104,7 @@ public enum LeaderSkill {
     ARENA_RATE_17 ("아레나 치명타 확률 17퍼", 17, "AC17"),
     ARENA_RATE_19 ("아레나 치명타 확률 19퍼", 19, "AC19"),
     ARENA_RATE_24 ("아레나 치명타 확률 24퍼", 24, "AC24"),
+    ARENA_RATE_33 ("아레나 치명타 확률 33퍼", 33, "AC33"),
 
     // ACCURACY
 
