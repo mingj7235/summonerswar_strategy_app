@@ -41,10 +41,10 @@ public class MemberService{
         return Member.updatePassword(member, passwordEncoder.encode(request.getPassword()));
     }
 
-    public Member update(final @NotNull Long id,
+    public Member update(final @NotBlank String email,
                          final MemberRequestDto.@NotNull Update request) {
 
-        Member member = memberRepository.findById(id)
+        Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new IllegalArgumentException("Not found Member"));
 
         Member updatedMember = Member.updateInfo(member, request);

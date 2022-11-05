@@ -34,7 +34,7 @@ public class MemberController {
         Member member = (Member) authentication.getPrincipal();
 
         if (!member.getEmail().equals(email)) {
-            throw new IllegalArgumentException("본인이 아닙니다.");
+            return "redirect:/member/mypage/" + member.getEmail();
         }
 
         model.addAttribute("member", memberFacade.findByEmail(email));

@@ -31,9 +31,9 @@ public class MemberFacade {
                 memberService.join(request));
     }
 
-    public MemberResponseDto.MemberInfo update (final @NotNull Long id,
+    public MemberResponseDto.MemberInfo update (final @NotBlank String email,
                                                 final MemberRequestDto.@NotNull Update request) {
-        return MemberResponseDto.MemberInfo.toDtoFromEntity(memberService.update(id, request));
+        return MemberResponseDto.MemberInfo.toDtoFromEntity(memberService.update(email, request));
     }
 
     @Transactional (readOnly = true)
@@ -50,7 +50,6 @@ public class MemberFacade {
     public MemberResponseDto.MemberInfo findByEmail (final @NotBlank String email) {
 
         return MemberResponseDto.MemberInfo.toDtoFromEntity(memberService.findByEmail(email));
-
     }
 
 }

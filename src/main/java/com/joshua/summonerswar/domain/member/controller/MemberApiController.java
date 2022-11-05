@@ -1,6 +1,7 @@
 package com.joshua.summonerswar.domain.member.controller;
 
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
+import com.joshua.summonerswar.domain.member.service.MemberFacade;
 import com.joshua.summonerswar.domain.member.service.core.MemberService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,9 @@ public class MemberApiController {
 
     private final MemberService memberService;
 
+    private final MemberFacade memberFacade;
+
+
     @PostMapping ("/duplication")
     public ResponseEntity<String> checkEmailDuplication (final @NotBlank @RequestParam String email) {
         return ResponseEntity.ok()
@@ -34,10 +38,20 @@ public class MemberApiController {
     @PostMapping ("/join")
     public ResponseEntity<String> joinProc (final MemberRequestDto.@NotNull Join request) {
 
-        if (memberService.join(request) != null) {
+        if (memberFacade.join(request) != null) {
             return ResponseEntity.ok().body("ok");
         }
 
+        return ResponseEntity.ok().body("fail");
+    }
+
+    @PostMapping ("/mypage/{email}")
+    public ResponseEntity<String> mypageProc (@PathVariable String email,
+                                              final MemberRequestDto.@NotNull Update request) {
+
+        if (memberFacade.update(email, request) != null) {
+            return ResponseEntity.ok().body("ok");
+        }
         return ResponseEntity.ok().body("fail");
     }
 }
