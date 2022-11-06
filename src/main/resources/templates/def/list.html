@@ -31,7 +31,7 @@
                                         <optgroup label="몬스터">
                                             <option value="ALL">전체</option>
                                             <div th:each="monster : ${monsters}">
-                                                <option th:value="${monster.name}" th:text="${'이름 : ' + monster.name + '- 속성 : ' + monster.attribute}"></option>
+                                                <option th:value="${monster.id}" th:text="${'이름 : ' + monster.name + '- 속성 : ' + monster.attribute}"></option>
                                             </div>
                                         </optgroup>
                                     </select>
@@ -41,9 +41,9 @@
                                     <select id="atkDecks" name="atkDecks" class="form-control select2" data-toggle="select2">
                                         <optgroup label="공덱">
                                             <option value="ALL">전체</option>
-<!--                                            <div th:each="leaderSkill : ${leaderSkills}">-->
-<!--                                                <option th:value="${leaderSkill.code}" th:text="${leaderSkill.description}"></option>-->
-<!--                                            </div>-->
+                                            <div th:each="atkDeck : ${atkDecks}">
+                                                <option th:value="${atkDeck.id}" th:text="${atkDeck.deckName}"></option>
+                                            </div>
                                         </optgroup>
                                     </select>
                                 </td>
@@ -75,11 +75,10 @@
                         <table class="table dt-responsive nowrap w-100 table-sm">
                             <thead class="table-light">
                             <tr>
+                                <th>방덱 명</th>
                                 <th>사진</th>
-                                <th>몬스터 이름</th>
-                                <th>속성</th>
+                                <th>만든 사람</th>
                                 <th>리더스킬</th>
-                                <!--                                <th>키워드</th>-->
                             </tr>
                             </thead>
                             <tbody id="monsterList">
@@ -101,22 +100,21 @@
 </html>
 <script>
     $(document).ready(function() {
-
         searchDefDecks();
     })
 
     function searchDefDecks () {
         $("#monsterList").show()
         let param = {
-            monsterName: $("#monsterName").val(),
-            keyWord: $("#keyWord").val(),
-            attribute: $("#attribute").val() === "ALL" ? null : $("#attribute").val(),
-            leaderSkill: $("#leaderSkill").val() === "ALL" ? null : $("#leaderSkill").val()
+            deckName: $("#defDeckName").val(),
+            makerName: $("#maker").val(),
+            monsterId: $("#monsters").val() === "ALL" ? null : $("#monsters").val(),
+            atkDeckId: $("#atkDecks").val() === "ALL" ? null : $("#atkDecks").val()
         }
 
         $.ajax({
             type: "POST",
-            url: "/v1/monsters/search",
+            url: "/v1/defDecks/search",
             dataType: "json",
             async: false,
             data: param,
@@ -132,7 +130,7 @@
                             '</td><td>' + monsterList[i].name + '</td>'
 
                         if (monsterList[i].attribute === "FIRE") {
-                            tag += '<td>' + monsterList[i].attribute + '</td>'
+                            tag += '<td> <button style=\"border: none\" class=\"badge badge-danger\" type=\"button\">' +monsterList[i].attribute + '</button></td>';
                         } else if (monsterList[i].attribute === "WATER") {
                             tag += '<td>' + monsterList[i].attribute + '</td>'
                         } else if (monsterList[i].attribute === "WIND") {

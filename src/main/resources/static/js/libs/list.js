@@ -26,15 +26,15 @@ function searchMonster () {
                         '</td><td>' + monsterList[i].name + '</td>'
 
                     if (monsterList[i].attribute === "FIRE") {
-                        tag += '<td>' + monsterList[i].attribute + '</td>'
+                        tag += '<td> <span style=\"border: none\" class=\"badge badge-danger\">' +monsterList[i].attribute + '</span></td>';
                     } else if (monsterList[i].attribute === "WATER") {
-                        tag += '<td>' + monsterList[i].attribute + '</td>'
+                        tag += '<td> <span style=\"border: none\" class=\"badge badge-primary\">' +monsterList[i].attribute + '</span></td>';
                     } else if (monsterList[i].attribute === "WIND") {
-                        tag += '<td>' + monsterList[i].attribute + '</td>'
+                        tag += '<td> <span style=\"border: none\" class=\"badge badge-warning\">' +monsterList[i].attribute + '</span></td>';
                     } else if (monsterList[i].attribute === "LIGHT") {
-                        tag += '<td>' + monsterList[i].attribute + '</td>'
+                        tag += '<td> <span style=\"border: none\" class=\"badge badge-light\">' +monsterList[i].attribute + '</span></td>';
                     } else {
-                        tag += '<td>' + monsterList[i].attribute + '</td>'
+                        tag += '<td> <span style=\"border: none\" class=\"badge badge-dark\">' +monsterList[i].attribute + '</span></td>';
                     }
 
                     tag += '<td>' + monsterList[i].leaderSkill + '</td>';

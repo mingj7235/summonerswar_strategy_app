@@ -34,4 +34,18 @@ public class DefDeckRequestDto {
         private String deckDescription;
     }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Search {
+        private String deckName;
+
+        private String makerName;
+
+        private String monsterId;
+
+        private String atkDeckId;
+
+    }
+
 }

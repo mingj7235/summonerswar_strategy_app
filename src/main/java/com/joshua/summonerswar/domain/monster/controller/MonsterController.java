@@ -28,7 +28,6 @@ public class MonsterController {
     /**
      * 몬스터 전체 리스트 화면
      */
-
     @GetMapping("/monsters")
     public String viewList (Model model) {
 

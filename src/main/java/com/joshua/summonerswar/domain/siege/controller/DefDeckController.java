@@ -3,6 +3,7 @@ package com.joshua.summonerswar.domain.siege.controller;
 import com.joshua.summonerswar.domain.monster.service.MonsterManagerFacade;
 import com.joshua.summonerswar.domain.siege.dto.request.DefDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.dto.response.DefDeckResponseDto;
+import com.joshua.summonerswar.domain.siege.service.AtkDeckFacade;
 import com.joshua.summonerswar.domain.siege.service.DefDecksFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,6 +23,8 @@ public class DefDeckController {
 
     private final DefDecksFacade defDecksFacade;
 
+    private final AtkDeckFacade atkDeckFacade;
+
     private final MonsterManagerFacade monsterManagerFacade;
 
     /**
@@ -31,9 +34,9 @@ public class DefDeckController {
     @GetMapping ("/defDecks")
     public String viewList (Model model) {
 
-        model.addAttribute("monsters", monsterManagerFacade.findAll());
-
         model.addAttribute("defDecks", defDecksFacade.findAll());
+        model.addAttribute("monsters", monsterManagerFacade.findAll());
+        model.addAttribute("atkDecks", atkDeckFacade.findAll());
 
         return "def/list";
 
@@ -50,9 +53,9 @@ public class DefDeckController {
     public String viewDetail (@PathVariable String id,
                               Model model) {
 
-        model.addAttribute("monsters", defDecksFacade.findAll());
+        model.addAttribute("monster", defDecksFacade.findById(id));
 
-        return "def/list";
+        return "def/detail";
 
     }
 
@@ -67,7 +70,7 @@ public class DefDeckController {
 
         model.addAttribute("monsters", defDecksFacade.findAll());
 
-        return "def/list";
+        return "def/register";
 
     }
 

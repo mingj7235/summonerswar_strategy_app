@@ -27,19 +27,41 @@ public class DefDecksFacade {
     private final MonsterService monsterService;
     private final RelMonsterDefDeckService monsterDefDeckService;
 
+    @Transactional (readOnly = true)
     public List<DefDeckResponseDto> findAll() {
 
         List<DefDeckResponseDto> defDeckResponseDtoList = new ArrayList<>();
 
         defDeckService.findAll()
                 .forEach(defDeck ->
-                    defDeckResponseDtoList
-                            .add(DefDeckResponseDto.toDtoFromRegister(
-                                    defDeck,
-                                    monsterDefDeckService.findMonsterListByDefDeckId(defDeck.getId())))
+                        defDeckResponseDtoList
+                                .add(DefDeckResponseDto.toDtoFromRegister(
+                                        defDeck,
+                                        monsterDefDeckService.findMonsterListByDefDeckId(defDeck.getId())))
                 );
 
         return defDeckResponseDtoList;
+    }
+
+    @Transactional (readOnly = true)
+    public List<DefDeckResponseDto> search(final DefDeckRequestDto.@NotNull Search request) {
+
+        List<DefDeckResponseDto> defDeckResponseDtoList = new ArrayList<>();
+
+        defDeckService.search(request)
+                .forEach(defDeck ->
+                        defDeckResponseDtoList
+                                .add(DefDeckResponseDto.toDtoFromRegister(
+                                        defDeck,
+                                        monsterDefDeckService.findMonsterListByRequest(request)))
+                );
+
+        return defDeckResponseDtoList;
+    }
+
+    @Transactional (readOnly = true)
+    public DefDeckResponseDto findById (final @NotNull String id) {
+        return DefDeckResponseDto.toDtoFromEntity(defDeckService.findById(id));
     }
 
     public DefDeckResponseDto register(final @NotBlank String makerName,

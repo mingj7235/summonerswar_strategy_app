@@ -2,6 +2,9 @@ package com.joshua.summonerswar.domain.siege.dto.response;
 
 import com.joshua.summonerswar.domain.monster.entity.Monster;
 import com.joshua.summonerswar.domain.siege.entity.DefDeck;
+import com.joshua.summonerswar.domain.siege.entity.relation.AtkDeckDefDeck;
+import com.joshua.summonerswar.domain.siege.entity.relation.MonsterDefDeck;
+import com.querydsl.core.annotations.QueryProjection;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
@@ -11,7 +14,6 @@ import java.util.List;
 @Setter
 @Builder
 @NoArgsConstructor
-@AllArgsConstructor
 public class DefDeckResponseDto {
 
     private String deckName;
@@ -23,6 +25,8 @@ public class DefDeckResponseDto {
     private Monster secondMonster;
 
     private Monster thirdMonster;
+
+    private String makerName;
 
     public static DefDeckResponseDto toDtoFromRegister(final @NotNull DefDeck entity,
                                                        final @NotNull List<Monster> monsters) {
@@ -40,4 +44,15 @@ public class DefDeckResponseDto {
 
                 .build();
     }
+
+    @QueryProjection
+    public DefDeckResponseDto(final String deckName, final String deckDescription, final Monster leaderMonster, final Monster secondMonster, final Monster thirdMonster, final String makerName) {
+        this.deckName = deckName;
+        this.deckDescription = deckDescription;
+        this.leaderMonster = leaderMonster;
+        this.secondMonster = secondMonster;
+        this.thirdMonster = thirdMonster;
+        this.makerName = makerName;
+    }
+
 }

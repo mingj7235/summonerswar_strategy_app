@@ -25,7 +25,7 @@ public class MonsterApiController {
      * 몬스터 검색 API
      */
     @PostMapping("/monsters/search")
-    public ResponseEntity<List<MonsterResponseDto>> getList (final MonsterRequestDto.@NotNull Search condition) {
+    public ResponseEntity<List<MonsterResponseDto>> search (final MonsterRequestDto.@NotNull Search condition) {
 
         return ResponseEntity.ok()
                 .body(monsterManagerFacade.search(condition));

@@ -2,10 +2,7 @@ package com.joshua.summonerswar.domain.monster.dto.response;
 
 import com.joshua.summonerswar.domain.monster.entity.Monster;
 import com.querydsl.core.annotations.QueryProjection;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 
@@ -13,8 +10,10 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @Builder
+@AllArgsConstructor
 public class MonsterResponseDto {
 
+    private Long id;
     private String name;
 
     private String attribute;
@@ -25,6 +24,7 @@ public class MonsterResponseDto {
 
     public static MonsterResponseDto toDtoFromEntity(final @NotNull Monster monster) {
         return MonsterResponseDto.builder()
+                .id(monster.getId())
                 .name(monster.getName())
                 .attribute(monster.getAttribute().name())
                 .leaderSkill(monster.getLeaderSkill().getDescription())
