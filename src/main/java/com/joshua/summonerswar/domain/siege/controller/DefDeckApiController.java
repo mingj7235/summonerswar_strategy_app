@@ -26,12 +26,13 @@ public class DefDeckApiController {
     private final DefDecksFacade defDecksFacade;
 
     /**
-     * TODO : 순환 참조 -> DTO로 변환하여 Return 해야함
+     * Ajax - 검색 조건에 따른 방덴 조회
+     *
      * @param request
      * @return
      */
     @PostMapping("/defDecks/search")
-    public ResponseEntity<List<DefDeck>> search (final DefDeckRequestDto.@NotNull Search request) {
+    public ResponseEntity<List<DefDeckResponseDto.Search>> search (final DefDeckRequestDto.@NotNull Search request) {
 
         return ResponseEntity.ok().body(defDecksFacade.search(request));
     }

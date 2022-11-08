@@ -2,8 +2,6 @@ package com.joshua.summonerswar.domain.siege.repository;
 
 import com.joshua.summonerswar.domain.siege.dto.request.DefDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.dto.response.DefDeckResponseDto;
-import com.joshua.summonerswar.domain.siege.dto.response.QDefDeckResponseDto;
-import com.joshua.summonerswar.domain.siege.dto.response.QDefDeckResponseDto_Search;
 import com.joshua.summonerswar.domain.siege.entity.DefDeck;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -14,8 +12,8 @@ import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 import static com.joshua.summonerswar.domain.monster.entity.QMonster.monster;
-import static com.joshua.summonerswar.domain.siege.entity.QDefDeck.defDeck;
 import static com.joshua.summonerswar.domain.siege.entity.QAtkDeck.atkDeck;
+import static com.joshua.summonerswar.domain.siege.entity.QDefDeck.defDeck;
 import static com.joshua.summonerswar.domain.siege.entity.relation.QAtkDeckDefDeck.atkDeckDefDeck;
 import static com.joshua.summonerswar.domain.siege.entity.relation.QMonsterDefDeck.monsterDefDeck;
 

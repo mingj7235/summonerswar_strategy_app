@@ -1,10 +1,13 @@
 package com.joshua.summonerswar.domain.siege.service;
 
+import com.joshua.summonerswar.domain.monster.dto.response.MonsterResponseDto;
 import com.joshua.summonerswar.domain.monster.entity.Monster;
 import com.joshua.summonerswar.domain.monster.service.core.MonsterService;
 import com.joshua.summonerswar.domain.siege.dto.request.DefDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.dto.response.DefDeckResponseDto;
 import com.joshua.summonerswar.domain.siege.entity.DefDeck;
+import com.joshua.summonerswar.domain.siege.entity.relation.AtkDeckDefDeck;
+import com.joshua.summonerswar.domain.siege.entity.relation.MonsterDefDeck;
 import com.joshua.summonerswar.domain.siege.service.core.DefDeckService;
 import com.joshua.summonerswar.domain.siege.service.core.relation.RelMonsterDefDeckService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +19,8 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -44,11 +49,25 @@ public class DefDecksFacade {
     }
 
     @Transactional (readOnly = true)
-    public List<DefDeck> search (final DefDeckRequestDto.@NotNull Search request) {
+    public List<DefDeckResponseDto.Search> search (final DefDeckRequestDto.@NotNull Search request) {
 
-        // 가져온 defDeck 객체를 DTO 로 평평하게 펴야함
+        List<DefDeckResponseDto.Search> resultDtoList = new ArrayList<>();
 
-        return defDeckService.search(request);
+        List<DefDeck> search = defDeckService.search(request);
+
+        search.forEach(
+                defDeck -> {
+                    List<Monster> monsterList = defDeck.getMonsterDefDecks().stream().map(MonsterDefDeck::getMonster).collect(Collectors.toList());
+                    List<MonsterResponseDto> collect = monsterList.stream().map(MonsterResponseDto::toDtoFromEntity).collect(Collectors.toList());
+
+                    DefDeckResponseDto.Search defDeckResponseSearchDto = DefDeckResponseDto.Search.toDtoFromEntity(defDeck);
+                    defDeckResponseSearchDto.setMonsterResponseDtoList(collect);
+
+                    resultDtoList.add(defDeckResponseSearchDto);
+                }
+        );
+
+        return resultDtoList;
     }
 
     @Transactional (readOnly = true)

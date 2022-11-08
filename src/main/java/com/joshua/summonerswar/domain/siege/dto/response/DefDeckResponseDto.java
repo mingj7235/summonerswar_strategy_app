@@ -60,6 +60,7 @@ public class DefDeckResponseDto {
     @Setter
     @Builder
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class Search {
 
         private String deckName;
@@ -70,15 +71,12 @@ public class DefDeckResponseDto {
 
         private List<MonsterResponseDto> monsterResponseDtoList;
 
-        private List<AtkDeckResponseDto> atkDeckResponseDtoList;
-
-        @QueryProjection
-        public Search(String deckName, String deckDescription, String makerName, List<MonsterResponseDto> monsterResponseDtoList, List<AtkDeckResponseDto> atkDeckResponseDtoList) {
-            this.deckName = deckName;
-            this.deckDescription = deckDescription;
-            this.makerName = makerName;
-            this.monsterResponseDtoList = monsterResponseDtoList;
-            this.atkDeckResponseDtoList = atkDeckResponseDtoList;
+        public static Search toDtoFromEntity (final @NotNull DefDeck defDeck) {
+            return Search.builder()
+                    .deckName(defDeck.getDeckName())
+                    .deckDescription(defDeck.getDeckDescription())
+                    .makerName(defDeck.getMakerNickName())
+                    .build();
         }
     }
 
