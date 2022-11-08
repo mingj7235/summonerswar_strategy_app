@@ -15,14 +15,18 @@ public class AtkDeckResponseDto {
 
     private String deckName;
 
-    private Monster leaderMonster;
-
-    private Monster secondMonster;
-
-    private Monster thirdMonster;
+//    private Monster leaderMonster;
+//
+//    private Monster secondMonster;
+//
+//    private Monster thirdMonster;
 
     public static AtkDeckResponseDto toDtoFromEntity(final AtkDeck atkDeck) {
-        return null;
+        return AtkDeckResponseDto.builder()
+                .id(String.valueOf(atkDeck.getId()))
+                .deckName(atkDeck.getDeckName())
+//                .leaderMonster(at)
+                .build();
     }
 
 }

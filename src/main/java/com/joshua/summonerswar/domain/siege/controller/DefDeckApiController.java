@@ -3,12 +3,14 @@ package com.joshua.summonerswar.domain.siege.controller;
 import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.siege.dto.request.DefDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.dto.response.DefDeckResponseDto;
+import com.joshua.summonerswar.domain.siege.entity.DefDeck;
 import com.joshua.summonerswar.domain.siege.service.DefDecksFacade;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,8 +25,13 @@ public class DefDeckApiController {
 
     private final DefDecksFacade defDecksFacade;
 
+    /**
+     * TODO : 순환 참조 -> DTO로 변환하여 Return 해야함
+     * @param request
+     * @return
+     */
     @PostMapping("/defDecks/search")
-    public ResponseEntity<List<DefDeckResponseDto>> search (final DefDeckRequestDto.@NotNull Search request) {
+    public ResponseEntity<List<DefDeck>> search (final DefDeckRequestDto.@NotNull Search request) {
 
         return ResponseEntity.ok().body(defDecksFacade.search(request));
     }

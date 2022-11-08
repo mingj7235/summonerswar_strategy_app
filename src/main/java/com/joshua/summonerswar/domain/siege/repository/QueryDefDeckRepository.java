@@ -12,5 +12,7 @@ public interface QueryDefDeckRepository {
 
     List<DefDeck> findAllByOptions(DefDeckRequestDto.Search request);
 
+    List<DefDeckResponseDto.Search> findAllDtoByOptions (DefDeckRequestDto.Search request);
+
 
 }

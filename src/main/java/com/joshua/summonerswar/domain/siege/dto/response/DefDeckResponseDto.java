@@ -1,5 +1,6 @@
 package com.joshua.summonerswar.domain.siege.dto.response;
 
+import com.joshua.summonerswar.domain.monster.dto.response.MonsterResponseDto;
 import com.joshua.summonerswar.domain.monster.entity.Monster;
 import com.joshua.summonerswar.domain.siege.entity.DefDeck;
 import com.joshua.summonerswar.domain.siege.entity.relation.AtkDeckDefDeck;
@@ -53,6 +54,32 @@ public class DefDeckResponseDto {
         this.secondMonster = secondMonster;
         this.thirdMonster = thirdMonster;
         this.makerName = makerName;
+    }
+
+    @Getter
+    @Setter
+    @Builder
+    @NoArgsConstructor
+    public static class Search {
+
+        private String deckName;
+
+        private String deckDescription;
+
+        private String makerName;
+
+        private List<MonsterResponseDto> monsterResponseDtoList;
+
+        private List<AtkDeckResponseDto> atkDeckResponseDtoList;
+
+        @QueryProjection
+        public Search(String deckName, String deckDescription, String makerName, List<MonsterResponseDto> monsterResponseDtoList, List<AtkDeckResponseDto> atkDeckResponseDtoList) {
+            this.deckName = deckName;
+            this.deckDescription = deckDescription;
+            this.makerName = makerName;
+            this.monsterResponseDtoList = monsterResponseDtoList;
+            this.atkDeckResponseDtoList = atkDeckResponseDtoList;
+        }
     }
 
 }

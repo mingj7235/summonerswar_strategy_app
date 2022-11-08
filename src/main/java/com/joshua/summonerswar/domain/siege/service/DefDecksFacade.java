@@ -44,19 +44,11 @@ public class DefDecksFacade {
     }
 
     @Transactional (readOnly = true)
-    public List<DefDeckResponseDto> search(final DefDeckRequestDto.@NotNull Search request) {
+    public List<DefDeck> search (final DefDeckRequestDto.@NotNull Search request) {
 
-        List<DefDeckResponseDto> defDeckResponseDtoList = new ArrayList<>();
+        // 가져온 defDeck 객체를 DTO 로 평평하게 펴야함
 
-        defDeckService.search(request)
-                .forEach(defDeck ->
-                        defDeckResponseDtoList
-                                .add(DefDeckResponseDto.toDtoFromRegister(
-                                        defDeck,
-                                        monsterDefDeckService.findMonsterListByRequest(request)))
-                );
-
-        return defDeckResponseDtoList;
+        return defDeckService.search(request);
     }
 
     @Transactional (readOnly = true)
