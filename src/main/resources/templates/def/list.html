@@ -9,7 +9,10 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">검색조건</h4>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                        <h4 class="header-title">검색조건</h4>
+                        <a type="button" id="printOrderButton" class="btn btn-outline-dark" th:href="@{/defDecks/register}">방덱 등록</a>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-bordered table-centered mb-0">
                             <tbody>
@@ -56,7 +59,6 @@
 
                 </div> <!-- end card-body-->
                 <div class="card-body ta-r">
-                    <a type="button" id="printOrderButton" class="btn btn-dark" th:href="@{/defDecks/register}">방덱 등록</a>
                     <button type="button" class="btn btn-dark" onclick="defDecksListInit()">초기화</button>
                     <button type="button" class="btn btn-dark" onclick="searchDefDecks()">검색</button>
                 </div>
@@ -76,7 +78,7 @@
                             <thead class="table-light">
                             <tr>
                                 <th>사진</th>
-                                <th>몬스터 명</th>
+                                <th>몬스터 명 <span style = "color: crimson;">(리더)</span></th>
                                 <th>방덱 명</th>
                                 <th>만든 사람</th>
                             </tr>
@@ -100,11 +102,11 @@
 </html>
 <script>
     $(document).ready(function() {
-        // searchDefDecks();
+        searchDefDecks();
     })
 
     function searchDefDecks () {
-        $("#monsterList").show()
+        $("#defDeckList").show()
         let param = {
             deckName: $("#defDeckName").val(),
             makerName: $("#maker").val(),
@@ -131,7 +133,7 @@
 
                         tag += '<tr><td>'
                         $.each(monsterList, function (j){
-                            tag += '<img style="width: 50px; height: 50px" src="' + monsterList[j].photoPath + '" th:alt="No image"/>'
+                            tag += '<img style="width: 60px; height: 60px" src="' + monsterList[j].photoPath + '" th:alt="No image"/>'
                         })
                         tag += '</td>'
 

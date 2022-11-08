@@ -38,6 +38,7 @@ public class QueryMonsterRepositoryImpl implements QueryMonsterRepository{
     @Override
     public List<MonsterResponseDto> findAllDtoList() {
         return jpaQueryFactory.select(new QMonsterResponseDto(
+                monster.id,
                 monster.name,
                 monster.attribute.stringValue(),
                 monster.leaderSkill.stringValue(),

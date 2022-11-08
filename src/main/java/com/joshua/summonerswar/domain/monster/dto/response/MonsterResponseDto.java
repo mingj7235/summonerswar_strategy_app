@@ -10,7 +10,6 @@ import javax.validation.constraints.NotNull;
 @Setter
 @NoArgsConstructor
 @Builder
-@AllArgsConstructor
 public class MonsterResponseDto {
 
     private Long id;
@@ -33,7 +32,8 @@ public class MonsterResponseDto {
     }
 
     @QueryProjection
-    public MonsterResponseDto(final String name, final String attribute, final String leaderSkill, final String photoPath) {
+    public MonsterResponseDto(final Long id, final String name, final String attribute, final String leaderSkill, final String photoPath) {
+        this.id = id;
         this.name = name;
         this.attribute = attribute;
         this.leaderSkill = leaderSkill;
