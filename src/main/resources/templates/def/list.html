@@ -75,13 +75,13 @@
                         <table class="table dt-responsive nowrap w-100 table-sm">
                             <thead class="table-light">
                             <tr>
-                                <th>방덱 명</th>
                                 <th>사진</th>
+                                <th>몬스터 명</th>
+                                <th>방덱 명</th>
                                 <th>만든 사람</th>
-                                <th>리더스킬</th>
                             </tr>
                             </thead>
-                            <tbody id="monsterList">
+                            <tbody id="defDeckList">
                             </tbody>
                         </table>
                     </div>
@@ -121,37 +121,47 @@
             success: function (response) {
                 console.log(response)
 
-                // let monsterList = response;
-                // let tag = '';
-                //
-                // if (monsterList.length > 0) {
-                //     $.each(monsterList, function (i) {
-                //         tag += '<tr><td><img style="width: 50px; height: 50px" src="' + monsterList[i].photoPath + '" th:alt="No image"/>' +
-                //             '</td><td>' + monsterList[i].name + '</td>'
-                //
-                //         if (monsterList[i].attribute === "FIRE") {
-                //             tag += '<td> <button style=\"border: none\" class=\"badge badge-danger\" type=\"button\">' +monsterList[i].attribute + '</button></td>';
-                //         } else if (monsterList[i].attribute === "WATER") {
-                //             tag += '<td>' + monsterList[i].attribute + '</td>'
-                //         } else if (monsterList[i].attribute === "WIND") {
-                //             tag += '<td>' + monsterList[i].attribute + '</td>'
-                //         } else if (monsterList[i].attribute === "LIGHT") {
-                //             tag += '<td>' + monsterList[i].attribute + '</td>'
-                //         } else {
-                //             tag += '<td>' + monsterList[i].attribute + '</td>'
-                //         }
-                //
-                //         tag += '<td>' + monsterList[i].leaderSkill + '</td>';
-                //         tag += '</tr><br>'
-                //     });
-                // }
-                //
-                // if (monsterList.length === 0) {
-                //     console.log("길이가 0임")
-                //     tag += '<div>검색 결과가 없습니다.</div>'
-                // }
-                //
-                // $("#monsterList").empty().append(tag)
+                let defDeckList = response;
+                let tag = '';
+
+                if (defDeckList.length > 0) {
+                    $.each(defDeckList, function (i) {
+
+                        let monsterList = defDeckList[i].monsterResponseDtoList;
+
+                        tag += '<tr><td>'
+                        $.each(monsterList, function (j){
+                            tag += '<img style="width: 50px; height: 50px" src="' + monsterList[j].photoPath + '" th:alt="No image"/>'
+                        })
+                        tag += '</td>'
+
+                        tag += '<td>'
+                        $.each(monsterList, function (j){
+                            if (j === monsterList.length - 1) {
+                                tag +=  monsterList[j].name.replace(/\(.*\)/gi, "")
+                                return;
+                            }
+
+                            if (j === 0) {
+                                tag +=  '<span style = "color: crimson; font-weight: bold;">' + monsterList[j].name.replace(/\(.*\)/gi, "") + ', ' +'</span>'
+                                return;
+                            }
+
+                            tag +=  monsterList[j].name.replace(/\(.*\)/gi, "") + ', '
+                        })
+                        tag += '</td>'
+                        tag += '<td>' + defDeckList[i].deckName  + '</td>'
+                        tag += '<td>' + defDeckList[i].makerName + '</td>';
+                        tag += '</tr><br>'
+                    });
+                }
+
+                if (defDeckList.length === 0) {
+                    console.log("길이가 0임")
+                    tag += '<div>검색 결과가 없습니다.</div>'
+                }
+
+                $("#defDeckList").empty().append(tag)
 
             }
         });
@@ -164,7 +174,7 @@
         $("#monsters").val("ALL");
         $("#atkDecks").val("ALL");
 
-        $("#monsterList").hide()
+        $("#defDeckList").hide()
 
     }
 

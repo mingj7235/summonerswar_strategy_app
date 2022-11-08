@@ -26,7 +26,7 @@ public class DefDeckApiController {
     private final DefDecksFacade defDecksFacade;
 
     /**
-     * Ajax - 검색 조건에 따른 방덴 조회
+     * Ajax - 검색 조건에 따른 방덱 조회
      *
      * @param request
      * @return

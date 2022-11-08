@@ -41,22 +41,6 @@ public class QueryRelMonsterDefDeckRepositoryImpl implements QueryRelMonsterDefD
                 .fetch();
     }
 
-//    @Override
-//    public List<DefDeckResponseDto> search(final DefDeckRequestDto.Search request) {
-//        return jpaQueryFactory.select(new QDefDeckResponseDto(
-//                defDeck.deckName,
-//                defDeck.deckDescription,
-//                monsterDefDeck.monster
-//
-//        ))
-//                .from(defDeck)
-//                .join(defDeck.monsterDefDecks, monsterDefDeck)
-//                .join(monsterDefDeck.monster, monster)
-//                .where(
-//                        findMonsterOnDefDeck(request.getMonsterId())
-//                )
-//                .fetch();
-//    }
 
     private BooleanExpression findMonsterOnDefDeck (final @NotNull String monsterId) {
         return StringUtils.hasText(monsterId) ? monsterDefDeck.defDeck.id.eq(Long.valueOf(monsterId)) : null;
