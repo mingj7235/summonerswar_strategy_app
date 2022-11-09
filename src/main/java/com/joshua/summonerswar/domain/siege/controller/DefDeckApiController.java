@@ -8,9 +8,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -35,6 +33,13 @@ public class DefDeckApiController {
         return ResponseEntity.ok().body(defDecksFacade.search(request));
     }
 
+    /**
+     * Ajax - 방덱 저장
+     *
+     * @param authentication
+     * @param request
+     * @return
+     */
     @PostMapping ("/defDecks")
     public ResponseEntity<String> register (Authentication authentication,
                                             final DefDeckRequestDto.@NotNull Register request) {
@@ -47,5 +52,28 @@ public class DefDeckApiController {
 
         return ResponseEntity.ok("fail");
     }
+
+    @PatchMapping("/defDecks/{id}")
+    @ResponseBody
+    public ResponseEntity<DefDeckResponseDto> update (Authentication authentication,
+                                                      final @NotNull @PathVariable String id,
+                                                      final @NotNull DefDeckRequestDto.Update request) {
+
+        return ResponseEntity.ok()
+                .body(defDecksFacade.update(authentication.getName(), id, request));
+    }
+
+    @DeleteMapping("/defDecks/{id}")
+    @ResponseBody
+    public ResponseEntity<DefDeckResponseDto> delete (Authentication authentication,
+                                                      final @NotNull @PathVariable String id) {
+
+        defDecksFacade.delete(authentication.getName(), id);
+
+        return ResponseEntity.noContent()
+                .build();
+    }
+
+
 
 }

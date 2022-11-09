@@ -11,50 +11,54 @@
                 <div class="table-responsive">
                     <table class="table table-bordered table-centered mb-0">
                         <tbody>
-
                         <tr>
-                            <th style="background-color: #f1f3fa !important;">몬스터 이름</th>
+                            <th style="background-color: #f1f3fa !important;"> 방덱 이름</th>
                             <td>
                                 <input type="text" class="form-control form-control-user"
-                                       id="name" placeholder="몬스터 명"  required>
+                                       id="name" placeholder="방덱 명"  required>
                             </td>
-
                         </tr>
                         <tr>
-                            <th style="background-color: #f1f3fa !important;">속성</th>
+                            <th style="background-color: #f1f3fa !important;">리더 몬스터</th>
                             <td>
-                                <select id="attribute" name="attribute" class="orderStatusSelect form-control select2" data-toggle="select2">
-                                    <optgroup label="속성">
-                                        <option th:each="attribute : ${attributes}" th:value="${attribute}" th:text="${attribute}"></option>
-                                    </optgroup>
-                                </select>
-                            </td>
-                            <th style="background-color: #f1f3fa !important;">리더스킬</th>
-                            <td>
-                                <select id="leaderSkill" name="leaderSkill" class="orderStatusSelect form-control select2" data-toggle="select2">
-                                    <optgroup label="리더스킬">
-                                        <option th:each="leaderSkill : ${leaderSkills}" th:value="${leaderSkill.code}" th:text="${leaderSkill.description}"></option>
+                                <select id="leaderMonster" name="leaderMonster" class="orderStatusSelect form-control select2" data-toggle="select2">
+                                    <optgroup label="리더 몬스터">
+                                        <option th:each="monster : ${monsters}" th:title="${monster.photoPath}" th:value="${monster.id}" th:text="${monster.name}"></option>
                                     </optgroup>
                                 </select>
                             </td>
 
                         </tr>
                         <tr>
-                            <th style="background-color: #f1f3fa !important;">사진 경로</th>
-                            <td colspan="3">
-                                <div class="mb-3">
-                                    <form id="fileForm" method="post" enctype="multipart/form-data">
-                                        <input type="file" id="file" style="cursor: pointer" class="form-control">
-                                    </form>
-                                </div>
+                            <th style="background-color: #f1f3fa !important;">두번째 몬스터</th>
+                            <td>
+                                <select id="secondMonster" name="secondMonster" class="orderStatusSelect form-control select2" data-toggle="select2">
+                                    <optgroup label="두번째 몬스터">
+                                        <option th:each="monster : ${monsters}" th:title="${monster.photoPath}" th:value="${monster.id}" th:text="${monster.name}"></option>
+                                    </optgroup>
+                                </select>
+                            </td>
+                            <th style="background-color: #f1f3fa !important;">세번째 몬스터</th>
+                            <td>
+                                <select id="thirdMonster" name="thirdMonster" class="orderStatusSelect form-control select2" data-toggle="select2">
+                                    <optgroup label="세번째 몬스터">
+                                        <option th:each="monster : ${monsters}" th:title="${monster.photoPath}" th:value="${monster.id}" th:text="${monster.name}"></option>
+                                    </optgroup>
+                                </select>
                             </td>
                         </tr>
                         </tbody>
                     </table>
+
+                    <label for="defDeckDescription"> 상세 설명 </label>
+                        <textarea id="defDeckDescription" name="defDeckDescription">
+
+
+                        </textarea>
                 </div> <!-- end table-responsive-->
                 <div class="card-body ta-c">
-                    <button type="button" class="btn btn-dark" onclick="registerMonster()">등록</button>
-                    <button type="button" class="btn btn-dark" onclick="location.href='/monsters'">목록으로</button>
+                    <button type="button" class="btn btn-dark" onclick="registerDefDeck()">등록</button>
+                    <button type="button" class="btn btn-dark" onclick="location.href='/defDecks'">목록으로</button>
                 </div>
             </div>
         </div>
@@ -68,6 +72,7 @@
 </a>
 
 </html>
+
 
 
 

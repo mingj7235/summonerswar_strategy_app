@@ -21,7 +21,6 @@ public class DefDeckRequestDto {
         private Long secondMonsterId;
 
         private Long thirdMonsterId;
-
     }
 
     @Getter

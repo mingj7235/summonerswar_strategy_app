@@ -33,3 +33,37 @@ function registerMonster(){
         }
     });
 }
+
+function registerDefDeck(){
+
+    var param = {
+        "deckName": $("#name").val(),
+        "deckDescription": $("#defDeckDescription").val(),
+        "leaderMonsterId": $("#leaderMonster").val(),
+        "secondMonsterId": $("#secondMonster").val(),
+        "thirdMonsterId": $("#thirdMonster").val(),
+    };
+
+    console.log(param);
+
+    formData.append("request", new Blob([JSON.stringify(param)], {type: "application/json"}));
+
+    $.ajax({
+        type: "POST",
+        url: '/v1/monsters',
+        data: formData,
+        processData: false,
+        contentType: false,
+        cache: false,
+        success: function (response) {
+            var data = response;
+            console.log(data);
+            if(data != null){
+                alert("등록성공하였습니다.");
+                window.location.href = "/monsters"
+            }
+        },error : function (req, status, error) {
+            alert("몬스터 등록에 실패했습니다.");
+        }
+    });
+}

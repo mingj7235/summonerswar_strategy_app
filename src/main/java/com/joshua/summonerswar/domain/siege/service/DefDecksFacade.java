@@ -6,7 +6,6 @@ import com.joshua.summonerswar.domain.monster.service.core.MonsterService;
 import com.joshua.summonerswar.domain.siege.dto.request.DefDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.dto.response.DefDeckResponseDto;
 import com.joshua.summonerswar.domain.siege.entity.DefDeck;
-import com.joshua.summonerswar.domain.siege.entity.relation.AtkDeckDefDeck;
 import com.joshua.summonerswar.domain.siege.entity.relation.MonsterDefDeck;
 import com.joshua.summonerswar.domain.siege.service.core.DefDeckService;
 import com.joshua.summonerswar.domain.siege.service.core.relation.RelMonsterDefDeckService;
@@ -20,7 +19,6 @@ import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Slf4j
 @Service
@@ -79,6 +77,7 @@ public class DefDecksFacade {
                                        final @NotNull DefDeckRequestDto.Register request) {
 
         DefDeck defDeck = defDeckService.register(makerName, request);
+
         List<Monster> monsters = getMonsters(request.getLeaderMonsterId(),
                                              request.getSecondMonsterId(),
                                              request.getThirdMonsterId());

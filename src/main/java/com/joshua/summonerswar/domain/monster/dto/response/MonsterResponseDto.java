@@ -14,11 +14,8 @@ public class MonsterResponseDto {
 
     private Long id;
     private String name;
-
     private String attribute;
-
     private String leaderSkill;
-
     private String photoPath;
 
     public static MonsterResponseDto toDtoFromEntity(final @NotNull Monster monster) {
