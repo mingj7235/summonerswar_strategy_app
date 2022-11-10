@@ -60,7 +60,7 @@ public class DefDeckController {
     public String viewDetail (@PathVariable String id,
                               Model model) {
 
-        model.addAttribute("monster", defDecksFacade.findById(id));
+        model.addAttribute("defDecks", defDecksFacade.findById(id));
 
         return "def/detail";
     }

@@ -137,10 +137,10 @@
                         })
                         tag += '</td>'
 
-                        tag += '<td>'
+                        tag += '<td style="cursor: pointer"><a onclick="moveDetail(' + defDeckList[i].id + ')">'
                         $.each(monsterList, function (j){
                             if (j === monsterList.length - 1) {
-                                tag +=  monsterList[j].name.replace(/\(.*\)/gi, "")
+                                tag += monsterList[j].name.replace(/\(.*\)/gi, "")
                                 return;
                             }
 
@@ -151,8 +151,8 @@
 
                             tag +=  monsterList[j].name.replace(/\(.*\)/gi, "") + ', '
                         })
-                        tag += '</td>'
-                        tag += '<td>' + defDeckList[i].deckName  + '</td>'
+                        tag += '</a></td>'
+                        tag += '<td style="cursor: pointer"><a onclick="moveDetail(' + defDeckList[i].id + ')">' + defDeckList[i].deckName  + '</a></td>'
                         tag += '<td>' + defDeckList[i].makerName + '</td>';
                         tag += '</tr><br>'
                     });
@@ -178,6 +178,10 @@
 
         $("#defDeckList").hide()
 
+    }
+
+    function moveDetail(id) {
+        location.href="/defDecks/" + id;
     }
 
 </script>

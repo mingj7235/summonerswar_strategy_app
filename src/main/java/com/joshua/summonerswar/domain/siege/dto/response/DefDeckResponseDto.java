@@ -15,8 +15,10 @@ import java.util.List;
 @Setter
 @Builder
 @NoArgsConstructor
+@AllArgsConstructor
 public class DefDeckResponseDto {
 
+    private Long id;
     private String deckName;
 
     private String deckDescription;
@@ -32,6 +34,7 @@ public class DefDeckResponseDto {
     public static DefDeckResponseDto toDtoFromRegister(final @NotNull DefDeck entity,
                                                        final @NotNull List<Monster> monsters) {
         return DefDeckResponseDto.builder()
+                .id(entity.getId())
                 .deckName(entity.getDeckName())
                 .deckDescription(entity.getDeckDescription())
                 .leaderMonster(monsters.get(0))
@@ -63,6 +66,8 @@ public class DefDeckResponseDto {
     @AllArgsConstructor
     public static class Search {
 
+        private Long id;
+
         private String deckName;
 
         private String deckDescription;
@@ -73,6 +78,7 @@ public class DefDeckResponseDto {
 
         public static Search toDtoFromEntity (final @NotNull DefDeck defDeck) {
             return Search.builder()
+                    .id(defDeck.getId())
                     .deckName(defDeck.getDeckName())
                     .deckDescription(defDeck.getDeckDescription())
                     .makerName(defDeck.getMakerNickName())
