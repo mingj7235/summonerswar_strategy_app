@@ -27,8 +27,6 @@ public class DefDeckController {
 
     @GetMapping ("/defDecks")
     public String viewList (Model model) {
-
-        model.addAttribute("defDecks", defDecksFacade.findAll());
         model.addAttribute("monsters", monsterManagerFacade.findAll());
         model.addAttribute("atkDecks", atkDeckFacade.findAll());
 

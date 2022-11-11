@@ -31,22 +31,6 @@ public class DefDecksFacade {
     private final RelMonsterDefDeckService monsterDefDeckService;
 
     @Transactional (readOnly = true)
-    public List<DefDeckResponseDto> findAll() {
-
-        List<DefDeckResponseDto> defDeckResponseDtoList = new ArrayList<>();
-
-        defDeckService.findAll()
-                .forEach(defDeck ->
-                        defDeckResponseDtoList
-                                .add(DefDeckResponseDto.toDtoFromRegister(
-                                        defDeck,
-                                        monsterDefDeckService.findMonsterListByDefDeckId(defDeck.getId())))
-                );
-
-        return defDeckResponseDtoList;
-    }
-
-    @Transactional (readOnly = true)
     public List<DefDeckResponseDto.Search> search (final DefDeckRequestDto.@NotNull Search request) {
 
         List<DefDeckResponseDto.Search> resultDtoList = new ArrayList<>();
