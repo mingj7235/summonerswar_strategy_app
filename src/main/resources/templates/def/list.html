@@ -71,7 +71,7 @@
             <div class="card">
                 <div class="card-body">
                     <div>
-                        검색 건수 : <span id="searchListSize" style="font-weight: bolder" th:text="${defDecks.size()}">0</span> 건
+<!--                        검색 건수 : <span id="searchListSize" style="font-weight: bolder" th:text="${defDecks.length}">0</span> 건-->
                     </div>
                     <div class="tab-content">
                         <table class="table dt-responsive nowrap w-100 table-sm">
@@ -121,7 +121,6 @@
             async: false,
             data: param,
             success: function (response) {
-                console.log(response)
 
                 let defDeckList = response;
                 let tag = '';
@@ -159,7 +158,6 @@
                 }
 
                 if (defDeckList.length === 0) {
-                    console.log("길이가 0임")
                     tag += '<div>검색 결과가 없습니다.</div>'
                 }
 

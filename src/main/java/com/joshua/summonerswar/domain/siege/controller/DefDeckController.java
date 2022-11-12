@@ -14,17 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 @Controller
 @RequiredArgsConstructor
 public class DefDeckController {
-
     private final DefDecksFacade defDecksFacade;
-
     private final AtkDeckFacade atkDeckFacade;
-
     private final MonsterManagerFacade monsterManagerFacade;
 
     /**
      * 방덱 목록 불러오기
      */
-
     @GetMapping ("/defDecks")
     public String viewList (Model model) {
         model.addAttribute("monsters", monsterManagerFacade.findAll());

@@ -7,54 +7,67 @@
     <div style="padding: 10px">
         <div class="row">
             <div class="col-lg-10">
-                <h4 class="header-title" th:text="${defDecks.deckName}"></h4>
+                <h4 class="header-title" th:text="${'방덱 명 : ' + defDecks.deckName}"></h4>
                 <div class="table-responsive">
                     <table class="table table-bordered table-centered mb-0">
                         <tbody>
 
                         <tr>
-                            <th style="background-color: #f1f3fa !important;">몬스터 이름</th>
-                            <td>
-                                <input type="text" class="form-control form-control-user"
-                                       id="name" placeholder="몬스터 명"  required>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <th style="background-color: #f1f3fa !important;">속성</th>
-                            <td>
-                                <select id="attribute" name="attribute" class="orderStatusSelect form-control select2" data-toggle="select2">
-                                    <optgroup label="속성">
-                                        <option th:each="attribute : ${attributes}" th:value="${attribute}" th:text="${attribute}"></option>
-                                    </optgroup>
-                                </select>
-                            </td>
-                            <th style="background-color: #f1f3fa !important;">리더스킬</th>
-                            <td>
-                                <select id="leaderSkill" name="leaderSkill" class="orderStatusSelect form-control select2" data-toggle="select2">
-                                    <optgroup label="리더스킬">
-                                        <option th:each="leaderSkill : ${leaderSkills}" th:value="${leaderSkill.code}" th:text="${leaderSkill.description}"></option>
-                                    </optgroup>
-                                </select>
-                            </td>
-
-                        </tr>
-                        <tr>
-                            <th style="background-color: #f1f3fa !important;">사진 경로</th>
+                            <th style="background-color: #f1f3fa !important;">몬스터</th>
                             <td colspan="3">
-                                <div class="mb-3">
-                                    <form id="fileForm" method="post" enctype="multipart/form-data">
-                                        <input type="file" id="file" style="cursor: pointer" class="form-control">
-                                    </form>
+                                <div style="display: flex; justify-content: space-around">
+                                    <div th:each="monster, i : ${defDecks.monsterResponseDtoList}">
+
+                                        <span th:if="${i.index == 0}">
+                                            <input type="hidden" id="leaderSkill" th:value="${monster.leaderSkill}">
+                                        </span>
+
+                                        <img style="width: 60px; height: 60px" th:src="${monster.photoPath}" alt=""/>
+                                        <br>
+                                        <span th:text="${monster.name}"></span>
+                                        <span th:if="${monster.attribute == 'FIRE'}" class="badge badge-danger">
+                                            <span th:text="${monster.attribute}"></span>
+                                        </span>
+                                        <span th:if="${monster.attribute == 'WATER'}" class="badge badge-primary">
+                                            <span th:text="${monster.attribute}"></span>
+                                        </span>
+                                        <span th:if="${monster.attribute == 'WIND'}" class="badge badge-warning">
+                                            <span th:text="${monster.attribute}"></span>
+                                        </span>
+                                        <span th:if="${monster.attribute == 'LIGHT'}" class="badge badge-light">
+                                            <span th:text="${monster.attribute}"></span>
+                                        </span>
+                                        <span th:if="${monster.attribute == 'DARK'}" class="badge badge-dark">
+                                            <span th:text="${monster.attribute}"></span>
+                                        </span>
+                                    </div>
                                 </div>
+                            </td>
+                        </tr>
+                        <tr>
+
+                            <th style="background-color: #f1f3fa !important;">리더 스킬</th>
+                            <td>
+                                <span id="inputLeaderSkill"></span>
+                            </td>
+                            <th style="background-color: #f1f3fa !important;">만든 사람</th>
+                            <td>
+                                <span th:text="${defDecks.makerName}"></span>
+                            </td>
+                        </tr>
+                        <tr style="height: 300px">
+                            <th style="background-color: #f1f3fa !important;">상세 설명</th>
+                            <td colspan="3">
+                                <textarea style="width: 100%; height: 300px" th:text="${defDecks.deckDescription}" readonly>
+                                </textarea>
                             </td>
                         </tr>
                         </tbody>
                     </table>
                 </div> <!-- end table-responsive-->
                 <div class="card-body ta-c">
-                    <button type="button" class="btn btn-dark" onclick="registerMonster()">등록</button>
-                    <button type="button" class="btn btn-dark" onclick="location.href='/monsters'">목록으로</button>
+                    <button type="button" class="btn btn-dark" onclick="">공덱 등록</button>
+                    <button type="button" class="btn btn-dark" onclick="location.href='/defDecks'">목록으로</button>
                 </div>
             </div>
         </div>
@@ -68,6 +81,13 @@
 </a>
 
 </html>
+<script>
+    $(document).ready(function() {
+        let leaderSkill = $("#leaderSkill").val()
+        $("#inputLeaderSkill").text(leaderSkill);
+    });
+
+</script>
 
 
 
