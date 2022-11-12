@@ -39,13 +39,7 @@ public class DefDecksFacade {
 
         search.forEach(
                 defDeck -> {
-                    List<Monster> monsterList = defDeck.getMonsterDefDecks().stream().map(MonsterDefDeck::getMonster).collect(Collectors.toList());
-                    List<MonsterResponseDto> collect = monsterList.stream().map(MonsterResponseDto::toDtoFromEntity).collect(Collectors.toList());
-
-                    DefDeckResponseDto.Search defDeckResponseSearchDto = DefDeckResponseDto.Search.toDtoFromEntity(defDeck);
-                    defDeckResponseSearchDto.setMonsterResponseDtoList(collect);
-
-                    resultDtoList.add(defDeckResponseSearchDto);
+                    resultDtoList.add(getDefDeckResponseSearchDto(defDeck));
                 }
         );
 
@@ -53,8 +47,10 @@ public class DefDecksFacade {
     }
 
     @Transactional (readOnly = true)
-    public DefDeckResponseDto findById (final @NotNull String id) {
-        return DefDeckResponseDto.toDtoFromEntity(defDeckService.findById(id));
+    public DefDeckResponseDto.Search findById (final @NotNull String id) {
+        DefDeck defDeck = defDeckService.findById(id);
+
+        return getDefDeckResponseSearchDto(defDeck);
     }
 
     public DefDeckResponseDto register(final @NotBlank String makerName,
@@ -106,6 +102,19 @@ public class DefDecksFacade {
         return monsterList;
     }
 
+    /**
+     * DefDeck 을 DefDeckResponseDto.Search 로 변경해주는 private method
+     *
+     * @param defDeck
+     * @return
+     */
+    private DefDeckResponseDto.Search getDefDeckResponseSearchDto (final @NotNull DefDeck defDeck) {
+        List<Monster> monsterList = defDeck.getMonsterDefDecks().stream().map(MonsterDefDeck::getMonster).collect(Collectors.toList());
+        List<MonsterResponseDto> collect = monsterList.stream().map(MonsterResponseDto::toDtoFromEntity).collect(Collectors.toList());
 
+        DefDeckResponseDto.Search defDeckResponseSearchDto = DefDeckResponseDto.Search.toDtoFromEntity(defDeck);
+        defDeckResponseSearchDto.setMonsterResponseDtoList(collect);
 
+        return defDeckResponseSearchDto;
+    }
 }
