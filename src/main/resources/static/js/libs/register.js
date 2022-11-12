@@ -21,7 +21,6 @@ function registerMonster(){
         cache: false,
         success: function (response) {
             var data = response;
-            console.log(data);
             if(data != null){
                 alert("등록성공하였습니다.");
                 window.location.href = "/monsters"

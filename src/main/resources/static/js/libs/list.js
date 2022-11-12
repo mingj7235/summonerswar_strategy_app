@@ -14,7 +14,6 @@ function searchMonster () {
         async: false,
         data: param,
         success: function (response) {
-            console.log('size: ' + response.length)
 
             let monsterListLength = response.length;
             let monsterList = response;
@@ -43,7 +42,6 @@ function searchMonster () {
             }
 
             if (monsterList.length === 0) {
-                console.log("길이가 0임")
                 tag += '<div>검색 결과가 없습니다.</div>'
             }
 

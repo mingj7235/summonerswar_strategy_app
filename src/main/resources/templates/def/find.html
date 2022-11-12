@@ -70,8 +70,6 @@
 
         let listLength = defMonstersList.length;
 
-        console.log(response)
-
         let tag = '';
         if (listLength > 0) {
           $.each(defMonstersList, function (i) {
@@ -87,7 +85,6 @@
         }
 
         if (listLength === 0) {
-          console.log("길이가 0임")
           tag += '<div>검색 결과가 없습니다.</div>'
         }
 
