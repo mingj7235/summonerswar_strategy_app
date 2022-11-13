@@ -1,5 +1,6 @@
 package com.joshua.summonerswar.domain.siege.service.core;
 
+import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.siege.dto.request.DefDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.dto.response.DefDeckResponseDto;
 import com.joshua.summonerswar.domain.siege.entity.DefDeck;
@@ -38,8 +39,8 @@ public class DefDeckService {
                 .orElseThrow(() -> new IllegalArgumentException("Not Found DefDeck"));
     }
 
-    public DefDeck register(String makerName, DefDeckRequestDto.Register request) {
-        return defDeckRepository.save(DefDeck.toEntityForRegister(makerName, request));
+    public DefDeck register(Member member, DefDeckRequestDto.Register request) {
+        return defDeckRepository.save(DefDeck.toEntityForRegister(member, request));
     }
 
 

@@ -1,5 +1,6 @@
 package com.joshua.summonerswar.domain.siege.entity;
 
+import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.siege.dto.request.DefDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.entity.relation.AtkDeckDefDeck;
 import com.joshua.summonerswar.domain.siege.entity.relation.MonsterDefDeck;
@@ -31,7 +32,9 @@ public class DefDeck extends BaseTime {
 
     private String deckDescription;
 
-    private String makerNickName;
+    @ManyToOne
+    @JoinColumn (name = "member_id")
+    private Member member;
 
     @OneToMany (mappedBy = "defDeck")
     private List<MonsterDefDeck> monsterDefDecks = new ArrayList<>();
@@ -39,19 +42,18 @@ public class DefDeck extends BaseTime {
     @OneToMany (mappedBy = "defDeck")
     private List<AtkDeckDefDeck> atkDeckDefDecks = new ArrayList<>();
 
-    public static DefDeck toEntityForRegister(final @NotBlank String name,
+    public static DefDeck toEntityForRegister(final @NotBlank Member member,
                                               final @NotNull DefDeckRequestDto.Register request) {
 
         return DefDeck.builder()
                 .deckName(request.getDeckName())
                 .deckDescription(request.getDeckDescription())
-                .makerNickName(name)
+                .member(member)
                 .build();
     }
 
     public static DefDeck update(final @NotNull DefDeck defDeck,
-                                 final @NotNull DefDeckRequestDto.Update request,
-                                 final @NotNull String makerName) {
+                                 final @NotNull DefDeckRequestDto.Update request) {
 
         if(StringUtils.hasText(request.getDeckName())) {
             defDeck.setDeckName(request.getDeckName());
@@ -60,8 +62,6 @@ public class DefDeck extends BaseTime {
         if (StringUtils.hasText(request.getDeckDescription())) {
             defDeck.setDeckDescription(request.getDeckDescription());
         }
-
-        defDeck.setMakerNickName(makerName);
 
         return defDeck;
     }

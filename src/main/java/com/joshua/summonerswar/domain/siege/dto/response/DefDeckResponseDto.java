@@ -74,6 +74,8 @@ public class DefDeckResponseDto {
 
         private String makerName;
 
+        private String makerEmail;
+
         private List<MonsterResponseDto> monsterResponseDtoList;
 
         public static Search toDtoFromEntity (final @NotNull DefDeck defDeck) {
@@ -81,7 +83,8 @@ public class DefDeckResponseDto {
                     .id(defDeck.getId())
                     .deckName(defDeck.getDeckName())
                     .deckDescription(defDeck.getDeckDescription())
-                    .makerName(defDeck.getMakerNickName())
+                    .makerName(defDeck.getMember().getNickname())
+                    .makerEmail(defDeck.getMember().getEmail())
                     .build();
         }
     }

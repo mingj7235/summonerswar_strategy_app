@@ -67,6 +67,8 @@
                 </div> <!-- end table-responsive-->
                 <div class="card-body ta-c">
                     <button type="button" class="btn btn-dark" onclick="">공덱 등록</button>
+                    <button type="button" class="btn btn-dark" th:if="${memberEmail == defDecks.makerEmail}" th:onclick="'viewModify(' + ${defDecks.id} + ');'">방덱 수정</button>
+<!--                                                                                                                        ="'removeContent(' + ${content.id} + ');'">-->
                     <button type="button" class="btn btn-dark" onclick="location.href='/defDecks'">목록으로</button>
                 </div>
             </div>
@@ -86,6 +88,10 @@
         let leaderSkill = $("#leaderSkill").val()
         $("#inputLeaderSkill").text(leaderSkill);
     });
+
+    function viewModify(id) {
+        location.href = "/defDecks/modify/" + id;
+    }
 
 </script>
 

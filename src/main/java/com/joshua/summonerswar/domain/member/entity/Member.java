@@ -3,6 +3,7 @@ package com.joshua.summonerswar.domain.member.entity;
 import com.joshua.summonerswar.domain.admin.dto.MemberManagerDto;
 import com.joshua.summonerswar.domain.member.dto.request.MemberRequestDto;
 import com.joshua.summonerswar.domain.admin.entity.Role;
+import com.joshua.summonerswar.domain.siege.entity.DefDeck;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
 import org.springframework.util.StringUtils;
@@ -11,17 +12,18 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
 @Getter
 @Setter (AccessLevel.PRIVATE)
-@ToString(exclude = {"userRoles"})
+//@ToString(exclude = {"userRoles"})
 @SuperBuilder
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 @AllArgsConstructor
-public class Member implements Serializable{
+public class Member {
 
     @Id
     @GeneratedValue
@@ -38,6 +40,9 @@ public class Member implements Serializable{
 
     @Column
     private String batch;
+
+    @OneToMany (mappedBy = "member")
+    private List<DefDeck> defDeckList;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade={CascadeType.ALL})
     @JoinTable(name = "member_roles", joinColumns = { @JoinColumn(name = "user_id") }, inverseJoinColumns = {

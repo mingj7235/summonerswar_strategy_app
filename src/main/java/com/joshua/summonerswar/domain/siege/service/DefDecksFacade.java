@@ -1,5 +1,7 @@
 package com.joshua.summonerswar.domain.siege.service;
 
+import com.joshua.summonerswar.domain.member.entity.Member;
+import com.joshua.summonerswar.domain.member.service.core.MemberService;
 import com.joshua.summonerswar.domain.monster.dto.response.MonsterResponseDto;
 import com.joshua.summonerswar.domain.monster.entity.Monster;
 import com.joshua.summonerswar.domain.monster.service.core.MonsterService;
@@ -28,6 +30,7 @@ public class DefDecksFacade {
 
     private final DefDeckService defDeckService;
     private final MonsterService monsterService;
+    private final MemberService memberService;
     private final RelMonsterDefDeckService monsterDefDeckService;
 
     @Transactional (readOnly = true)
@@ -53,10 +56,10 @@ public class DefDecksFacade {
         return getDefDeckResponseSearchDto(defDeck);
     }
 
-    public DefDeckResponseDto register(final @NotBlank String makerName,
+    public DefDeckResponseDto register(final @NotBlank Member member,
                                        final @NotNull DefDeckRequestDto.Register request) {
 
-        DefDeck defDeck = defDeckService.register(makerName, request);
+        DefDeck defDeck = defDeckService.register(member, request);
 
         List<Monster> monsters = getMonsters(request.getLeaderMonsterId(),
                                              request.getSecondMonsterId(),
@@ -67,14 +70,14 @@ public class DefDecksFacade {
         return DefDeckResponseDto.toDtoFromRegister(defDeck, monsters);
     }
 
-    public DefDeckResponseDto update(final @NotBlank String makerName,
-                                     final @NotBlank String defDeckId,
+    public DefDeckResponseDto update(final @NotBlank String defDeckId,
+                                     final @NotBlank String memberId,
                                      final @NotNull DefDeckRequestDto.Update request) {
 
         DefDeck defDeck = defDeckService.findById(defDeckId);
 
         List<Monster> monsterList = monsterDefDeckService.findMonsterListByDefDeckId(Long.valueOf(defDeckId));
-        DefDeck.update(defDeck, request, makerName);
+        DefDeck.update(defDeck, request);
 
         return DefDeckResponseDto.toDtoFromRegister(defDeck, monsterList);
     }
@@ -117,4 +120,14 @@ public class DefDecksFacade {
 
         return defDeckResponseSearchDto;
     }
+
+    public void updatable(final Member member, final String defDeckId) {
+
+        DefDeck defDeck = defDeckService.findById(defDeckId);
+
+        if (!defDeck.getMember().equals(member)) {
+            throw new IllegalArgumentException("member is not match");
+        }
+    }
+
 }

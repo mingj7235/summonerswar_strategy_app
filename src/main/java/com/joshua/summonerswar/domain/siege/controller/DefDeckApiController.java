@@ -46,7 +46,7 @@ public class DefDeckApiController {
 
         Member member = (Member) authentication.getPrincipal();
 
-        if (defDecksFacade.register(member.getNickname(), request) != null) {
+        if (defDecksFacade.register(member, request) != null) {
             return ResponseEntity.ok("ok");
         }
 

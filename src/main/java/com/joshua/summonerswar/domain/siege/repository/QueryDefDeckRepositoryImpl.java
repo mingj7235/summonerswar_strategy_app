@@ -55,7 +55,7 @@ public class QueryDefDeckRepositoryImpl implements QueryDefDeckRepository{
     }
 
     private BooleanExpression makerNickNameLike (final @NotBlank String nickName) {
-        return StringUtils.hasText(nickName) ? defDeck.makerNickName.contains(nickName) : null;
+        return StringUtils.hasText(nickName) ? defDeck.member.nickname.contains(nickName) : null;
     }
 
     private BooleanExpression monsterIdEq (final @NotBlank String monsterId)  {
