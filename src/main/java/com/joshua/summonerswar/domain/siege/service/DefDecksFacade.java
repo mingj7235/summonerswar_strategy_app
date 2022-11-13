@@ -70,11 +70,25 @@ public class DefDecksFacade {
         return DefDeckResponseDto.toDtoFromRegister(defDeck, monsters);
     }
 
+    /**
+     * 방덱을 업데이트한다.
+     *
+     * TODO 현재 몬스터를 업데이트 하는 로직이 빠져있음. Update request 객체를 바꿔야함
+     *
+     * @param defDeckId
+     * @param memberId
+     * @param request
+     * @return
+     */
     public DefDeckResponseDto update(final @NotBlank String defDeckId,
                                      final @NotBlank String memberId,
                                      final @NotNull DefDeckRequestDto.Update request) {
 
         DefDeck defDeck = defDeckService.findById(defDeckId);
+
+        if (!defDeck.getMember().getEmail().equals(memberId)) {
+            throw new IllegalArgumentException("member not match");
+        }
 
         List<Monster> monsterList = monsterDefDeckService.findMonsterListByDefDeckId(Long.valueOf(defDeckId));
         DefDeck.update(defDeck, request);

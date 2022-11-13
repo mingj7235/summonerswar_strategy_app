@@ -74,6 +74,8 @@ public class DefDeckController {
     /**
      * 방덱 수정 화면
      *
+     * - 인증된 객체의 정보와 방덱을 등록한 유저의 정보를 확인하여 동일한 유저가 아니라면 예외를 발생 시킨다.
+     *
      * @param authentication
      * @param id
      * @param model
@@ -85,12 +87,10 @@ public class DefDeckController {
                               Model model) {
 
         Member member = (Member) authentication.getPrincipal();
-
         defDecksFacade.updatable(member, id);
-        DefDeckResponseDto.Search defDeck = defDecksFacade.findById(id);
-        List<MonsterResponseDto> monsterList = defDeck.getMonsterResponseDtoList();
 
-        model.addAttribute("defDecks", defDeck);
+        model.addAttribute("defDecks", defDecksFacade.findById(id));
+        model.addAttribute("monsters", monsterManagerFacade.findAll());
 
 
         return "def/modify";

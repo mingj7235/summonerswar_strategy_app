@@ -15,7 +15,7 @@
               <th style="background-color: #f1f3fa !important;"> 방덱 이름</th>
               <td>
                 <input type="text" class="form-control form-control-user"
-                       id="name" th:value="${defDecks.deckName}" th:text="${defDecks.deckName}" placeholder="방덱 명" required>
+                       id="name" th:value="${defDecks.deckName}" placeholder="방덱 명" required>
               </td>
               <th style="background-color: #f1f3fa !important;">리더 몬스터</th>
               <td>
@@ -48,23 +48,31 @@
             <tr style="height: 300px">
               <th style="background-color: #f1f3fa !important;">상세 설명</th>
               <td colspan="3">
-                                <textarea id="defDeckDescription" name="defDeckDescription" style="width: 100%; height: 300px">
-                                </textarea>
+                  <textarea id="defDeckDescription" name="defDeckDescription" style="width: 100%; height: 300px" th:text="${defDecks.deckDescription}">
+                  </textarea>
               </td>
             </tr>
             </tbody>
           </table>
 
+        <input type="hidden" id="monsterList" th:value="${defDecks.monsterResponseDtoList}">
+        <span th:each="monster, i : ${defDecks.monsterResponseDtoList}">
+          <span style="display: none;" th:if="${i.index == 0}" id="leaderMonsterId" th:text="${monster.id}"></span>
+          <span style="display: none;" th:if="${i.index == 1}" id="secondMonsterId" th:text="${monster.id}"></span>
+          <span style="display: none;" th:if="${i.index == 2}" id="thirdMonsterId" th:text="${monster.id}"></span>
+        </span>
+
 
         </div> <!-- end table-responsive-->
         <div class="card-body ta-c">
-          <button type="button" class="btn btn-dark" onclick="registerDefDeck()">등록</button>
+          <button type="button" class="btn btn-dark" th:onclick="'modifyDefDecks(' + ${defDecks.id} + ');'">등록</button>
           <button type="button" class="btn btn-dark" onclick="location.href='/defDecks'">목록으로</button>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 
 <div th:replace="./fragments/footer.html :: footer"></div>
 
@@ -73,6 +81,43 @@
 </a>
 
 </html>
+
+<script>
+  $(document).ready(function(){
+    var leaderMonsterId = $("#leaderMonsterId").text();
+    $("#leaderMonster").val(leaderMonsterId);
+
+    var secondMonsterId = $("#secondMonsterId").text();
+    $("#secondMonster").val(secondMonsterId);
+
+    var thirdMonsterId = $("#thirdMonsterId").text();
+    $("#thirdMonster").val(thirdMonsterId);
+  });
+
+  function modifyDefDecks (id) {
+
+    var param = {
+
+    }
+
+    $.ajax({
+      type: "PATCH",
+      url: '/v1/defDecks',
+      data: param,
+      dataType: "text",
+      success: function (response) {
+        if (response === 'ok') {
+          alert("방덱 등록에 성공하였습니다.");
+          window.location.reload();
+        } else {
+          alert("방덱 등록에 실패했습니다.");
+          window.location.reload();
+        }
+      }
+    });
+
+  }
+</script>
 
 
 

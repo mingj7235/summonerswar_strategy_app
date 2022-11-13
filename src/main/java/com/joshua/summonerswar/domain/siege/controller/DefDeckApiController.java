@@ -60,7 +60,7 @@ public class DefDeckApiController {
                                                       final @NotNull DefDeckRequestDto.Update request) {
 
         return ResponseEntity.ok()
-                .body(defDecksFacade.update(authentication.getName(), id, request));
+                .body(defDecksFacade.update(id, authentication.getName(), request));
     }
 
     @DeleteMapping("/defDecks/{id}")
