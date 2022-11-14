@@ -55,12 +55,17 @@ public class DefDeckApiController {
 
     @PatchMapping("/defDecks/{id}")
     @ResponseBody
-    public ResponseEntity<DefDeckResponseDto> update (Authentication authentication,
+    public ResponseEntity<String> update (Authentication authentication,
                                                       final @NotNull @PathVariable String id,
                                                       final @NotNull DefDeckRequestDto.Update request) {
 
-        return ResponseEntity.ok()
-                .body(defDecksFacade.update(id, authentication.getName(), request));
+        Member member = (Member) authentication.getPrincipal();
+
+        if (defDecksFacade.update(id, member.getEmail(), request) != null) {
+            return ResponseEntity.ok("ok");
+        }
+        return ResponseEntity.ok("fail");
+
     }
 
     @DeleteMapping("/defDecks/{id}")

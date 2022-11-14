@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -26,6 +27,20 @@ public class RelMonsterDefDeckService {
         monsters.forEach(monster -> {
             repository.save(MonsterDefDeck.toEntity(defDeck, monster));
         });
+    }
+
+    public void updateDefDeck (DefDeck defDeck, List<Monster> monsters) {
+
+        deleteRelation(defDeck);
+
+        monsters.forEach(monster -> {
+            repository.save(MonsterDefDeck.toEntity(defDeck, monster));
+        });
+    }
+
+    private void deleteRelation (DefDeck defDeck) {
+        List<MonsterDefDeck> monsterDefDeckList = repository.findByDefDeckId(defDeck.getId());
+        repository.deleteAllById(monsterDefDeckList.stream().map(MonsterDefDeck::getId).collect(Collectors.toList()));
     }
 
 

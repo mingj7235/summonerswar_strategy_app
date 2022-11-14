@@ -56,6 +56,13 @@ public class DefDecksFacade {
         return getDefDeckResponseSearchDto(defDeck);
     }
 
+    /**
+     * 방덱을 등록한다.
+     *
+     * @param member
+     * @param request
+     * @return
+     */
     public DefDeckResponseDto register(final @NotBlank Member member,
                                        final @NotNull DefDeckRequestDto.Register request) {
 
@@ -90,10 +97,12 @@ public class DefDecksFacade {
             throw new IllegalArgumentException("member not match");
         }
 
-        List<Monster> monsterList = monsterDefDeckService.findMonsterListByDefDeckId(Long.valueOf(defDeckId));
-        DefDeck.update(defDeck, request);
-
-        return DefDeckResponseDto.toDtoFromRegister(defDeck, monsterList);
+        List<Monster> monsterList = getMonsters(request.getLeaderMonsterId(),
+                                                request.getSecondMonsterId(),
+                                                request.getThirdMonsterId());
+        DefDeck updateDefDeck = DefDeck.update(defDeck, request);
+        monsterDefDeckService.updateDefDeck(updateDefDeck, monsterList);
+        return DefDeckResponseDto.toDtoFromRegister(updateDefDeck, monsterList);
     }
 
     public void delete(final String deleteName, final String id) {

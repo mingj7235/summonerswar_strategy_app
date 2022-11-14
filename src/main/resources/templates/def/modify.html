@@ -15,7 +15,7 @@
               <th style="background-color: #f1f3fa !important;"> 방덱 이름</th>
               <td>
                 <input type="text" class="form-control form-control-user"
-                       id="name" th:value="${defDecks.deckName}" placeholder="방덱 명" required>
+                       id="defDeckName" th:value="${defDecks.deckName}" placeholder="방덱 명" required>
               </td>
               <th style="background-color: #f1f3fa !important;">리더 몬스터</th>
               <td>
@@ -97,12 +97,16 @@
   function modifyDefDecks (id) {
 
     var param = {
-
+      deckName: $("#defDeckName").val(),
+      deckDescription: $("#defDeckDescription").val(),
+      leaderMonsterId: $("#leaderMonster").val(),
+      secondMonsterId: $("#secondMonster").val(),
+      thirdMonsterId: $("#thirdMonster").val()
     }
 
     $.ajax({
       type: "PATCH",
-      url: '/v1/defDecks',
+      url: '/v1/defDecks/' + id,
       data: param,
       dataType: "text",
       success: function (response) {

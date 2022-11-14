@@ -31,6 +31,12 @@ public class DefDeckRequestDto {
         private String deckName;
 
         private String deckDescription;
+
+        private Long leaderMonsterId;
+
+        private Long secondMonsterId;
+
+        private Long thirdMonsterId;
     }
 
     @Getter
