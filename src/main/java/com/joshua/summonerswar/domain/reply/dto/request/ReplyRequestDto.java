@@ -22,4 +22,14 @@ public class ReplyRequestDto {
 
 
     }
+
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Update {
+
+        private String replyMsg;
+
+    }
+
 }
