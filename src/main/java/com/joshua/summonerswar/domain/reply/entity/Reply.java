@@ -30,7 +30,6 @@ public class Reply extends BaseTime {
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;
-
     @ManyToOne (fetch = FetchType.LAZY)
     @JoinColumn (name = "parent_reply_id")
     private Reply parentReply;
