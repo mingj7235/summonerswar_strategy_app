@@ -3,7 +3,8 @@ package com.joshua.summonerswar.domain.reply.controller;
 import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.reply.dto.request.ReplyRequestDto;
 import com.joshua.summonerswar.domain.reply.dto.response.ReplyResponseDto;
-import com.joshua.summonerswar.domain.reply.service.ReplyService;
+import com.joshua.summonerswar.domain.reply.service.ReplyFacade;
+import com.joshua.summonerswar.domain.reply.service.core.ReplyService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -22,8 +23,7 @@ import javax.validation.constraints.NotNull;
 @RequiredArgsConstructor
 public class ReplyController {
 
-    private final ReplyService replyService;
-
+    private final ReplyFacade replyFacade;
     @PostMapping ("/replies")
     public ResponseEntity<ReplyResponseDto> register (Authentication authentication,
                                                       final @NotNull ReplyRequestDto.Register request) {
@@ -31,12 +31,17 @@ public class ReplyController {
         Member member = (Member) authentication.getPrincipal();
 
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(replyService.register(member, request));
+                .body(replyFacade.register(member, request));
     }
 
     @PutMapping ("/replies")
     public ResponseEntity<ReplyResponseDto> update (Authentication authentication,
-                                                    final @NotNull ReplyRequestDto.Update request) {
-        return null;
+                                                    final @NotNull ReplyRequestDto.Update request,
+                                                    final @NotNull Long id) {
+
+        Member member = (Member) authentication.getPrincipal();
+
+        return ResponseEntity.ok()
+                .body(replyFacade.update(member, request, id));
     }
 }

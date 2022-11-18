@@ -1,4 +1,4 @@
-package com.joshua.summonerswar.domain.reply.service;
+package com.joshua.summonerswar.domain.reply.service.core;
 
 import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.reply.dto.request.ReplyRequestDto;
@@ -21,24 +21,14 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
 
     @Transactional (readOnly = true)
-    public ReplyResponseDto findById (final @NotNull Long id) {
-
-        return ReplyResponseDto.toDtoFromEntity(
-                replyRepository.findById(id).orElseThrow(
-                        () -> new IllegalArgumentException("reply cannot found")));
+    public Reply findById (final @NotNull Long id) {
+        return replyRepository.findById(id).orElseThrow(
+                () -> new IllegalArgumentException("reply cannot found"));
     }
 
-    public ReplyResponseDto register(final @NotNull Member member,
+    public Reply register(final @NotNull Member member,
                                      final @NotNull ReplyRequestDto.Register request) {
 
-        Reply reply = replyRepository.save(Reply.toEntity(request, member));
-
-        return ReplyResponseDto.toDtoFromEntity(reply);
+        return replyRepository.save(Reply.toEntity(request, member));
     }
-
-    public ReplyResponseDto update (final @NotNull Member member,
-                                    final @NotNull ReplyRequestDto.Update request) {
-        return null;
-    }
-
 }
