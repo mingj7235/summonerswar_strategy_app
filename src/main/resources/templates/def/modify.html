@@ -86,16 +86,12 @@
   $(document).ready(function(){
     var leaderMonsterId = $("#leaderMonsterId").text();
     $("#leaderMonster").val(leaderMonsterId);
-
     var secondMonsterId = $("#secondMonsterId").text();
     $("#secondMonster").val(secondMonsterId);
-
     var thirdMonsterId = $("#thirdMonsterId").text();
     $("#thirdMonster").val(thirdMonsterId);
   });
-
   function modifyDefDecks (id) {
-
     var param = {
       deckName: $("#defDeckName").val(),
       deckDescription: $("#defDeckDescription").val(),
@@ -103,7 +99,6 @@
       secondMonsterId: $("#secondMonster").val(),
       thirdMonsterId: $("#thirdMonster").val()
     }
-
     $.ajax({
       type: "PATCH",
       url: '/v1/defDecks/' + id,
@@ -119,12 +114,5 @@
         }
       }
     });
-
   }
 </script>
-
-
-
-
-
-
