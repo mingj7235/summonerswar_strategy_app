@@ -2,7 +2,6 @@ package com.joshua.summonerswar.domain.reply.service.core;
 
 import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.reply.dto.request.ReplyRequestDto;
-import com.joshua.summonerswar.domain.reply.dto.response.ReplyResponseDto;
 import com.joshua.summonerswar.domain.reply.entity.Reply;
 import com.joshua.summonerswar.domain.reply.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
@@ -29,6 +28,12 @@ public class ReplyService {
     public Reply register(final @NotNull Member member,
                                      final @NotNull ReplyRequestDto.Register request) {
 
-        return replyRepository.save(Reply.toEntity(request, member));
+        return replyRepository.save(Reply.register(request, member));
     }
+
+    public Reply registerChild(final Member member, final ReplyRequestDto.Register request, final Reply parentReply) {
+
+        return replyRepository.save(Reply.registerChild(request, member, parentReply));
+    }
+
 }

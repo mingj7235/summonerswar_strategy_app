@@ -37,18 +37,17 @@ public class ReplyResponseDto {
                 .member(entity.getMember())
                 .build();
 
-//        Reply reply = entity.getParentReply() == null ?
-//                new Reply() :
-//                entity.getParentReply();
-//        replyResponseDto.setParentReply(reply.toDto());
-//
-//        // 자식 노드 설정
-//        List<ReplyDTO> subReplyDTO = this.getSubReply() == null ?
-//                null :
-//                this.getSubReply().stream().map(Reply::toDto).collect(Collectors.toList());
-//        build.setChildren(subReplyDTO);
-//
-//        return build;
+        Reply reply = entity.getParentReply() == null ?
+                new Reply() :
+                entity.getParentReply();
+
+        replyResponseDto.setParentReply(ReplyResponseDto.toDtoFromEntity(reply));
+
+        // 자식 노드 설정
+        List<ReplyResponseDto> subReplyDTO = entity.getSubReplyList() == null ?
+                null :
+                entity.getSubReplyList().stream().map(ReplyResponseDto::toDtoFromEntity).collect(Collectors.toList());
+        replyResponseDto.setChildren(subReplyDTO);
 
         return replyResponseDto;
     }

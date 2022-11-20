@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.validation.constraints.NotNull;
 
@@ -22,7 +23,18 @@ public class ReplyFacade {
 
     @Transactional
     public ReplyResponseDto register (final @NotNull Member member,
-                                      final @NotNull ReplyRequestDto.Register request) {
+                                      final @NotNull ReplyRequestDto.Register request,
+                                      String parentId) {
+
+        // 첫 댓글을 다는 경우 (parentId 가 없는 경우)
+        if (!StringUtils.hasText(parentId)) {
+
+            Reply parentReply = replyService.findById(Long.valueOf(parentId));
+            Reply reply = replyService.registerChild(member, request, parentReply);
+
+            parentReply.getSubReplyList().add(reply);
+            return ReplyResponseDto.toDtoFromEntity(reply);
+        }
 
         return ReplyResponseDto.toDtoFromEntity(replyService.register(member, request));
     }
@@ -33,7 +45,13 @@ public class ReplyFacade {
                                     final @NotNull ReplyRequestDto.Update request) {
 
         Reply reply = replyService.findById(replyId);
-        return null;
+
+        // reply owner, changer not equal
+        if (reply.getMember() != member) {
+            throw new IllegalArgumentException("Member is not matched");
+        }
+
+        return ReplyResponseDto.toDtoFromEntity(Reply.update(reply, request));
     }
 
 }
