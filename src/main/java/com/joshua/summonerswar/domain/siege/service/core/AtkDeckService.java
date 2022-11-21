@@ -1,5 +1,7 @@
 package com.joshua.summonerswar.domain.siege.service.core;
 
+import com.joshua.summonerswar.domain.member.entity.Member;
+import com.joshua.summonerswar.domain.siege.dto.request.AtkDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.dto.response.AtkDeckResponseDto;
 import com.joshua.summonerswar.domain.siege.entity.AtkDeck;
 import com.joshua.summonerswar.domain.siege.repository.AtkDeckRepository;
@@ -20,6 +22,10 @@ public class AtkDeckService {
 
     public List<AtkDeck> findAll() {
         return atkDeckRepository.findAll();
+    }
+
+    public AtkDeck register(final Member member, final AtkDeckRequestDto.Register request) {
+        return atkDeckRepository.save(AtkDeck.toEntityForRegister(member, request));
     }
 
 }

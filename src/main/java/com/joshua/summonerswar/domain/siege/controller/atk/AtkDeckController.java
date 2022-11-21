@@ -1,4 +1,4 @@
-package com.joshua.summonerswar.domain.siege.controller;
+package com.joshua.summonerswar.domain.siege.controller.atk;
 
 import com.joshua.summonerswar.domain.siege.service.AtkDeckFacade;
 import lombok.RequiredArgsConstructor;
@@ -11,4 +11,6 @@ import org.springframework.stereotype.Controller;
 public class AtkDeckController {
 
     private final AtkDeckFacade atkDeckFacade;
+
+
 }

@@ -1,5 +1,7 @@
 package com.joshua.summonerswar.domain.siege.entity;
 
+import com.joshua.summonerswar.domain.member.entity.Member;
+import com.joshua.summonerswar.domain.siege.dto.request.AtkDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.entity.relation.AtkDeckDefDeck;
 import com.joshua.summonerswar.domain.siege.entity.relation.MonsterAtkDeck;
 import com.joshua.summonerswar.global.base.BaseTime;
@@ -34,5 +36,9 @@ public class AtkDeck extends BaseTime {
 
     @OneToMany (mappedBy = "atkDeck")
     private List<AtkDeckDefDeck> atkDeckDefDecks = new ArrayList<>();
+
+    public static AtkDeck toEntityForRegister(final Member member, final AtkDeckRequestDto.Register request) {
+        return null;
+    }
 
 }
