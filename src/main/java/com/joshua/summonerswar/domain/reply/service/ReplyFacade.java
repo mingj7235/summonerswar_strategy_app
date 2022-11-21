@@ -29,8 +29,8 @@ public class ReplyFacade {
         // 첫 댓글을 다는 경우 (parentId 가 없는 경우)
         if (!StringUtils.hasText(parentId)) {
 
-            Reply parentReply = replyService.findById(Long.valueOf(parentId));
-            Reply reply = replyService.registerChild(member, request, parentReply);
+            Reply parentReply = replyService.findById(Long.valueOf(parentId)); // find parent reply
+            Reply reply = replyService.registerChild(member, request, parentReply); //register child reply (itself)
 
             parentReply.getSubReplyList().add(reply);
             return ReplyResponseDto.toDtoFromEntity(reply);

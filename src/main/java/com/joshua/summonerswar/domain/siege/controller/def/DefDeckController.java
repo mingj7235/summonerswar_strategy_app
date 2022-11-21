@@ -1,4 +1,4 @@
-package com.joshua.summonerswar.domain.siege.controller;
+package com.joshua.summonerswar.domain.siege.controller.def;
 
 import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.monster.dto.response.MonsterResponseDto;

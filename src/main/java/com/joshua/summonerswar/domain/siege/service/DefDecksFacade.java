@@ -30,7 +30,6 @@ public class DefDecksFacade {
 
     private final DefDeckService defDeckService;
     private final MonsterService monsterService;
-    private final MemberService memberService;
     private final RelMonsterDefDeckService monsterDefDeckService;
 
     @Transactional (readOnly = true)
