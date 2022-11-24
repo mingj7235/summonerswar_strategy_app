@@ -28,4 +28,11 @@ public class AtkDeckService {
         return atkDeckRepository.save(AtkDeck.toEntityForRegister(member, request));
     }
 
+    @Transactional (readOnly = true)
+    public AtkDeck findById(final String atkDeckId) {
+        return atkDeckRepository.findById(Long.valueOf(atkDeckId))
+                .orElseThrow(() -> new IllegalArgumentException("Not Found AtkDeck"));
+
+    }
+
 }

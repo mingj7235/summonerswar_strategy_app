@@ -29,7 +29,9 @@ public class AtkDeck extends BaseTime {
 
     private String deckDescription;
 
-    private String makerNickName;
+    @ManyToOne
+    @JoinColumn (name = "member_id")
+    private Member member;
 
     @OneToMany (mappedBy = "atkDeck")
     private List<MonsterAtkDeck> monsterAtkDecks = new ArrayList<>();
@@ -38,7 +40,11 @@ public class AtkDeck extends BaseTime {
     private List<AtkDeckDefDeck> atkDeckDefDecks = new ArrayList<>();
 
     public static AtkDeck toEntityForRegister(final Member member, final AtkDeckRequestDto.Register request) {
-        return null;
+        return AtkDeck.builder()
+                .deckName(request.getDeckName())
+                .deckDescription(request.getDeckDescription())
+                .member(member)
+                .build();
     }
 
 }
