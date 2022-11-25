@@ -1,10 +1,16 @@
 package com.joshua.summonerswar.domain.siege.service;
 
 import com.joshua.summonerswar.domain.member.entity.Member;
+import com.joshua.summonerswar.domain.monster.dto.response.MonsterResponseDto;
+import com.joshua.summonerswar.domain.monster.entity.Monster;
 import com.joshua.summonerswar.domain.monster.service.core.MonsterService;
 import com.joshua.summonerswar.domain.siege.dto.request.AtkDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.dto.response.AtkDeckResponseDto;
+import com.joshua.summonerswar.domain.siege.dto.response.DefDeckResponseDto;
 import com.joshua.summonerswar.domain.siege.entity.AtkDeck;
+import com.joshua.summonerswar.domain.siege.entity.DefDeck;
+import com.joshua.summonerswar.domain.siege.entity.relation.MonsterAtkDeck;
+import com.joshua.summonerswar.domain.siege.entity.relation.MonsterDefDeck;
 import com.joshua.summonerswar.domain.siege.repository.relation.RelMonsterAtkDeckRepository;
 import com.joshua.summonerswar.domain.siege.service.core.AtkDeckService;
 import com.joshua.summonerswar.domain.siege.service.core.relation.RelMonsterAtkDeckService;
@@ -47,6 +53,16 @@ public class AtkDeckFacade {
     public AtkDeckResponseDto register(final Member member, final AtkDeckRequestDto.Register request) {
 
         return AtkDeckResponseDto.toDtoFromEntity(atkDeckService.register(member, request));
+    }
+
+    private AtkDeckResponseDto.Search getAtkDeckResponseSearchDto (final @NotNull AtkDeck atkDeck) {
+        List<Monster> monsterList = atkDeck.getMonsterAtkDecks().stream().map(MonsterAtkDeck::getMonster).collect(Collectors.toList());
+        List<MonsterResponseDto> collect = monsterList.stream().map(MonsterResponseDto::toDtoFromEntity).collect(Collectors.toList());
+
+        AtkDeckResponseDto.Search atkDeckResponseSearchDto = AtkDeckResponseDto.Search.toDtoFromEntity(atkDeck);
+        atkDeckResponseSearchDto.setMonsterResponseDtoList(collect);
+
+        return atkDeckResponseSearchDto;
     }
 
 }
