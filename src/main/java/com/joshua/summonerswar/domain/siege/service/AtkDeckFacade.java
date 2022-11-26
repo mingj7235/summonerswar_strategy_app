@@ -71,7 +71,9 @@ public class AtkDeckFacade {
                                     request.getSecondMonsterId(),
                                     request.getThirdMonsterId());
         AtkDeck updateAtkDeck = AtkDeck.update(atkDeck, request);
+
         relMonsterAtkDeckService.updateAtkDeck(updateAtkDeck, monsterList);
+
         return AtkDeckResponseDto.toDtoFromRegister(updateAtkDeck, monsterList);
     }
 
