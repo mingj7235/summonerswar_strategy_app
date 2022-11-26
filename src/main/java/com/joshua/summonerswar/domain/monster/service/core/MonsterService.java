@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -89,5 +90,23 @@ public class MonsterService {
     public List<MonsterResponseDto> findAll() {
         return monsterRepository.findAllDtoList();
     }
+
+    public List<Monster> getMonsters (final @NotNull Long leaderMonsterId,
+                                       final @NotNull Long secondMonsterId,
+                                       final @NotNull Long thirdMonsterId) {
+
+        List<Monster> monsterList = new ArrayList<>();
+
+        Monster leaderMonster = findById(leaderMonsterId);
+        Monster secondMonster = findById(secondMonsterId);
+        Monster thirdMonster = findById(thirdMonsterId);
+
+        monsterList.add(leaderMonster);
+        monsterList.add(secondMonster);
+        monsterList.add(thirdMonster);
+
+        return monsterList;
+    }
+
 
 }

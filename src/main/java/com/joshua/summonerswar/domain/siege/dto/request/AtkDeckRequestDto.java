@@ -24,4 +24,20 @@ public class AtkDeckRequestDto {
         private Long thirdMonsterId;
     }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Update {
+
+        private String deckName;
+
+        private String deckDescription;
+
+        private Long leaderMonsterId;
+
+        private Long secondMonsterId;
+
+        private Long thirdMonsterId;
+    }
+
 }

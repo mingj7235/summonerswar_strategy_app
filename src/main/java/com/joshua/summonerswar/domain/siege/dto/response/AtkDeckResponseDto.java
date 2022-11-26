@@ -16,21 +16,37 @@ import java.util.List;
 @AllArgsConstructor
 public class AtkDeckResponseDto {
 
-    private String id;
+    private Long id;
 
     private String deckName;
 
-//    private Monster leaderMonster;
-//
-//    private Monster secondMonster;
-//
-//    private Monster thirdMonster;
+    private String deckDescription;
+
+    private Monster leaderMonster;
+
+    private Monster secondMonster;
+
+    private Monster thirdMonster;
+
+    private String makerName;
 
     public static AtkDeckResponseDto toDtoFromEntity(final AtkDeck atkDeck) {
         return AtkDeckResponseDto.builder()
-                .id(String.valueOf(atkDeck.getId()))
+                .id(atkDeck.getId())
                 .deckName(atkDeck.getDeckName())
 //                .leaderMonster(at)
+                .build();
+    }
+
+    public static AtkDeckResponseDto toDtoFromRegister(final @NotNull AtkDeck entity,
+                                                       final @NotNull List<Monster> monsters) {
+        return AtkDeckResponseDto.builder()
+                .id(entity.getId())
+                .deckName(entity.getDeckName())
+                .deckDescription(entity.getDeckDescription())
+                .leaderMonster(monsters.get(0))
+                .secondMonster(monsters.get(1))
+                .thirdMonster(monsters.get(2))
                 .build();
     }
 

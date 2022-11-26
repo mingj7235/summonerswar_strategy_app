@@ -7,8 +7,10 @@ import com.joshua.summonerswar.domain.siege.entity.relation.MonsterAtkDeck;
 import com.joshua.summonerswar.global.base.BaseTime;
 import lombok.*;
 import lombok.experimental.SuperBuilder;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,6 +47,18 @@ public class AtkDeck extends BaseTime {
                 .deckDescription(request.getDeckDescription())
                 .member(member)
                 .build();
+    }
+
+    public static AtkDeck update(final @NotNull AtkDeck atkDeck,
+                                 final @NotNull AtkDeckRequestDto.Update request) {
+
+        if (StringUtils.hasText(request.getDeckName()))
+            atkDeck.setDeckName(request.getDeckName());
+
+        if (StringUtils.hasText(request.getDeckDescription()))
+            atkDeck.setDeckDescription(request.getDeckDescription());
+
+        return atkDeck;
     }
 
 }
