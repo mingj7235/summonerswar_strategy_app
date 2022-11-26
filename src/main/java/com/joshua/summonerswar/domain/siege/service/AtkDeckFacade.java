@@ -19,7 +19,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -54,6 +56,26 @@ public class AtkDeckFacade {
 
         return AtkDeckResponseDto.toDtoFromEntity(atkDeckService.register(member, request));
     }
+
+    public AtkDeckResponseDto update (final @NotBlank String atkDeckId,
+                                      final @NotBlank String memberId,
+                                      final @NotNull AtkDeckRequestDto.Update request) {
+
+        AtkDeck atkDeck = atkDeckService.findById(atkDeckId);
+
+        if (!atkDeck.getMember().getEmail().equals(memberId)) {
+            throw new IllegalArgumentException("member not match");
+        }
+
+        List<Monster> monsterList = monsterService.getMonsters(request.getLeaderMonsterId(),
+                                    request.getSecondMonsterId(),
+                                    request.getThirdMonsterId());
+        AtkDeck updateAtkDeck = AtkDeck.update(atkDeck, request);
+        relMonsterAtkDeckService.updateAtkDeck(updateAtkDeck, monsterList);
+        return AtkDeckResponseDto.toDtoFromRegister(updateAtkDeck, monsterList);
+    }
+
+
 
     private AtkDeckResponseDto.Search getAtkDeckResponseSearchDto (final @NotNull AtkDeck atkDeck) {
         List<Monster> monsterList = atkDeck.getMonsterAtkDecks().stream().map(MonsterAtkDeck::getMonster).collect(Collectors.toList());

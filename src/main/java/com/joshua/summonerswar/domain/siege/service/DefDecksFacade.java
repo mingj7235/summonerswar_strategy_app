@@ -67,7 +67,7 @@ public class DefDecksFacade {
 
         DefDeck defDeck = defDeckService.register(member, request);
 
-        List<Monster> monsters = getMonsters(request.getLeaderMonsterId(),
+        List<Monster> monsters = monsterService.getMonsters(request.getLeaderMonsterId(),
                                              request.getSecondMonsterId(),
                                              request.getThirdMonsterId());
 
@@ -95,7 +95,7 @@ public class DefDecksFacade {
             throw new IllegalArgumentException("member not match");
         }
 
-        List<Monster> monsterList = getMonsters(request.getLeaderMonsterId(),
+        List<Monster> monsterList = monsterService.getMonsters(request.getLeaderMonsterId(),
                                                 request.getSecondMonsterId(),
                                                 request.getThirdMonsterId());
         DefDeck updateDefDeck = DefDeck.update(defDeck, request);
@@ -108,22 +108,7 @@ public class DefDecksFacade {
     }
 
 
-    private List<Monster> getMonsters (final @NotNull Long leaderMonsterId,
-                                       final @NotNull Long secondMonsterId,
-                                       final @NotNull Long thirdMonsterId) {
 
-        List<Monster> monsterList = new ArrayList<>();
-
-        Monster leaderMonster = monsterService.findById(leaderMonsterId);
-        Monster secondMonster = monsterService.findById(secondMonsterId);
-        Monster thirdMonster = monsterService.findById(thirdMonsterId);
-
-        monsterList.add(leaderMonster);
-        monsterList.add(secondMonster);
-        monsterList.add(thirdMonster);
-
-        return monsterList;
-    }
 
     /**
      * DefDeck 을 DefDeckResponseDto.Search 로 변경해주는 private method
