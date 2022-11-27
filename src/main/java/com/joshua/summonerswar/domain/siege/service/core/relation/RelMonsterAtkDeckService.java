@@ -2,16 +2,13 @@ package com.joshua.summonerswar.domain.siege.service.core.relation;
 
 import com.joshua.summonerswar.domain.monster.entity.Monster;
 import com.joshua.summonerswar.domain.siege.entity.AtkDeck;
-import com.joshua.summonerswar.domain.siege.entity.DefDeck;
 import com.joshua.summonerswar.domain.siege.entity.relation.MonsterAtkDeck;
-import com.joshua.summonerswar.domain.siege.entity.relation.MonsterDefDeck;
 import com.joshua.summonerswar.domain.siege.repository.relation.RelMonsterAtkDeckRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.stream.Collectors;
 

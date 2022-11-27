@@ -77,8 +77,6 @@ public class AtkDeckFacade {
         return AtkDeckResponseDto.toDtoFromRegister(updateAtkDeck, monsterList);
     }
 
-
-
     private AtkDeckResponseDto.Search getAtkDeckResponseSearchDto (final @NotNull AtkDeck atkDeck) {
         List<Monster> monsterList = atkDeck.getMonsterAtkDecks().stream().map(MonsterAtkDeck::getMonster).collect(Collectors.toList());
         List<MonsterResponseDto> collect = monsterList.stream().map(MonsterResponseDto::toDtoFromEntity).collect(Collectors.toList());
@@ -87,6 +85,11 @@ public class AtkDeckFacade {
         atkDeckResponseSearchDto.setMonsterResponseDtoList(collect);
 
         return atkDeckResponseSearchDto;
+    }
+
+    public List<AtkDeckResponseDto.Search> search(final AtkDeckRequestDto.Search request) {
+
+        return null;
     }
 
 }

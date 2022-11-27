@@ -40,4 +40,16 @@ public class AtkDeckRequestDto {
         private Long thirdMonsterId;
     }
 
+    @Getter
+    @Setter
+    @NoArgsConstructor
+    public static class Search {
+        private String deckName;
+
+        private String makerName;
+
+        private String monsterId;
+
+    }
+
 }
