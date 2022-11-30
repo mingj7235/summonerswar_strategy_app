@@ -4,6 +4,7 @@ import com.joshua.summonerswar.domain.monster.service.MonsterManagerFacade;
 import com.joshua.summonerswar.domain.siege.dto.request.AtkDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.dto.response.AtkDeckResponseDto;
 import com.joshua.summonerswar.domain.siege.service.AtkDeckFacade;
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -33,6 +34,15 @@ public class AtkDeckController {
 
         return "atk/list";
     }
+
+    @GetMapping ("/atkDecks/register")
+    public String viewRegister (Model model) {
+
+        model.addAttribute("monsters", monsterManagerFacade.findAll());
+
+        return "atk/register";
+    }
+
 
 
 
