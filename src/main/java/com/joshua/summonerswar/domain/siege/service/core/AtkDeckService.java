@@ -35,4 +35,9 @@ public class AtkDeckService {
 
     }
 
+    public List<AtkDeck> search(final AtkDeckRequestDto.Search request) {
+
+        return null;
+    }
+
 }

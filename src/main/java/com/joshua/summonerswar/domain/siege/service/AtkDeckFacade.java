@@ -89,7 +89,17 @@ public class AtkDeckFacade {
 
     public List<AtkDeckResponseDto.Search> search(final AtkDeckRequestDto.Search request) {
 
-        return null;
+        List<AtkDeckResponseDto.Search> resultDtoList = new ArrayList<>();
+
+        List<AtkDeck> search = atkDeckService.search(request);
+
+        search.forEach(
+                atkDeck -> {
+                    resultDtoList.add(getAtkDeckResponseSearchDto(atkDeck));
+                }
+        );
+
+        return resultDtoList;
     }
 
 }
