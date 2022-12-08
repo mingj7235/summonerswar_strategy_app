@@ -1,5 +1,6 @@
 package com.joshua.summonerswar.domain.siege.controller.atk;
 
+import com.joshua.summonerswar.domain.member.entity.Member;
 import com.joshua.summonerswar.domain.monster.service.MonsterManagerFacade;
 import com.joshua.summonerswar.domain.siege.dto.request.AtkDeckRequestDto;
 import com.joshua.summonerswar.domain.siege.dto.response.AtkDeckResponseDto;
@@ -12,6 +13,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -41,6 +43,20 @@ public class AtkDeckController {
         model.addAttribute("monsters", monsterManagerFacade.findAll());
 
         return "atk/register";
+    }
+
+    @GetMapping ("/atkDecks/{id}")
+    public String viewDetail (Authentication authentication,
+                              @PathVariable String id,
+                              Model model) {
+
+        Member member = (Member) authentication.getPrincipal();
+
+        model
+                .addAttribute("memberEmail", member.getEmail())
+                .addAttribute("atkDecks", atkDeckFacade.findById(id));
+
+        return "atk/detail";
     }
 
 
