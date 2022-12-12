@@ -36,4 +36,9 @@ public class ReplyService {
         return replyRepository.save(Reply.registerChild(request, member, parentReply));
     }
 
+    public void delete(final @NotNull Reply reply) {
+
+        replyRepository.delete(reply);
+    }
+
 }

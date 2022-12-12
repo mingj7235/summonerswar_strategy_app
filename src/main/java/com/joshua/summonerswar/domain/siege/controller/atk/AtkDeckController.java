@@ -30,7 +30,7 @@ public class AtkDeckController {
     private final MonsterManagerFacade monsterManagerFacade;
 
     @GetMapping ("/atkDecks")
-    public String viewList (Authentication authentication, Model model) {
+    public String viewList (Model model) {
 
         model.addAttribute("monsters", monsterManagerFacade.findAll());
 

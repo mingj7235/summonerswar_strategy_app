@@ -54,4 +54,17 @@ public class ReplyFacade {
         return ReplyResponseDto.toDtoFromEntity(Reply.update(reply, request));
     }
 
+    @Transactional
+    public void delete(final @NotNull Member member,
+                       final @NotNull Long id) {
+
+        Reply reply = replyService.findById(id);
+
+        if (reply.getMember() != member) {
+            throw new IllegalArgumentException("Member is not matched");
+        }
+
+        replyService.delete(reply);
+    }
+
 }

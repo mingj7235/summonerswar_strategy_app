@@ -31,14 +31,25 @@ public class ReplyController {
             .body(replyFacade.register(member, request, parentId));
     }
 
-    @PutMapping ("/replies")
+    @PutMapping ("/replies/{id}")
     public ResponseEntity<ReplyResponseDto> update (Authentication authentication,
                                                     final @NotNull ReplyRequestDto.Update request,
-                                                    final @NotNull Long id) {
+                                                    final @PathVariable Long id) {
 
         Member member = (Member) authentication.getPrincipal();
 
         return ResponseEntity.ok()
                 .body(replyFacade.update(member, id, request));
+    }
+
+    @DeleteMapping ("/replies/{id}")
+    public ResponseEntity<?> delete (Authentication authentication,
+                                     final @PathVariable Long id) {
+
+        Member member = (Member) authentication.getPrincipal();
+
+        replyFacade.delete(member, id);
+
+        return ResponseEntity.noContent().build();
     }
 }
