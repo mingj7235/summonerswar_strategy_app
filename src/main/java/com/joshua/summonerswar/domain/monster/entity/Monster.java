@@ -1,8 +1,6 @@
 package com.joshua.summonerswar.domain.monster.entity;
 
 import com.joshua.summonerswar.domain.monster.dto.request.MonsterRequestDto;
-import com.joshua.summonerswar.domain.siege.entity.relation.MonsterAtkDeck;
-import com.joshua.summonerswar.domain.siege.entity.relation.MonsterDefDeck;
 import com.joshua.summonerswar.global.base.BaseTime;
 import com.joshua.summonerswar.global.enums.Attribute;
 import com.joshua.summonerswar.global.enums.LeaderSkill;
@@ -13,8 +11,6 @@ import org.springframework.util.StringUtils;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.ArrayList;
-import java.util.List;
 
 @Getter
 @Setter (AccessLevel.PRIVATE)
@@ -37,12 +33,6 @@ public class Monster extends BaseTime {
     private LeaderSkill leaderSkill;
 
     private String photoPath;
-
-    @OneToMany (mappedBy = "monster")
-    private List<MonsterAtkDeck> monsterAtkDecks = new ArrayList<>();
-
-    @OneToMany (mappedBy = "monster")
-    private List<MonsterDefDeck> monsterDefDecks = new ArrayList<>();
 
     public static Monster toEntity(final @NotNull MonsterRequestDto.Register request,
                                    final @NotBlank String photoPath) {
